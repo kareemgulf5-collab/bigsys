@@ -396,6 +396,7 @@ const IC = {
 /* ============================== translations ============================== */
 const I18N = {
 ar:{
+pg_invoices:'الفواتير', pg_production:'أوامر الإنتاج', new_invoice:'فاتورة جديدة', new_prod_order:'أمر إنتاج جديد', doc_invoice_s:'الفاتورة', invoices_hint:'كل طلبية ليها فاتورة وPI وعرض سعر بنفس شكل الفاتورة المعتاد. «فاتورة جديدة» بتفتح طلبية جديدة: اختار العميل وضيف الأصناف والأسعار، وبعدين اطبع من هنا.', prod_orders_hint:'أوامر الإنتاج لكل الطلبيات المفتوحة، مترتبة بتاريخ التسليم. «فتح» بيوديك لتاب الإنتاج في الطلبية (الجرام، الاستيكر، التعبئة، الخط، الملاحظات)، و«أمر الإنتاج» بيطبع نفس شكل أوردر الإنتاج والمكرونة.',
 piece_g:'جرام (القطعة)', pieces_per_pack:'حجم العبوة (عدد القطع)', pieces_hint:'زي أمر الإنتاج: الإنتاج = جرام × حجم العبوة × وحدات × كراتين ÷ 1000. للمكرونة اكتب جرام العبوة وحجم العبوة 1.', doc_invoice:'الفاتورة (الشكل المعتاد)', doc_ci_customs:'فاتورة تجارية للجمارك (المحمّل + HS)', invoice_no:'رقم الفاتورة', invoice_date:'تاريخ الفاتورة', expiry_period:'تاريخ الصلاحية', weight_unit:'الوزن', u_kg:'كجم', u_ton:'طن', u_both:'الاتنين', order_date:'التاريخ', sticker:'استيكر', with_sticker:'بستيكر', no_sticker:'بدون', packing:'التعبئة', lines_summary:'خطوط الإنتاج', order_totals:'إجمالي الأوردر', total_prod:'إجمالي الإنتاج', items_count:'الأصناف', batches_title:'التشغيلات وتواريخ الإنتاج', pasta_note:'أصناف خط المكرونة بتطلع في صفحة «أمر إنتاج مكرونة» منفصلة جوه نفس الطباعة.', grams:'جرام', units_s:'وحدات', prod_formula:'الإنتاج = جرام × حجم العبوة × وحدات × كراتين ÷ 1000 · الاستيكر = وحدات × كراتين',
 app_title:'نظام التصدير — إيجي جالف فودز', app_sub:'نظام إدارة التصدير', loading:'جاري التحميل…', err:'حصل خطأ', init_fail:'تعذر تشغيل النظام', ok:'تمام', cancel:'إلغاء', confirm:'تأكيد', save:'حفظ', saved:'تم الحفظ', close:'إغلاق', apply:'تطبيق', add:'إضافة', remove:'إزالة', open:'فتح', upload:'رفع', yes:'نعم', no:'لا', new:'جديد', all:'الكل', more:'خيارات', search:'بحث…', choose:'اختر…', refresh:'تحديث', details:'تفاصيل', manual:'يدوي', of:'من', to:'إلى', days:'يوم', months:'شهر', count:'العدد', total:'الإجمالي', totals:'الإجماليات', value:'القيمة', date:'التاريخ', status:'الحالة', notes:'ملاحظات', number:'الرقم', kind:'النوع', name:'الاسم', file:'الملف', document:'المستند', documents:'المستندات', required:'مطلوب', missing:'ناقص', late:'متأخر', item:'الصنف', result:'النتيجة', since:'تاريخ التسجيل', generate:'إنشاء', del_q:'متأكد إنك عايز تحذف ده؟', unsaved_q:'فيه تعديلات مش محفوظة. تكمل من غير حفظ؟', fill_required:'كمّل الخانات المطلوبة', no_access:'معندكش صلاحية للصفحة دي', not_found:'مش موجود',
 nav_work:'الشغل', nav_data:'البيانات الأساسية', nav_admin:'الإدارة',
@@ -444,6 +445,7 @@ calc_intro:'دخّل أبعاد ووزن الكرتونة وعدد الكرات�
 print_pdf:'طباعة / PDF'
 },
 en:{
+pg_invoices:'Invoices', pg_production:'Production orders', new_invoice:'New invoice', new_prod_order:'New production order', doc_invoice_s:'Invoice', invoices_hint:'Every order has an invoice, PI and quotation in the usual invoice layout. “New invoice” opens a new order: pick the customer, add items and prices, then print from here.', prod_orders_hint:'Production orders for all open orders, sorted by delivery date. “Open” goes to the order’s production tab; “Production order” prints the usual production/pasta order layout.',
 piece_g:'Grams (per piece)', pieces_per_pack:'Pack size (pieces)', pieces_hint:'Like the production order: production = grams × pack size × units × cartons ÷ 1000. For pasta, enter pack grams and pack size 1.', doc_invoice:'Invoice (usual layout)', doc_ci_customs:'Customs commercial invoice (loaded + HS)', invoice_no:'Invoice no.', invoice_date:'Invoice date', expiry_period:'Expiry', weight_unit:'Weight', u_kg:'kg', u_ton:'ton', u_both:'Both', order_date:'Date', sticker:'Sticker', with_sticker:'Sticker', no_sticker:'None', packing:'Packing', lines_summary:'Production lines', order_totals:'Order totals', total_prod:'Total production', items_count:'Items', batches_title:'Batches & production dates', pasta_note:'Pasta-line items print on a separate “Pasta production order” page in the same printout.', grams:'g', units_s:'Units', prod_formula:'Production = grams × pack size × units × cartons ÷ 1000 · Stickers = units × cartons',
 app_title:'Export System — EgyGulf Foods', app_sub:'Export management system', loading:'Loading…', err:'Something went wrong', init_fail:'Could not start the system', ok:'OK', cancel:'Cancel', confirm:'Confirm', save:'Save', saved:'Saved', close:'Close', apply:'Apply', add:'Add', remove:'Remove', open:'Open', upload:'Upload', yes:'Yes', no:'No', new:'New', all:'All', more:'Options', search:'Search…', choose:'Choose…', refresh:'Refresh', details:'Details', manual:'manual', of:'of', to:'To', days:'days', months:'months', count:'Count', total:'Total', totals:'Totals', value:'Value', date:'Date', status:'Status', notes:'Notes', number:'Number', kind:'Type', name:'Name', file:'File', document:'Document', documents:'Documents', required:'Required', missing:'Missing', late:'Late', item:'Item', result:'Result', since:'Registered', generate:'Generate', del_q:'Delete this item?', unsaved_q:'You have unsaved changes. Continue without saving?', fill_required:'Please fill the required fields', no_access:'You do not have access to this page', not_found:'Not found',
 nav_work:'Work', nav_data:'Master data', nav_admin:'Admin',
@@ -908,6 +910,8 @@ const NAV = [
   {sec:'nav_work'},
   {k:'dashboard', ic:'dash', perm:null},
   {k:'orders', ic:'clipboard', perm:'orders'},
+  {k:'invoices', ic:'file', perm:'orders'},
+  {k:'production', ic:'factory', perm:'production'},
   {k:'payments', ic:'wallet', perm:'payments.view'},
   {k:'calc', ic:'calc', perm:'calc'},
   {sec:'nav_data'},
@@ -2199,6 +2203,44 @@ function invoiceDoc(o, kind){
   <div style="height:16px"></div></div>`;
 }
 function printInvoice(kind){ const o=OD.o; openPrint(`${({inv:'Invoice',pi:'PI',quote:'Quotation'})[kind]} ${o.number}`, [invoiceDoc(o,kind)]); }
+
+/* ============================== sidebar: invoices + production orders ============================== */
+async function loadOD(id){ const o=await DB.get('orders',id); if(!o) throw new Error(t('not_found'));
+  o.items=o.items||[]; o.shipment=o.shipment||{}; o.docs=o.docs||{}; o.health=o.health||{status:'draft'}; o.history=o.history||[]; o.production=o.production||{};
+  await Promise.all([DB.all('countries'), DB.all('payments')]); OD={o, tab:'items', dirty:false}; return o; }
+async function quickPrint(id, kind){ try{ await loadOD(id); if(kind==='po') printProduction(); else printInvoice(kind); }catch(e){ errToast(e); } }
+
+PAGES.invoices = { perm:'orders', async render(){
+  await DB.all('orders',true);
+  $('view').innerHTML = pageHead(`<div class="row wrap">${searchBox('iv-q',t('search_orders'),'invList()')}</div>`, can('orders.edit')?`<button class="btn btn-p" onclick="newOrder()">${IC.plus} ${t('new_invoice')}</button>`:'')
+    + `<div class="alert al-info mb">${IC.info}<div>${t('invoices_hint')}</div></div><div class="card"><div class="tbl-wrap" id="iv-list"></div></div>`;
+  invList();
+}};
+function invList(){
+  const q=($('iv-q').value||'').toLowerCase();
+  const rows=(S.cache.orders||[]).filter(o=>o.status!=='cancelled' && (!q||[o.number,o.piNumber,o.invoiceNo,custName(o),(o.customer||{}).country].join(' ').toLowerCase().includes(q))).sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||''));
+  $('iv-list').innerHTML = rows.length? `<table class="tbl"><thead><tr><th>${t('order_no')}</th><th>${t('invoice_no')}</th><th>${t('customer')}</th><th>${t('destination')}</th><th>${t('cartons')}</th><th>${t('value')}</th><th>${t('status')}</th><th></th></tr></thead><tbody>
+    ${rows.map(o=>{ const c=orderCalc(o); return `<tr><td><a class="mono bold nowrap" href="#/order/${o.id}">${esc(o.number)}</a></td><td class="mono small">${esc(o.invoiceNo||o.piNumber||'—')}</td><td class="bold">${esc(custName(o))}</td><td>${esc((o.customer||{}).country||'')}</td><td class="num">${fmt(c.cartons)}</td><td class="num bold">${money(c.total,o.currency)}</td><td>${statusBadge(o.status)}</td>
+      <td class="act nowrap"><button class="btn btn-a btn-xs" onclick="quickPrint('${o.id}','inv')">${IC.print} ${t('doc_invoice_s')}</button><button class="btn btn-o btn-xs" onclick="quickPrint('${o.id}','pi')">PI</button><button class="btn btn-o btn-xs" onclick="quickPrint('${o.id}','quote')">${t('doc_quote')}</button><a class="btn btn-g btn-xs" href="#/order/${o.id}/items" title="${t('open')}">${IC.edit}</a></td></tr>`; }).join('')}</tbody></table>`
+    : emptyBox(t('no_orders'), can('orders.edit')?`<button class="btn btn-p" onclick="newOrder()">${IC.plus} ${t('new_invoice')}</button>`:'');
+}
+
+PAGES.production = { perm:'production', async render(){
+  await DB.all('orders',true);
+  $('view').innerHTML = pageHead(`<div class="row wrap">${searchBox('po-q',t('search_orders'),'poList()')}
+      <select class="in" id="po-st" style="width:200px" onchange="poList()"><option value="open">${t('open_orders')}</option><option value="">${t('all')}</option></select></div>`, can('orders.edit')?`<button class="btn btn-p" onclick="newOrder()">${IC.plus} ${t('new_prod_order')}</button>`:'')
+    + `<div class="alert al-info mb">${IC.info}<div>${t('prod_orders_hint')}</div></div><div class="card"><div class="tbl-wrap" id="po-list"></div></div>`;
+  poList();
+}};
+function poList(){
+  const q=($('po-q').value||'').toLowerCase(), st=$('po-st').value;
+  const rows=(S.cache.orders||[]).filter(o=>o.status!=='cancelled' && (st!=='open' || !['shipped','delivered','closed'].includes(o.status)) && (!q||[o.number,custName(o),(o.customer||{}).country,o.salesRep].join(' ').toLowerCase().includes(q))).sort((a,b)=>(a.deliveryDate||a.loadingDate||'9').localeCompare(b.deliveryDate||b.loadingDate||'9'));
+  $('po-list').innerHTML = rows.length? `<table class="tbl"><thead><tr><th>${t('order_no')}</th><th>${t('customer')}</th><th>${t('country')}</th><th>${t('sales_rep')}</th><th>${t('delivery_date')}</th><th>${t('loading_date')}</th><th>${t('prod_kg')}</th><th>${t('sticker')}</th><th>${t('cartons')}</th><th>${t('status')}</th><th></th></tr></thead><tbody>
+    ${rows.map(o=>{ let g=0,s=0,q=0; (o.items||[]).forEach(it=>{ const r=poRow(it); g+=r.grams; s+=r.stk; q+=r.q; }); return `<tr><td><a class="mono bold nowrap" href="#/order/${o.id}/production">${esc(o.number)}</a></td><td class="bold">${esc(custName(o))}</td><td>${esc((o.customer||{}).country||'')}</td><td>${esc(o.salesRep||'')}</td>
+      <td>${o.deliveryDate?dateBadge(o.deliveryDate,3):'—'}</td><td class="num">${o.loadingDate?fmtDate(o.loadingDate):'—'}</td><td class="num bold">${fx(g/1000,2)} kg</td><td class="num">${fx(s,0)}</td><td class="num">${fmt(q)}</td><td>${statusBadge(o.status)}</td>
+      <td class="act nowrap"><button class="btn btn-a btn-xs" onclick="quickPrint('${o.id}','po')">${IC.print} ${t('print_prod_order')}</button><a class="btn btn-o btn-xs" href="#/order/${o.id}/production">${IC.edit} ${t('open')}</a></td></tr>`; }).join('')}</tbody></table>`
+    : emptyBox(t('no_orders'), can('orders.edit')?`<button class="btn btn-p" onclick="newOrder()">${IC.plus} ${t('new_prod_order')}</button>`:'');
+}
 
 boot();
 </script>
