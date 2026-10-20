@@ -1,0 +1,59 @@
+rules_version = '2';
+// قواعد حماية نظام التصدير — EgyGulf Export System
+// قبل النشر: حط إيميل المدير (نفس اللي في config.js) مكان YOUR_ADMIN_EMAIL@example.com بحروف small.
+// الأدوار: admin مدير · export تصدير · sales مبيعات · production إنتاج · accounts حسابات · pending مستني موافقة
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn()   { return request.auth != null; }
+    function adminEmail() { return signedIn() && request.auth.token.email != null
+                              && request.auth.token.email.lower() in ['your_admin_email@example.com']; }
+    function userPath()   { return /databases/$(database)/documents/users/$(request.auth.uid); }
+    function hasProfile() { return signedIn() && exists(userPath()); }
+    function role()       { return hasProfile() ? get(userPath()).data.role : ''; }
+    function active()     { return adminEmail() || (hasProfile() && get(userPath()).data.active == true && role() != 'pending'); }
+    function isAdmin()    { return adminEmail() || (active() && role() == 'admin'); }
+    function hasRole(rs)  { return isAdmin() || (active() && role() in rs); }
+
+    // المستخدمين: كل واحد يشوف نفسه، والمدير يشوف ويعدّل الكل
+    match /users/{uid} {
+      allow read: if (signedIn() && request.auth.uid == uid) || isAdmin();
+      allow create: if signedIn() && request.auth.uid == uid
+                    && (adminEmail() || (request.resource.data.role == 'pending' && request.resource.data.active == false));
+      allow update, delete: if isAdmin();
+    }
+
+    match /settings/{id}  { allow read: if active(); allow write: if isAdmin(); }
+
+    // الطلبيات: أي حد شغال يقرأ ويحدّث (الإنتاج بيسجل التشغيلات، والحسابات بتسجل في السجل)
+    match /orders/{id} {
+      allow read: if active();
+      allow create: if hasRole(['export', 'sales']);
+      allow update: if active();
+      allow delete: if isAdmin();
+    }
+
+    // الدفعات: الكل يشوف حالة الدفع (الإنتاج محتاج يعرف المقدم وصل ولا لأ)، والتأكيد للحسابات والمدير بس
+    match /payments/{id} {
+      allow read: if active();
+      allow create: if hasRole(['export', 'accounts']) && request.resource.data.confirmed == false;
+      allow update: if hasRole(['accounts'])
+                    || (hasRole(['export']) && resource.data.confirmed == false && request.resource.data.confirmed == false);
+      allow delete: if isAdmin();
+    }
+
+    match /customers/{id} { allow read: if active(); allow write: if hasRole(['export', 'sales']); }
+    match /products/{id}  { allow read: if active(); allow write: if hasRole(['export']); }
+    match /tests/{id}     { allow read: if active(); allow write: if hasRole(['export', 'production']); }
+    match /countries/{id} { allow read: if active(); allow write: if hasRole(['export']); }
+    match /certs/{id}     { allow read: if active(); allow write: if hasRole(['export']); }
+
+    // الملفات المرفوعة (متخزنة أجزاء جوه Firestore) والعدادات
+    match /files/{id}       { allow read, write: if active(); }
+    match /file_chunks/{id} { allow read, write: if active(); }
+    match /counters/{id}    { allow read, write: if active(); }
+
+    // أي حاجة تانية مقفولة
+    match /{document=**} { allow read, write: if false; }
+  }
+}
