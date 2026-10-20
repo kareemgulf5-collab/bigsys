@@ -259,6 +259,85 @@ table.d-tbl{width:100%;border-collapse:collapse;margin-top:0}
 @media (min-width:901px){.login .lg-only{display:none}}
 .kpi .s .num{display:inline}
 
+/* ===== invoice — copied from the invoice generator ===== */
+.inv{background:#fff;font-family:Arial,sans-serif;color:#111;direction:ltr;text-align:left}
+.inv *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.inv-table{width:100%;border-collapse:collapse}
+.inv-table th{background:#2d2a76;color:#ffb607;font-size:10px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:9px 8px;text-align:center;border:1px solid #2d2a76}
+.inv-table th:nth-child(2){text-align:left}
+.inv-table td{padding:8px;font-size:12px;border:1px solid #e5e7eb;text-align:center;color:#111;vertical-align:middle}
+.inv-table td:nth-child(2){text-align:left;font-weight:600}
+.inv-total-row td{background:#dbeafe!important;font-weight:700;font-size:13px;color:#1e3a8a}
+.inv-cg>div+div{border-left:1px solid #e5e7eb}
+.doc-page:has(.inv){padding:8mm}
+
+/* ===== production order — copied from the production order system (print view) ===== */
+.po{font-family:'Cairo',Arial,sans-serif;color:#1c2431;direction:rtl;text-align:right;font-size:11px;line-height:1.55}
+.po *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.po-meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 14px;padding:0 0 10px;border-bottom:1px solid #ddd;margin-bottom:10px}
+.po-meta>div{display:flex;align-items:baseline;gap:6px}
+.po-meta label{font-size:10.5px;color:#666}
+.po-meta label::after{content:":"}
+.po-meta b{font-size:12px;color:#000}
+.po-t{width:100%;border-collapse:collapse;font-size:10px;border:1px solid #bbb}
+.po-t thead th{font-size:9px;padding:5px 2px;border-bottom:1.5px solid #999;color:#000;font-weight:700;text-align:center;white-space:nowrap}
+.po-t thead th.g-in{border-bottom:2px solid #3462e8}.po-t thead th.g-out{border-bottom:2px solid #0e8f9c}
+.po-t thead th.g-stk{border-bottom:2px solid #c9790a}.po-t thead th.g-line{border-bottom:2px solid #7c5cd6}.po-t thead th.g-pl{border-bottom:2px solid #b45309}
+.po-t .band th{padding:3px 2px;border:0}
+.po-t .band th span{display:block;padding:2px 0;font-size:8.5px;border:1px solid #ccc;font-weight:700}
+.po-t .b-in span{background:#f6f8fe;color:#3462e8}.po-t .b-out span{background:#f2fafb;color:#0e8f9c}
+.po-t .b-stk span{background:#fdf8ef;color:#c9790a}.po-t .b-line span{background:#faf8ff;color:#7c5cd6}
+.po-t td{text-align:center;padding:3px;border-bottom:1px solid #e2e2e2;border-inline-start:1px solid #eee;height:24px;font-variant-numeric:tabular-nums}
+.po-t td.no{color:#333;font-weight:700;font-size:9px}
+.po-t td.desc{text-align:right;font-weight:700;font-size:10.5px;padding-inline-start:5px}
+.po-t td.calc{font-weight:700;color:#000}
+.po-t td.g-out{background:#f2fafb}
+.po-t td small,.po-t tfoot small{display:block;font-size:8px;font-weight:400;color:#727d8c}
+.po-t td.stk{background:#fdf8ef;font-size:9.5px;font-weight:700;color:#000}
+.po-t .stkT{display:block;font-size:8.5px;font-weight:700}
+.po-t .stkT.dim{color:#999;font-weight:400}
+.po-t td.notes{text-align:right;font-size:11.5px;font-weight:700;color:#000;line-height:1.3}
+.po-t td.line{font-weight:600;font-size:10px}
+.po-t td.line i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-inline-end:5px;vertical-align:middle}
+.po-t td.pline{color:#b45309;font-weight:700}
+.po-t tfoot td{height:30px;font-size:11.5px;font-weight:700;border-top:1.5px solid #333;background:#f2f2f2}
+.po-t tfoot .flbl{color:#000}
+.po-sec{padding:12px 0 0;break-inside:avoid}
+.po-sec h3{font-size:11px;font-weight:700;margin:0 0 2px;color:#000}
+.po-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px}
+.po-tile{border:1px solid #ccc;border-top:2px solid var(--tc,#ccc);border-radius:4px;padding:7px 9px}
+.po-tile .t{font-size:9px;color:#727d8c;display:flex;align-items:center;gap:6px;font-weight:500}
+.po-tile .t i{width:7px;height:7px;border-radius:50%}
+.po-tile .v{font-size:15px;font-weight:700;margin-top:3px;color:var(--tc,#1c2431);font-variant-numeric:tabular-nums}
+.po-tile .u{font-size:8px;color:#727d8c}
+.po-tile .bar{height:2px;background:#f7f8fa;margin-top:5px;border-radius:4px;overflow:hidden}
+.po-tile .bar i{display:block;height:100%}
+.po-tile.hero{background:#1f2733;border-color:#1f2733;color:#fff}
+.po-tile.hero .v{color:#fff}.po-tile.hero .t,.po-tile.hero .u{color:#9aa3af}
+.po-tile.empty{border-style:dashed}.po-tile.empty .v{color:#dde1e6}
+.po-sign{display:flex;justify-content:space-between;padding:0 10px;margin-top:26px;font-size:10px;color:#333;break-inside:avoid}
+.po-sign div{border-top:1px solid #666;width:26%;text-align:center;padding-top:5px;font-weight:600}
+/* production tab on screen uses the same tiles, bigger */
+.po-screen .po-sec h3{font-size:13.5px;font-weight:600}
+.po-screen .po-grid{grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.po-screen .po-tile{border-radius:12px;padding:14px 16px;border-top-width:3px}
+.po-screen .po-tile .t{font-size:12px}.po-screen .po-tile .v{font-size:23px;margin-top:8px}.po-screen .po-tile .u{font-size:11.5px}
+.po-screen .po-tile .bar{height:4px;margin-top:10px}
+.po-band th{font-size:10.5px!important;padding:0 3px 6px!important;border:0!important;background:none!important}
+.po-band th span{display:block;border-radius:6px;padding:4px 0;font-weight:700}
+.po-band .b-in span{background:#f6f8fe;color:#3462e8}.po-band .b-out span{background:#f2fafb;color:#0e8f9c}
+.po-band .b-stk span{background:#fdf8ef;color:#c9790a}.po-band .b-line span{background:#faf8ff;color:#7c5cd6}.po-band .b-bt span{background:#f1f5f9;color:#475569}
+#pr-tbl td.g-out{background:#f2fafb;color:#0e8f9c;font-weight:700}
+#pr-tbl td.stkc{background:#fdf8ef;text-align:center}
+#pr-tbl td.stkc .stkT{display:block;font-size:12px;font-weight:600;color:#c9790a}
+#pr-tbl td.stkc .stkT.dim{color:#c7ccd4;font-weight:400}
+#pr-tbl tfoot td{font-weight:800}
+.seg2{display:inline-flex;background:var(--bg,#f4f5fa);border-radius:9px;padding:3px;border:1px solid var(--line,#e3e4ec)}
+.seg2 button{border:0;background:transparent;padding:6px 14px;border-radius:7px;cursor:pointer;font-family:inherit;font-size:13px;color:var(--muted,#667)}
+.seg2 button[aria-pressed="true"]{background:#fff;color:var(--ink,#111);font-weight:700;box-shadow:0 1px 3px rgba(20,30,50,.12)}
+.inv{line-height:1.25}
+@media print{ body.printing .doc-page{break-after:page} body.printing .doc-page:last-child{break-after:auto} }
+
 </style>
 </head>
 <body>
@@ -317,6 +396,7 @@ const IC = {
 /* ============================== translations ============================== */
 const I18N = {
 ar:{
+piece_g:'جرام (القطعة)', pieces_per_pack:'حجم العبوة (عدد القطع)', pieces_hint:'زي أمر الإنتاج: الإنتاج = جرام × حجم العبوة × وحدات × كراتين ÷ 1000. للمكرونة اكتب جرام العبوة وحجم العبوة 1.', doc_invoice:'الفاتورة (الشكل المعتاد)', doc_ci_customs:'فاتورة تجارية للجمارك (المحمّل + HS)', invoice_no:'رقم الفاتورة', invoice_date:'تاريخ الفاتورة', expiry_period:'تاريخ الصلاحية', weight_unit:'الوزن', u_kg:'كجم', u_ton:'طن', u_both:'الاتنين', order_date:'التاريخ', sticker:'استيكر', with_sticker:'بستيكر', no_sticker:'بدون', packing:'التعبئة', lines_summary:'خطوط الإنتاج', order_totals:'إجمالي الأوردر', total_prod:'إجمالي الإنتاج', items_count:'الأصناف', batches_title:'التشغيلات وتواريخ الإنتاج', pasta_note:'أصناف خط المكرونة بتطلع في صفحة «أمر إنتاج مكرونة» منفصلة جوه نفس الطباعة.', grams:'جرام', units_s:'وحدات', prod_formula:'الإنتاج = جرام × حجم العبوة × وحدات × كراتين ÷ 1000 · الاستيكر = وحدات × كراتين',
 app_title:'نظام التصدير — إيجي جالف فودز', app_sub:'نظام إدارة التصدير', loading:'جاري التحميل…', err:'حصل خطأ', init_fail:'تعذر تشغيل النظام', ok:'تمام', cancel:'إلغاء', confirm:'تأكيد', save:'حفظ', saved:'تم الحفظ', close:'إغلاق', apply:'تطبيق', add:'إضافة', remove:'إزالة', open:'فتح', upload:'رفع', yes:'نعم', no:'لا', new:'جديد', all:'الكل', more:'خيارات', search:'بحث…', choose:'اختر…', refresh:'تحديث', details:'تفاصيل', manual:'يدوي', of:'من', to:'إلى', days:'يوم', months:'شهر', count:'العدد', total:'الإجمالي', totals:'الإجماليات', value:'القيمة', date:'التاريخ', status:'الحالة', notes:'ملاحظات', number:'الرقم', kind:'النوع', name:'الاسم', file:'الملف', document:'المستند', documents:'المستندات', required:'مطلوب', missing:'ناقص', late:'متأخر', item:'الصنف', result:'النتيجة', since:'تاريخ التسجيل', generate:'إنشاء', del_q:'متأكد إنك عايز تحذف ده؟', unsaved_q:'فيه تعديلات مش محفوظة. تكمل من غير حفظ؟', fill_required:'كمّل الخانات المطلوبة', no_access:'معندكش صلاحية للصفحة دي', not_found:'مش موجود',
 nav_work:'الشغل', nav_data:'البيانات الأساسية', nav_admin:'الإدارة',
 pg_dashboard:'الرئيسية', pg_orders:'الطلبيات', pg_order:'الطلبية', pg_payments:'الدفعات', pg_calc:'حاسبة الكونتينر', pg_customers:'العملاء', pg_products:'المنتجات', pg_tests:'تحاليل المنتجات', pg_countries:'الدول والمتطلبات', pg_certs:'شهادات الشركة', pg_users:'المستخدمين', pg_settings:'الإعدادات',
@@ -331,7 +411,7 @@ doc_pi:'فاتورة مبدئية (PI)', doc_ci:'فاتورة تجارية', doc
 ds_required:'مطلوب', ds_submitted:'اتقدم', ds_done:'خلص', ds_na:'مش مطلوب',
 hs_draft:'لسه', hs_sent:'اتبعت للهيئة', hs_sampled:'العينة اتسحبت', hs_issued:'الشهادة طلعت', hs_rejected:'مرفوض',
 ot_normal:'شهادة منشأ عادية', ot_eur1:'EUR.1 (الاتحاد الأوروبي)', ot_arab:'تيسير التجارة العربية', ot_comesa:'الكوميسا', ot_agadir:'أغادير', ot_mercosur:'الميركوسور',
-pk2_deposit:'دفعة مقدمة', pk2_balance:'باقي المبلغ', pk2_other:'أخرى', pk_plastic:'بلاستيك', pk_box:'علب', pk_bag:'أكياس', pk_jar:'برطمانات', pk_other:'أخرى',
+pk2_deposit:'دفعة مقدمة', pk2_balance:'باقي المبلغ', pk2_other:'أخرى', pk_none:'—', pk_plastic:'بلاستيك', pk_box:'علب', pk_bag:'أكياس', pk_jar:'برطمانات', pk_other:'أخرى',
 tk_test_cert:'شهادة تحليل (الزراعة)', tk_lab_result:'نتيجة معمل (الصحة)', tk_other:'تحليل آخر', ts_valid:'صالح', ts_soon:'قرب ينتهي', ts_expired:'منتهي', ts_unknown:'غير محدد',
 cat_candy:'حلويات', cat_gum:'لبان', cat_snacks:'سناكس', cat_pasta:'مكرونة', cat_other:'أخرى',
 ct_exporters_reg:'سجل المصدرين', ct_nfsa_reg:'تسجيل هيئة سلامة الغذاء', ct_halal:'شهادة حلال', ct_iso22000:'ISO 22000', ct_iso9001:'ISO 9001', ct_iso45001:'ISO 45001', ct_haccp:'HACCP', ct_fda:'تسجيل FDA', ct_industrial_reg:'السجل الصناعي', ct_commercial_reg:'السجل التجاري', ct_tax_card:'البطاقة الضريبية', ct_other:'أخرى',
@@ -364,6 +444,7 @@ calc_intro:'دخّل أبعاد ووزن الكرتونة وعدد الكرات�
 print_pdf:'طباعة / PDF'
 },
 en:{
+piece_g:'Grams (per piece)', pieces_per_pack:'Pack size (pieces)', pieces_hint:'Like the production order: production = grams × pack size × units × cartons ÷ 1000. For pasta, enter pack grams and pack size 1.', doc_invoice:'Invoice (usual layout)', doc_ci_customs:'Customs commercial invoice (loaded + HS)', invoice_no:'Invoice no.', invoice_date:'Invoice date', expiry_period:'Expiry', weight_unit:'Weight', u_kg:'kg', u_ton:'ton', u_both:'Both', order_date:'Date', sticker:'Sticker', with_sticker:'Sticker', no_sticker:'None', packing:'Packing', lines_summary:'Production lines', order_totals:'Order totals', total_prod:'Total production', items_count:'Items', batches_title:'Batches & production dates', pasta_note:'Pasta-line items print on a separate “Pasta production order” page in the same printout.', grams:'g', units_s:'Units', prod_formula:'Production = grams × pack size × units × cartons ÷ 1000 · Stickers = units × cartons',
 app_title:'Export System — EgyGulf Foods', app_sub:'Export management system', loading:'Loading…', err:'Something went wrong', init_fail:'Could not start the system', ok:'OK', cancel:'Cancel', confirm:'Confirm', save:'Save', saved:'Saved', close:'Close', apply:'Apply', add:'Add', remove:'Remove', open:'Open', upload:'Upload', yes:'Yes', no:'No', new:'New', all:'All', more:'Options', search:'Search…', choose:'Choose…', refresh:'Refresh', details:'Details', manual:'manual', of:'of', to:'To', days:'days', months:'months', count:'Count', total:'Total', totals:'Totals', value:'Value', date:'Date', status:'Status', notes:'Notes', number:'Number', kind:'Type', name:'Name', file:'File', document:'Document', documents:'Documents', required:'Required', missing:'Missing', late:'Late', item:'Item', result:'Result', since:'Registered', generate:'Generate', del_q:'Delete this item?', unsaved_q:'You have unsaved changes. Continue without saving?', fill_required:'Please fill the required fields', no_access:'You do not have access to this page', not_found:'Not found',
 nav_work:'Work', nav_data:'Master data', nav_admin:'Admin',
 pg_dashboard:'Dashboard', pg_orders:'Orders', pg_order:'Order', pg_payments:'Payments', pg_calc:'Container calculator', pg_customers:'Customers', pg_products:'Products', pg_tests:'Product tests', pg_countries:'Countries & requirements', pg_certs:'Company certificates', pg_users:'Users', pg_settings:'Settings',
@@ -378,7 +459,7 @@ doc_pi:'Proforma invoice (PI)', doc_ci:'Commercial invoice', doc_pl:'Packing lis
 ds_required:'Required', ds_submitted:'Submitted', ds_done:'Done', ds_na:'Not needed',
 hs_draft:'Not started', hs_sent:'Sent to NFSA', hs_sampled:'Sample taken', hs_issued:'Issued', hs_rejected:'Rejected',
 ot_normal:'Standard certificate of origin', ot_eur1:'EUR.1 (EU)', ot_arab:'Arab Free Trade (GAFTA)', ot_comesa:'COMESA', ot_agadir:'Agadir', ot_mercosur:'Mercosur',
-pk2_deposit:'Advance payment', pk2_balance:'Balance', pk2_other:'Other', pk_plastic:'Plastic', pk_box:'Boxes', pk_bag:'Bags', pk_jar:'Jars', pk_other:'Other',
+pk2_deposit:'Advance payment', pk2_balance:'Balance', pk2_other:'Other', pk_none:'—', pk_plastic:'Plastic', pk_box:'Boxes', pk_bag:'Bags', pk_jar:'Jars', pk_other:'Other',
 tk_test_cert:'Test certificate (Agriculture)', tk_lab_result:'Lab result (Health)', tk_other:'Other test', ts_valid:'Valid', ts_soon:'Expiring soon', ts_expired:'Expired', ts_unknown:'Not set',
 cat_candy:'Confectionery', cat_gum:'Chewing gum', cat_snacks:'Snacks', cat_pasta:'Pasta', cat_other:'Other',
 ct_exporters_reg:'Exporters register', ct_nfsa_reg:'NFSA registration', ct_halal:'Halal certificate', ct_iso22000:'ISO 22000', ct_iso9001:'ISO 9001', ct_iso45001:'ISO 45001', ct_haccp:'HACCP', ct_fda:'FDA registration', ct_industrial_reg:'Industrial register', ct_commercial_reg:'Commercial register', ct_tax_card:'Tax card', ct_other:'Other',
@@ -510,7 +591,9 @@ const DEFAULT_REQ_DOCS = ['pi','ci','pl','health','origin','bl'];
 const ORIGIN_TYPES = ['normal','eur1','arab','comesa','agadir','mercosur'];
 const INCOTERMS = ['EXW','FCA','FOB','CFR','CIF','DAP','CPT','CIP','DDP'];
 const CURRENCIES = ['USD','EUR','GBP','SAR','AED','EGP'];
-const PACK_TYPES = ['plastic','box','bag','jar','other'];
+const PACK_TYPES = ['none','jar','box'];   // نفس اختيارات أمر الإنتاج: — / برطمانات / علب
+const PASTA_LINE = 'مكرونة';
+const EXPIRY_OPTS = [['','اختر المدة'],['1y','سنة'],['1.5y','سنة ونص'],['2y','سنتين']];
 const CERT_TYPES = ['exporters_reg','nfsa_reg','halal','iso22000','iso9001','iso45001','haccp','fda','industrial_reg','commercial_reg','tax_card','other'];
 const TEST_KINDS = ['test_cert','lab_result','other'];
 const CONTAINERS = {
@@ -540,9 +623,9 @@ const DEFAULT_SETTINGS = {
 
 /* ---------- incoterm-aware delivery text ---------- */
 function deliveryText(o){
-  const place = o.incoterm==='EXW' ? (o.loadingPoint||'Factory') : ['FOB','FCA'].includes(o.incoterm) ? (o.loadingPoint||'—') : (o.dischargePoint||'—');
+  const place = o.incoterm==='EXW' ? 'Factory' : ['FOB','FCA'].includes(o.incoterm) ? (o.loadingPoint||'—') : (o.dischargePoint||'—');
   const en = {
-    EXW:`Goods are delivered Ex-Works (${place}). All risks and responsibilities transfer to the buyer upon loading at the factory.`,
+    EXW:`Goods are delivered Ex-Works (${place}). All risks and responsibilities transfer to the buyer immediately upon loading.`,
     FCA:`Goods are delivered Free Carrier (${place}). Risk transfers to the buyer once goods are handed to the buyer's carrier.`,
     FOB:`Goods are delivered FOB ${place}. Risk transfers to the buyer once goods are on board the vessel.`,
     CFR:`CFR ${place}: seller pays freight to the destination port; risk transfers to the buyer once goods are on board at the port of loading.`,
@@ -550,21 +633,23 @@ function deliveryText(o){
     DAP:`DAP ${place}: seller delivers to the named place, ready for unloading; import clearance and duties are on the buyer.`,
   }[o.incoterm] || `${o.incoterm||''} ${place} (Incoterms® 2020).`;
   const ar = {
-    EXW:`يتم تسليم البضاعة أرض المصنع (${place})، وتنتقل المسؤولية إلى المشتري فور التحميل.`,
+    EXW:`يتم تسليم البضاعة أرض المصنع، وتنتقل المسؤولية إلى المشتري فور التحميل.`,
     FCA:`يتم التسليم لناقل المشتري (${place})، وتنتقل المسؤولية فور التسليم للناقل.`,
     FOB:`التسليم FOB ميناء ${place}، وتنتقل المسؤولية إلى المشتري فور تحميل البضاعة على السفينة.`,
     CFR:`CFR ${place}: البائع يدفع النولون حتى ميناء الوصول، وتنتقل المسؤولية فور التحميل على السفينة في ميناء الشحن.`,
     CIF:`CIF ${place}: البائع يدفع النولون والتأمين حتى ميناء الوصول، وتنتقل المسؤولية فور التحميل على السفينة في ميناء الشحن.`,
     DAP:`DAP ${place}: التسليم في المكان المحدد جاهزة للتفريغ، والتخليص الجمركي والرسوم على المشتري.`,
   }[o.incoterm] || `${o.incoterm||''} ${place} (Incoterms® 2020).`;
-  return {en: en+' (Incoterms® 2020)', ar};
+  return {en, ar};
 }
 const fillTerms = (txt,o) => String(txt||'').replace(/\{deposit\}/g, n(o.depositPct)).replace(/\{balance\}/g, 100-n(o.depositPct));
 
 /* ---------- order calculations ---------- */
+// وزن العبوة بالجرام = جرام القطعة × حجم العبوة (لو متسجلين)، وإلا الوزن الصافي المكتوب
+const unitGrams = it => (n(it.pieceG) && n(it.piecesPerPack)) ? n(it.pieceG)*n(it.piecesPerPack) : n(it.netWeightG);
 function itemCalc(it){
   const cartons = n(it.cartons), price = n(it.pricePerCarton), upc = n(it.unitsPerCarton);
-  const unitNetKg = n(it.netWeightG)/1000;
+  const unitNetKg = unitGrams(it)/1000;
   const ctnNet = n(it.cartonNetKg) || round(unitNetKg*upc,3);
   const ctnGross = n(it.cartonGrossKg) || ctnNet;
   const ctnCbm = (n(it.cartonL)*n(it.cartonW)*n(it.cartonH))/1e6;
@@ -965,14 +1050,16 @@ const readTags = (root,name) => { const w=root.querySelector(`[data-tags="${name
 /* ---------- demo seed ---------- */
 async function seedDemo(){
   const flag = await DB.get('meta','seeded'); if(flag) return;
-  const P = [
-    {code:'HN-STR-3',nameAr:'لبان HONEY فراولة',nameEn:'HONEY Chewing Gum Strawberry',category:'gum',brand:'HONEY',line:'لبان',packSize:'3g',netWeightG:3,unitsPerCarton:600,cartonL:40,cartonW:30,cartonH:25,cartonGrossKg:2.3,hsCode:'1704.10',shelfLifeMonths:24,flavours:['فراولة'],allergens:'',active:true},
-    {code:'HN-MNT-3',nameAr:'لبان HONEY نعناع خالي من السكر',nameEn:'HONEY Sugar-Free Gum Mint',category:'gum',brand:'HONEY',line:'لبان',packSize:'3g',netWeightG:3,unitsPerCarton:600,cartonL:40,cartonW:30,cartonH:25,cartonGrossKg:2.3,hsCode:'1704.10',shelfLifeMonths:24,flavours:['نعناع'],active:true},
-    {code:'LT-LOL-12',nameAr:'مصاصة لايت',nameEn:'Light Lollipop',category:'candy',line:'لايت مصاص',packSize:'12g',netWeightG:12,unitsPerCarton:480,cartonL:45,cartonW:32,cartonH:28,cartonGrossKg:6.4,hsCode:'1704.90',shelfLifeMonths:24,flavours:['فراولة','مانجو','تفاح'],active:true},
-    {code:'BB-MIX-1K',nameAr:'بونبون مشكل',nameEn:'Assorted Bonbon',category:'candy',line:'بونبون',packSize:'1kg',netWeightG:1000,unitsPerCarton:12,cartonL:50,cartonW:35,cartonH:30,cartonGrossKg:13,hsCode:'1704.90',shelfLifeMonths:18,flavours:[],active:true},
-    {code:'PS-PEN-400',nameAr:'مكرونة قلم',nameEn:'Penne Pasta',category:'pasta',line:'مكرونة',packSize:'400g',netWeightG:400,unitsPerCarton:20,cartonL:38,cartonW:28,cartonH:22,cartonGrossKg:8.4,hsCode:'1902.19',shelfLifeMonths:24,flavours:[],active:true},
+  const P = [ // نفس أصناف أوردر الإنتاج (بيانات تجريبية)
+    {code:'LT-TREE',nameAr:'شجرة لايت',nameEn:'Light Lollipop Tree',category:'candy',line:'لايت مصاص',pieceG:14,piecesPerPack:72,unitsPerCarton:6,packSize:'72 × 14g',cartonL:48,cartonW:36,cartonH:30,cartonGrossKg:6.8,hsCode:'1704.90',shelfLifeMonths:24,flavours:['فراولة','تفاح','مانجو'],packType:'none',active:true,_q:400,_so:true,_n:'1800 قاعده — 11000 حلقه'},
+    {code:'LT-CAR',nameAr:'عربيه لايت',nameEn:'Light Lollipop Car',category:'candy',line:'لايت مصاص',pieceG:14,piecesPerPack:80,unitsPerCarton:8,packSize:'80 × 14g',cartonL:50,cartonW:38,cartonH:32,cartonGrossKg:9.6,hsCode:'1704.90',shelfLifeMonths:24,flavours:[],packType:'none',active:true,_q:300,_so:true},
+    {code:'LT-BAG-YR',nameAr:'اكياس لايت اصفر + احمر',nameEn:'Light Lollipop Bags Yellow + Red',category:'candy',line:'لايت مصاص',pieceG:8,piecesPerPack:100,unitsPerCarton:12,packSize:'100 × 8g',cartonL:45,cartonW:32,cartonH:28,cartonGrossKg:10.2,hsCode:'1704.90',shelfLifeMonths:24,flavours:[],packType:'none',active:true,_q:300},
+    {code:'MJ-BOX',nameAr:'موجو علب',nameEn:'Mojo Lollipop Boxes',category:'candy',line:'موجو مصاص',pieceG:14,piecesPerPack:30,unitsPerCarton:24,packSize:'30 × 14g',cartonL:52,cartonW:40,cartonH:30,cartonGrossKg:11,hsCode:'1704.90',shelfLifeMonths:24,flavours:[],packType:'box',active:true,_q:200,_so:true},
+    {code:'BB-BOX',nameAr:'بنبون علب',nameEn:'Bonbon Boxes',category:'candy',line:'بونبون',pieceG:3,piecesPerPack:100,unitsPerCarton:10,packSize:'100 × 3g',cartonL:40,cartonW:30,cartonH:25,cartonGrossKg:3.6,hsCode:'1704.90',shelfLifeMonths:18,flavours:[],packType:'box',active:true,_q:200},
+    {code:'GUM-JAR',nameAr:'لبان برطمان',nameEn:'Chewing Gum Jar',category:'gum',line:'لبان',pieceG:3,piecesPerPack:250,unitsPerCarton:6,packSize:'250 × 3g',cartonL:42,cartonW:28,cartonH:24,cartonGrossKg:5.2,hsCode:'1704.10',shelfLifeMonths:24,flavours:['فراولة','نعناع','موز','تفاح','كولا','مانجو'],packType:'jar',active:true,_q:150,_so:true,_n:'فراوله35 · نعناع35 · موز35 · تفاح20 · كولا15 · مانجو10'},
+    {code:'PS-PEN-400',nameAr:'مكرونة قلم',nameEn:'Penne Pasta',category:'pasta',line:'مكرونة',pieceG:400,piecesPerPack:1,unitsPerCarton:20,packSize:'400g',cartonL:38,cartonW:28,cartonH:22,cartonGrossKg:8.4,hsCode:'1902.19',shelfLifeMonths:24,flavours:[],packType:'none',active:true,_q:100},
   ];
-  const ids=[]; for(const p of P) ids.push(await DB.add('products',p));
+  const ids=[]; for(const p of P){ const c={...p}; delete c._q; delete c._so; delete c._n; ids.push(await DB.add('products',c)); }
   const cust = await DB.add('customers',{company:'Sample Trading Co. (Demo)',country:'Cuba',contactName:'Mr. Demo',email:'buyer@example.com',phone:'+53 000 000',address:'Havana',website:'',defaultIncoterm:'FOB',defaultPort:'Mariel',salesRep:'كريم'});
   const countries = [
     {name:'Saudi Arabia',nameAr:'السعودية',originType:'arab',labelLang:'العربية',requiredDocs:['pi','ci','pl','health','origin','halal','bl'],legalization:false,notes:'شهادة مطابقة لكل شحنة عبر نظام فسح (المستورد) — تسجيل المنتج في SFDA'},
@@ -990,10 +1077,10 @@ async function seedDemo(){
   const o = {number:`EGF-${String(new Date().getFullYear()).slice(2)}-${pad(seqN)}`, status:'confirmed', customerId:cust, customer:{company:'Sample Trading Co. (Demo)',country:'Cuba',email:'buyer@example.com',phone:'+53 000 000',address:'Havana',website:''},
     currency:'USD', incoterm:'FOB', loadingPoint:'Alexandria Port', dischargePoint:'Mariel, Cuba', depositPct:50, discountPct:0, validityDays:14,
     piNumber:`PI-EGF-${String(new Date().getFullYear()).slice(2)}-${pad(seqN)}`, piDate:todayISO(), loadingDate:addMonths(todayISO(),1), salesRep:'كريم',
-    items:[ mkItem(byIdP(P[0],ids[0]),{cartons:300,pricePerCarton:9.5}), mkItem(byIdP(P[2],ids[2]),{cartons:200,pricePerCarton:14}), mkItem(byIdP(P[4],ids[4]),{cartons:400,pricePerCarton:7.2}) ],
+    items: P.map((p,i)=>mkItem(byIdP(p,ids[i]),{cartons:p._q,pricePerCarton:[18,22,12.5,26,9,24,7.2][i],stickers:!!p._so,notes:p._n||''})),
     shipment:{mode:'FCL',containerType:'40HC'}, docs:{}, health:{status:'draft'}, history:[{at:nowISO(),by:'Demo',action:t('h_created')}]};
   const oid = await DB.add('orders',o);
-  await DB.add('payments',{orderId:oid,kind:'deposit',method:'transfer',amount:3005,currency:'USD',date:todayISO(),reference:'SWIFT-DEMO-001',confirmed:true,confirmedBy:'Demo',confirmedAt:nowISO()});
+  await DB.add('payments',{orderId:oid,kind:'deposit',method:'transfer',amount:14435,currency:'USD',date:todayISO(),reference:'SWIFT-DEMO-001',confirmed:true,confirmedBy:'Demo',confirmedAt:nowISO()});
   await DB.set('meta','seeded',{v:1});
 }
 function byIdP(p,id){ return {...p,id}; }
@@ -1069,11 +1156,13 @@ function prodForm(id){
     ${fld(t('code'),'code',p.code,{req:1})}${fld(t('name_ar'),'nameAr',p.nameAr,{req:1})}${fld(t('name_en'),'nameEn',p.nameEn,{req:1})}
     ${fld(t('category'),'category',p.category,{opts:CATS.map(c=>[c,t('cat_'+c)])})}${fld(t('brand'),'brand',p.brand)}${fld(t('prod_line'),'line',p.line,{opts:[['',''],...lines]})}
     <div class="full sep"></div>
-    ${fld(t('pack_size'),'packSize',p.packSize,{ph:'30g'})}${fld(t('net_weight_g'),'netWeightG',p.netWeightG,{type:'number',hint:t('net_weight_hint')})}${fld(t('upc'),'unitsPerCarton',p.unitsPerCarton,{type:'number'})}
+    ${fld(t('piece_g'),'pieceG',p.pieceG,{type:'number',ph:'14'})}${fld(t('pieces_per_pack'),'piecesPerPack',p.piecesPerPack,{type:'number',ph:'72'})}${fld(t('upc'),'unitsPerCarton',p.unitsPerCarton,{type:'number',ph:'6'})}
+    <div class="full small muted" style="margin-top:-6px">${t('pieces_hint')}</div>
+    ${fld(t('pack_size')+' (Invoice)','packSize',p.packSize,{ph:'72 × 14g'})}${fld(t('net_weight_g'),'netWeightG',p.netWeightG,{type:'number',hint:t('net_weight_hint')})}<div></div>
     ${fld(t('ctn_l'),'cartonL',p.cartonL,{type:'number'})}${fld(t('ctn_w'),'cartonW',p.cartonW,{type:'number'})}${fld(t('ctn_h'),'cartonH',p.cartonH,{type:'number'})}
     ${fld(t('ctn_net_kg'),'cartonNetKg',p.cartonNetKg,{type:'number',hint:t('auto_if_empty')})}${fld(t('ctn_gross_kg'),'cartonGrossKg',p.cartonGrossKg,{type:'number'})}<div class="field"><label>${t('calc_preview')}</label><div class="in ro" id="pf-prev" style="display:flex;align-items:center;font-size:12px"></div></div>
     <div class="full sep"></div>
-    ${fld(t('hs_code'),'hsCode',p.hsCode,{ph:'1704.90'})}${fld(t('shelf_life_m'),'shelfLifeMonths',p.shelfLifeMonths,{type:'number'})}${fld(t('pack_type'),'packType',p.packType||'plastic',{opts:PACK_TYPES.map(x=>[x,t('pk_'+x)])})}
+    ${fld(t('hs_code'),'hsCode',p.hsCode,{ph:'1704.90'})}${fld(t('shelf_life_m'),'shelfLifeMonths',p.shelfLifeMonths,{type:'number'})}${fld(t('pack_type'),'packType',(PACK_TYPES.includes(p.packType)?p.packType:'none'),{opts:PACK_TYPES.map(x=>[x,t('pk_'+x)])})}
     ${fld(t('allergens'),'allergens',p.allergens,{cls:'span2',ph:t('allergens_ph')})}${fld(t('active'),'active',p.active!==false,{type:'checkbox'})}
     ${fld(t('ingredients'),'ingredients',p.ingredients,{type:'textarea',cls:'full'})}
     <div class="field full"><label>${t('flavours')}</label>${tagsInput('flavours',p.flavours||[])}</div></div>`,
@@ -1235,9 +1324,9 @@ PAGES.settings = { perm:'admin', async render(){
 
 /* ============================== orders ============================== */
 function mkItem(p, extra={}){
-  return { id:uid(), productId:p.id||'', code:p.code||'', nameAr:p.nameAr||'', nameEn:p.nameEn||'', packSize:p.packSize||'', netWeightG:n(p.netWeightG), unitsPerCarton:n(p.unitsPerCarton),
+  return { id:uid(), productId:p.id||'', code:p.code||'', nameAr:p.nameAr||'', nameEn:p.nameEn||'', packSize:p.packSize||'', netWeightG:n(p.netWeightG), pieceG:n(p.pieceG), piecesPerPack:n(p.piecesPerPack), unitsPerCarton:n(p.unitsPerCarton),
     cartonL:n(p.cartonL), cartonW:n(p.cartonW), cartonH:n(p.cartonH), cartonNetKg:n(p.cartonNetKg), cartonGrossKg:n(p.cartonGrossKg), hsCode:p.hsCode||'', shelfLifeMonths:n(p.shelfLifeMonths),
-    line:p.line||'', packType:p.packType||'plastic', flavours:[...(p.flavours||[])], cartons:'', pricePerCarton:'', onDiscount:false, stickers:false, notes:'', batch:'', prodDate:'', expDate:'', loadedCartons:'', ...extra };
+    line:p.line||'', packType:PACK_TYPES.includes(p.packType)?p.packType:'none', flavours:[...(p.flavours||[])], cartons:'', pricePerCarton:'', onDiscount:false, stickers:false, notes:'', batch:'', prodDate:'', expDate:'', loadedCartons:'', ...extra };
 }
 const pad = (v,l=4) => String(v).padStart(l,'0');
 
@@ -1392,6 +1481,7 @@ function editHeader(){
     ${fld(t('loading_point'),'loadingPoint',o.loadingPoint)}${fld(t('discharge_point'),'dischargePoint',o.dischargePoint)}${fld(t('loading_date'),'loadingDate',o.loadingDate,{type:'date'})}
     ${fld(t('delivery_date'),'deliveryDate',o.deliveryDate,{type:'date'})}${fld(t('deposit_pct'),'depositPct',o.depositPct,{type:'number'})}${fld(t('validity_days'),'validityDays',o.validityDays,{type:'number'})}
     ${fld(t('pi_no'),'piNumber',o.piNumber)}${fld(t('pi_date'),'piDate',o.piDate,{type:'date'})}${fld(t('customer_po'),'customerPO',o.customerPO)}
+    ${fld(t('invoice_no'),'invoiceNo',o.invoiceNo,{ph:o.piNumber||o.number})}${fld(t('invoice_date'),'invoiceDate',o.invoiceDate,{type:'date'})}<div></div>
     <div class="full sep"></div><div class="full lbl">${t('customer_snapshot')}</div>
     ${fld(t('company'),'c_company',o.customer.company)}${fld(t('country'),'c_country',o.customer.country)}${fld(t('email'),'c_email',o.customer.email)}
     ${fld(t('phone'),'c_phone',o.customer.phone)}${fld(t('address'),'c_address',o.customer.address)}${fld(t('website'),'c_website',o.customer.website)}
@@ -1453,7 +1543,8 @@ function itemDetails(id){
   collectItems(); const it=OD.o.items.find(x=>x.id===id);
   const bg=openModal({title:esc(L(it.nameAr,it.nameEn)), size:'lg', body:`<div class="grid g3" id="idf">
     ${fld(t('name_ar'),'nameAr',it.nameAr)}${fld(t('name_en'),'nameEn',it.nameEn)}${fld(t('code'),'code',it.code)}
-    ${fld(t('net_weight_g'),'netWeightG',it.netWeightG,{type:'number'})}${fld(t('hs_code'),'hsCode',it.hsCode)}${fld(t('shelf_life_m'),'shelfLifeMonths',it.shelfLifeMonths,{type:'number'})}
+    ${fld(t('piece_g'),'pieceG',it.pieceG,{type:'number'})}${fld(t('pieces_per_pack'),'piecesPerPack',it.piecesPerPack,{type:'number'})}${fld(t('net_weight_g'),'netWeightG',it.netWeightG,{type:'number'})}
+    ${fld(t('hs_code'),'hsCode',it.hsCode)}${fld(t('shelf_life_m'),'shelfLifeMonths',it.shelfLifeMonths,{type:'number'})}${fld(t('pack_size'),'packSize',it.packSize)}
     ${fld(t('ctn_l'),'cartonL',it.cartonL,{type:'number'})}${fld(t('ctn_w'),'cartonW',it.cartonW,{type:'number'})}${fld(t('ctn_h'),'cartonH',it.cartonH,{type:'number'})}
     ${fld(t('ctn_net_kg'),'cartonNetKg',it.cartonNetKg,{type:'number',hint:t('auto_if_empty')})}${fld(t('ctn_gross_kg'),'cartonGrossKg',it.cartonGrossKg,{type:'number'})}${fld(t('notes'),'notes',it.notes)}</div>
     <div class="small muted mt">${t('item_snapshot_hint')}</div>`,
@@ -1522,33 +1613,64 @@ async function payConfirm(id){
 }
 async function payVoid(id){ const r=await promptBox(t('void_reason')); if(r===null) return; try{ await DB.update('payments',id,{void:true,voidReason:r,voidBy:who()}); toast(t('saved'),'ok'); route(); }catch(e){ errToast(e); } }
 
-/* ----- tab: production ----- */
+/* ----- tab: production (same columns and math as the production order page) ----- */
 function tabProduction(){
-  const o=OD.o, ed=(can('production')||can('orders.edit')) && o.status!=='cancelled', lines=S.settings.lines||[];
-  const pay=payCalc(o,S.cache.payments);
-  const byLine={}; o.items.forEach(it=>{ const c=itemCalc(it); const k=it.line||t('unassigned'); byLine[k]=byLine[k]||{cartons:0,kg:0}; byLine[k].cartons+=c.cartons; byLine[k].kg+=c.netKg; });
-  const tot=sum(Object.values(byLine),x=>x.kg)||1;
-  $('od-body').innerHTML = `<div class="card-b">
+  const o=OD.o, pr=o.production, ed=(can('production')||can('orders.edit')) && o.status!=='cancelled', lines=S.settings.lines||[];
+  const pay=payCalc(o,S.cache.payments), unit=pr.unit||'kg', dis=ed?'':'disabled', ro=ed?'':'readonly';
+  const hasPasta=o.items.some(it=>it.line===PASTA_LINE);
+  const numIn=(f,v,w=64)=>`<input class="in sm num-in" type="number" min="0" data-f="${f}" value="${esc(v||'')}" placeholder="0" style="width:${w}px" ${ro} oninput="markDirty();prCalc()">`;
+  $('od-body').innerHTML = `<div class="card-b po-screen">
     ${!pay.depositOk?`<div class="alert al-warn mb">${IC.lock}<div>${t('prod_blocked_deposit')}</div></div>`:''}
-    <div class="row between wrap mb"><div class="row wrap">${Object.entries(byLine).map(([k,v])=>`<span class="bdg b-navy nodot">${esc(k)}: <span class="num">&nbsp;${fmt(v.kg)} kg</span> · ${fmt(v.kg/tot*100)}%</span>`).join('')}</div>
-      <div class="row"><button class="btn btn-o" onclick="autoBatches()" ${ed?'':'disabled'}>${t('auto_batches')}</button><button class="btn btn-o" onclick="printProduction()">${IC.print} ${t('print_prod_order')}</button></div></div>
-    <div class="tbl-wrap"><table class="tbl" id="pr-tbl"><thead><tr><th>${t('product')}</th><th>${t('cartons')}</th><th>${t('prod_kg')}</th><th>${t('prod_line')}</th><th>${t('pack_type')}</th><th>${t('stickers')}</th><th>${t('batch')}</th><th>${t('prod_date')}</th><th>${t('exp_date')}</th><th>${t('notes')}</th></tr></thead><tbody>
-    ${o.items.map(it=>{ const c=itemCalc(it); const dis=ed?'':'disabled'; return `<tr data-id="${it.id}"><td><div class="bold">${esc(L(it.nameAr,it.nameEn))}</div><div class="tiny muted">${esc(it.packSize)} × ${it.unitsPerCarton}</div></td><td class="num">${fmt(c.cartons)}</td><td class="num">${fmt(c.netKg,1)}</td>
-      <td><select class="in sm" data-f="line" ${dis} onchange="markDirty()"><option value=""></option>${[...new Set([...lines,it.line].filter(Boolean))].map(l=>`<option ${l===it.line?'selected':''}>${esc(l)}</option>`).join('')}</select></td>
-      <td><select class="in sm" data-f="packType" ${dis} onchange="markDirty()">${PACK_TYPES.map(k=>`<option value="${k}" ${k===it.packType?'selected':''}>${t('pk_'+k)}</option>`).join('')}</select></td>
-      <td class="center"><input type="checkbox" data-f="stickers" ${it.stickers?'checked':''} ${dis} onchange="markDirty()"></td>
-      <td><input class="in sm mono" data-f="batch" value="${esc(it.batch)}" style="width:120px" ${dis} oninput="markDirty()"></td>
-      <td><input class="in sm" type="date" data-f="prodDate" value="${esc(it.prodDate)}" ${dis} onchange="prodDateChanged(this)"></td>
-      <td><input class="in sm" type="date" data-f="expDate" value="${esc(it.expDate)}" ${dis} onchange="markDirty()"></td>
-      <td><input class="in sm" data-f="notes" value="${esc(it.notes)}" style="min-width:120px" ${dis} oninput="markDirty()"></td></tr>`}).join('')}</tbody></table></div>
-    <div class="grid g3 mt" id="pr-f">${fld(t('prod_start'),'startedAt',o.production.startedAt,{type:'date',ro:!ed})}${fld(t('prod_end'),'finishedAt',o.production.finishedAt,{type:'date',ro:!ed})}${fld(t('prod_notes'),'notes',o.production.notes,{ro:!ed})}</div>
+    <div class="grid g4" id="pr-f">
+      ${fld(t('order_date'),'orderDate',pr.orderDate||pr.startedAt||todayISO(),{type:'date',ro:!ed})}${fld(t('delivery_date'),'deliveryDate',o.deliveryDate,{type:'date',ro:!ed})}
+      ${fld(t('loading_date'),'loadingDate',o.loadingDate,{type:'date',ro:!ed})}${fld(t('expiry_period'),'expiry',pr.expiry??defaultExpiry(o),{opts:EXPIRY_OPTS,ro:!ed})}</div>
+    <div class="row wrap mt mb" style="gap:10px"><span class="small muted">${t('weight_unit')}</span>
+      <span class="seg2" id="pr-unit">${['kg','ton','both'].map(u=>`<button type="button" aria-pressed="${u===unit}" onclick="prUnit('${u}')">${t('u_'+u)}</button>`).join('')}</span>
+      <div class="grow"></div><button class="btn btn-o" onclick="autoBatches()" ${dis}>${t('auto_batches')}</button><button class="btn btn-o" onclick="printProduction()">${IC.print} ${t('print_prod_order')}</button></div>
+    <div class="tbl-wrap"><table class="tbl" id="pr-tbl"><thead>
+      <tr class="po-band"><th></th><th colspan="5" class="b-in"><span>بيانات المنتج</span></th><th class="b-out"><span>الناتج</span></th><th colspan="2" class="b-stk"><span>الاستيكر والتعبئة</span></th><th colspan="2" class="b-line"><span>التصنيف والملاحظات</span></th></tr>
+      <tr><th>#</th><th style="min-width:170px">${t('product')}</th><th>${t('piece_g')}</th><th>${t('pieces_per_pack')}</th><th>${t('units_s')}</th><th>${t('cartons')}</th><th id="pr-th-prod"></th><th>${t('sticker')}</th><th>${t('packing')}</th><th>${t('prod_line')}</th><th>${t('notes')}</th></tr></thead>
+    <tbody>${o.items.map((it,i)=>{ const [g,s]=poGS(it); return `<tr data-id="${it.id}"><td class="muted">${i+1}</td><td><div class="bold">${esc(L(it.nameAr,it.nameEn))}</div><div class="tiny muted" dir="ltr" style="text-align:end">${esc(it.packSize||'')}</div></td>
+      <td>${numIn('pieceG',g,60)}</td><td>${numIn('piecesPerPack',s,64)}</td><td>${numIn('unitsPerCarton',it.unitsPerCarton,64)}</td><td class="num bold">${fmt(it.cartons)}</td>
+      <td class="num" data-c="prod"></td>
+      <td class="stkc"><label class="chk" style="justify-content:center"><input type="checkbox" data-f="stickers" ${it.stickers?'checked':''} ${dis} onchange="markDirty();prCalc()"> <span data-c="stkL"></span></label><span class="stkT" data-c="stk"></span></td>
+      <td><select class="in sm" data-f="packType" ${dis} onchange="markDirty()">${PACK_TYPES.map(k=>`<option value="${k}" ${k===(PACK_TYPES.includes(it.packType)?it.packType:'none')?'selected':''}>${t('pk_'+k)}</option>`).join('')}</select></td>
+      <td><select class="in sm" data-f="line" style="min-width:120px" ${dis} onchange="markDirty();prCalc()"><option value=""></option>${[...new Set([...lines,it.line].filter(Boolean))].map(l=>`<option ${l===it.line?'selected':''}>${esc(l)}</option>`).join('')}</select></td>
+      <td><input class="in sm" data-f="notes" value="${esc(it.notes)}" style="min-width:220px" ${ro} oninput="markDirty()"></td></tr>`}).join('')}</tbody>
+    <tfoot><tr><td colspan="5" class="right">${t('totals')}</td><td class="num" id="pr-tq"></td><td class="num" id="pr-tp" style="background:#f2fafb;color:#0e8f9c"></td><td class="num" id="pr-ts" style="background:#fdf8ef;color:#c9790a"></td><td colspan="3"></td></tr></tfoot></table></div>
+    <div class="small muted mt-s">${t('prod_formula')}${hasPasta?' · '+t('pasta_note'):''}</div>
+    <div id="pr-tiles"></div>
+    <div class="sep"></div>
+    <h3 style="font-size:14px" class="mb">${t('batches_title')}</h3>
+    <div class="tbl-wrap"><table class="tbl" id="pb-tbl"><thead><tr><th>${t('product')}</th><th>${t('batch')}</th><th>${t('prod_date')}</th><th>${t('exp_date')}</th></tr></thead><tbody>
+    ${o.items.map(it=>`<tr data-id="${it.id}"><td class="bold">${esc(L(it.nameAr,it.nameEn))}</td><td><input class="in sm mono" data-f="batch" value="${esc(it.batch)}" style="width:150px" ${ro} oninput="markDirty()"></td>
+      <td><input class="in sm" type="date" data-f="prodDate" value="${esc(it.prodDate)}" ${dis} onchange="prodDateChanged(this)"></td><td><input class="in sm" type="date" data-f="expDate" value="${esc(it.expDate)}" ${dis} onchange="markDirty()"></td></tr>`).join('')}</tbody></table></div>
+    <div class="grid g3 mt" id="pr-f2">${fld(t('prod_start'),'startedAt',pr.startedAt,{type:'date',ro:!ed})}${fld(t('prod_end'),'finishedAt',pr.finishedAt,{type:'date',ro:!ed})}${fld(t('prod_notes'),'notes',pr.notes,{ro:!ed})}</div>
     ${ed?`<div class="row mt"><button class="btn btn-p" id="od-save" onclick="saveProduction()">${IC.check} ${t('save')}</button></div>`:''}</div>`;
-  $('pr-f').addEventListener('input',markDirty);
+  $('pr-f').addEventListener('input',markDirty); $('pr-f2').addEventListener('input',markDirty);
+  prCalc();
+}
+function prUnit(u){ OD.o.production.unit=u; document.querySelectorAll('#pr-unit button').forEach((b,i)=>b.setAttribute('aria-pressed',['kg','ton','both'][i]===u)); markDirty(); prCalc(); }
+function prCalc(){
+  collectProd(); const o=OD.o, unit=o.production.unit||'kg'; let tQ=0,tG=0,tS=0,sRows=0;
+  $('pr-th-prod').textContent = 'الإنتاج ('+({kg:'كجم',ton:'طن',both:'كجم/طن'})[unit]+')';
+  document.querySelectorAll('#pr-tbl tbody tr[data-id]').forEach(tr=>{ const it=o.items.find(x=>x.id===tr.dataset.id); if(!it) return; const r=poRow(it);
+    tQ+=r.q; tG+=r.grams; tS+=r.stk; if(it.stickers) sRows++;
+    tr.querySelector('[data-c=prod]').innerHTML=poW(r.grams,unit);
+    tr.querySelector('[data-c=stkL]').textContent= it.stickers?t('with_sticker'):t('no_sticker');
+    const st=tr.querySelector('[data-c=stk]'); st.textContent= it.stickers?fx(r.stk,0):'—'; st.classList.toggle('dim',!it.stickers); });
+  $('pr-tq').textContent=fx(tQ,0); $('pr-tp').innerHTML=poW(tG,unit); $('pr-ts').innerHTML=`${fx(tS,0)}<div class="tiny muted">${sRows?sRows+' أصناف':'—'}</div>`;
+  $('pr-tiles').innerHTML = poTiles(o.items, unit);
 }
 function prodDateChanged(el){ const tr=el.closest('tr'); const it=OD.o.items.find(x=>x.id===tr.dataset.id); const exp=tr.querySelector('[data-f=expDate]'); if(el.value && it.shelfLifeMonths && !exp.value) exp.value=addMonths(el.value,it.shelfLifeMonths); markDirty(); }
-function collectProd(){ document.querySelectorAll('#pr-tbl tbody tr').forEach(tr=>{ const it=OD.o.items.find(x=>x.id===tr.dataset.id); if(!it) return; tr.querySelectorAll('[data-f]').forEach(el=>{ it[el.dataset.f]= el.type==='checkbox'?el.checked:el.value.trim(); }); }); }
-function autoBatches(){ collectProd(); const d=todayISO(); OD.o.items.forEach((it,i)=>{ if(!it.prodDate) it.prodDate=d; if(!it.batch) it.batch=`${it.prodDate.replace(/-/g,'').slice(2)}-${(it.code||'IT').replace(/[^A-Za-z0-9]/g,'').slice(0,6).toUpperCase()}-${pad(i+1,2)}`; if(!it.expDate && it.shelfLifeMonths) it.expDate=addMonths(it.prodDate,it.shelfLifeMonths); }); tabProduction(); markDirty(); }
-async function saveProduction(){ collectProd(); const f=readForm($('pr-f')); try{ await saveOrder({items:OD.o.items, production:{...OD.o.production,...f}}, t('h_production')); toast(t('saved'),'ok'); renderOrder(); }catch(e){ errToast(e); } }
+function collectProd(){ document.querySelectorAll('#pr-tbl tbody tr[data-id], #pb-tbl tbody tr[data-id]').forEach(tr=>{ const it=OD.o.items.find(x=>x.id===tr.dataset.id); if(!it) return;
+  tr.querySelectorAll('[data-f]').forEach(el=>{ it[el.dataset.f]= el.type==='checkbox'?el.checked : el.type==='number'? (el.value===''?'':n(el.value)) : el.value.trim(); }); }); }
+function autoBatches(){ collectProd(); const d=todayISO(); OD.o.items.forEach((it,i)=>{ if(!it.prodDate) it.prodDate=d; if(!it.batch) it.batch=`${it.prodDate.replace(/-/g,'').slice(2)}-${(it.code||'IT').replace(/[^A-Za-z0-9]/g,'').slice(0,6).toUpperCase()}-${pad(i+1,2)}`; if(!it.expDate && it.shelfLifeMonths) it.expDate=addMonths(it.prodDate,it.shelfLifeMonths); });
+  const keep={...readForm($('pr-f')),...readForm($('pr-f2'))}; Object.assign(OD.o.production,{orderDate:keep.orderDate,expiry:keep.expiry,startedAt:keep.startedAt,finishedAt:keep.finishedAt,notes:keep.notes}); OD.o.deliveryDate=keep.deliveryDate; OD.o.loadingDate=keep.loadingDate;
+  tabProduction(); markDirty(); }
+async function saveProduction(){ collectProd(); const f={...readForm($('pr-f')),...readForm($('pr-f2'))};
+  const production={...OD.o.production, orderDate:f.orderDate, expiry:f.expiry, startedAt:f.startedAt, finishedAt:f.finishedAt, notes:f.notes, unit:OD.o.production.unit||'kg'};
+  try{ await saveOrder({items:OD.o.items, production, deliveryDate:f.deliveryDate, loadingDate:f.loadingDate}, t('h_production')); toast(t('saved'),'ok'); renderOrder(); }catch(e){ errToast(e); } }
 
 /* ----- tab: shipping ----- */
 function tabShipping(){
@@ -1699,7 +1821,8 @@ function printMenu(btn){
     <button class="btn btn-o" onclick="closeModal();printDoc('quote')">${IC.file} ${t('doc_quote')}</button>
     <button class="btn btn-o" onclick="closeModal();printDoc('pi')">${IC.file} ${t('doc_pi')}</button>
     <button class="btn btn-o" onclick="closeModal();printProduction()">${IC.factory} ${t('print_prod_order')}</button>
-    <button class="btn btn-o" onclick="closeModal();printDoc('ci')">${IC.file} ${t('doc_ci')}</button>
+    <button class="btn btn-o" onclick="closeModal();printDoc('inv')">${IC.file} ${t('doc_invoice')}</button>
+    <button class="btn btn-o" onclick="closeModal();printDoc('ci')">${IC.file} ${t('doc_ci_customs')}</button>
     <button class="btn btn-o" onclick="closeModal();printDoc('pl')">${IC.box} ${t('doc_pl')}</button>
     <button class="btn btn-o" onclick="closeModal();printHealthReq()">${IC.heart} ${t('req_doc_print')}</button></div>`});
 }
@@ -1831,6 +1954,7 @@ function printDoc(kind){
   const o=OD.o;
   if(kind==='ci') return printCI(o);
   if(kind==='pl') return printPL(o);
+  if(['pi','quote','inv'].includes(kind)) return printInvoice(kind);
   const s=S.settings, c=orderCalc(o), cur=o.currency||'USD', isPI = kind==='pi';
   const dt = deliveryText(o);
   const rows = c.items.map(({it,c:x},i)=>`<tr><td>${i+1}</td><td class="l"><b>${esc(it.nameEn||it.nameAr)}</b><div style="font-size:9px;color:#555;direction:rtl;text-align:right">${esc(it.nameAr)}</div>${D.flav(it)}${it.onDiscount&&n(o.discountPct)?`<span class="d-flav" style="border-color:#f87171;color:#b91c1c;background:#fef2f2">−${n(o.discountPct)}% / خصم</span>`:''}</td>
@@ -1893,26 +2017,6 @@ function printPL(o){
   openPrint(`Packing List ${o.number}`, [page]);
 }
 
-/* ---------- production order ---------- */
-function printProduction(){
-  const o=OD.o, c=orderCalc(o);
-  const byLine={}; c.items.forEach(({it,c:x})=>{ const k=it.line||'—'; byLine[k]=byLine[k]||{cartons:0,kg:0}; byLine[k].cartons+=x.cartons; byLine[k].kg+=x.netKg; });
-  const tot=sum(Object.values(byLine),x=>x.kg)||1;
-  const page = `<div dir="rtl" style="font-family:'Cairo',Arial,sans-serif">
-    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #ffb607;padding-bottom:8px">
-      <div><div style="font-size:20px;font-weight:800;color:#2d2a76">أمر إنتاج</div><div style="font-size:10px;color:#666">Production Order — ${esc(o.number)}</div></div>
-      <img src="${LOGO}" style="height:46px"></div>
-    <div class="d-grid" style="grid-template-columns:repeat(5,1fr);margin-top:8px;border-top:1px solid #e3e4ec">
-      ${[['رقم الأوردر',`<span class="mono">${esc(o.number)}</span>`],['العميل',esc(custName(o))],['البلد',esc((o.customer||{}).country)],['السيلز',esc(o.salesRep)],['تاريخ الأمر',fmtDate(o.production.startedAt||todayISO())],
-         ['تاريخ التحميل',fmtDate(o.loadingDate)],['تاريخ التسليم',fmtDate(o.deliveryDate)],['شرط التسليم',esc(o.incoterm)],['ميناء الوصول',esc(o.dischargePoint)],['ملاحظات',esc(o.production.notes||'')]].map(([l,v])=>`<div><div class="l">${l}</div><div class="v">${v||'—'}</div></div>`).join('')}</div>
-    <table class="d-tbl" style="margin-top:8px"><thead><tr><th>#</th><th>الصنف</th><th>النكهات</th><th>العبوة</th><th>الجرام</th><th>وحدات/كرتونة</th><th>الكراتين</th><th>الإنتاج (كجم)</th><th>الاستيكر</th><th>التعبئة</th><th>خط الإنتاج</th><th>التشغيلة</th><th>ملاحظات</th></tr></thead>
-    <tbody>${c.items.map(({it,c:x},i)=>`<tr><td>${i+1}</td><td class="l"><b>${esc(it.nameAr)}</b><div style="font-size:9px;color:#666">${esc(it.nameEn)}</div></td><td>${esc((it.flavours||[]).join('، '))}</td><td>${esc(it.packSize)}</td><td>${fmt(it.netWeightG,1)}</td><td>${fmt(it.unitsPerCarton)}</td><td><b>${fmt(x.cartons)}</b></td><td>${fmt(x.netKg,1)}</td><td>${it.stickers?fmt(x.units):'—'}</td><td>${t('pk_'+(it.packType||'plastic'))}</td><td>${esc(it.line||'')}</td><td class="mono">${esc(it.batch||'')}</td><td>${esc(it.notes||'')}</td></tr>`).join('')}
-    <tr class="tot"><td colspan="6">الإجمالي</td><td>${fmt(c.cartons)}</td><td>${fmt(c.netKg,1)}</td><td colspan="5"></td></tr></tbody></table>
-    <table class="d-tbl" style="margin-top:8px;width:60%"><thead><tr><th>خط الإنتاج</th><th>الكراتين</th><th>الإنتاج (كجم)</th><th>النسبة</th></tr></thead><tbody>${Object.entries(byLine).map(([k,v])=>`<tr><td>${esc(k)}</td><td>${fmt(v.cartons)}</td><td>${fmt(v.kg,1)}</td><td>${fmt(v.kg/tot*100)}%</td></tr>`).join('')}</tbody></table>
-    <div class="d-sign"><div>السيلز</div><div>مسئول الإنتاج</div><div>مدير المصنع</div></div></div>`;
-  openPrint(`أمر إنتاج ${o.number}`, [page], {land:true});
-}
-
 /* ---------- health certificate request ---------- */
 function healthReqInner(o, forWord){
   const s=S.settings, c=orderCalc(o), sh=o.shipment||{}; const country=(countryOf(o,S.cache.countries)||{}).nameAr || (o.customer||{}).country || '';
@@ -1962,6 +2066,139 @@ function amountWords(v, cur='USD'){
   const s = words(whole)+' '+names[0]+(frac? ' and '+words(frac)+' '+names[1] : '')+' only';
   return s.charAt(0).toUpperCase()+s.slice(1);
 }
+
+/* ============ documents that copy the company's existing layouts exactly ============ */
+const fx = (v,d=2) => n(v).toLocaleString('en-US',{maximumFractionDigits:d});
+const PO_PAL = ["#2f6fed","#12805c","#d14343","#8b5cf6","#e08b0a","#0e9aa7","#c2410c"];
+const lineColor = nm => { if(nm===PASTA_LINE) return '#b45309'; const i=(S.settings.lines||[]).indexOf(nm); return i>-1 ? PO_PAL[i%PO_PAL.length] : '#ccd1d8'; };
+const poGS = it => (n(it.pieceG) && n(it.piecesPerPack)) ? [n(it.pieceG), n(it.piecesPerPack)] : [n(it.netWeightG), 1];
+function poRow(it){ const [g,s]=poGS(it), u=n(it.unitsPerCarton), q=n(it.cartons), pcs=u*q; return {g,s,u,q,pcs,grams:g*s*pcs,stk:it.stickers?pcs:0}; }
+const poW = (grams,unit) => unit==='ton' ? fx(grams/1e6,3) : unit==='both' ? `${fx(grams/1000,2)}<small>${fx(grams/1e6,3)} طن</small>` : fx(grams/1000,2);
+const poUn = unit => unit==='ton' ? 'طن' : 'كجم';
+function defaultExpiry(o){ const m=Math.max(0,...(o.items||[]).map(it=>n(it.shelfLifeMonths))); return !m?'' : m<=12?'1y' : m<=18?'1.5y' : '2y'; }
+const expiryLabel = v => (EXPIRY_OPTS.find(x=>x[0]===v)||['',''])[1];
+const packLabel = k => k && k!=='none' && PACK_TYPES.includes(k) ? t('pk_'+k) : '—';
+
+/* tiles: per production line + order totals (same as the production order page) */
+function poTiles(items, unit){
+  const L={}; let tG=0,tQ=0,tS=0,cnt=0;
+  items.forEach(it=>{ const r=poRow(it); const k=it.line||'—'; L[k]=(L[k]||0)+r.grams; tG+=r.grams; tQ+=r.q; tS+=r.stk; if(r.pcs>0) cnt++; });
+  const sRows=items.filter(it=>it.stickers).length;
+  const shown=Object.entries(L).filter(([,v])=>v>0); const max=Math.max(1,...shown.map(([,v])=>v));
+  return `<div class="po-sec"><h3>خطوط الإنتاج</h3><div class="po-grid">${shown.length? shown.map(([k,v])=>`<div class="po-tile" style="--tc:${lineColor(k)}"><div class="t"><i style="background:${lineColor(k)}"></i>${esc(k)}</div><div class="v">${unit==='ton'?fx(v/1e6,3):fx(v/1000,2)}</div><div class="u">${poUn(unit)} · ${fx(v/tG*100,1)}% من الأوردر</div><div class="bar"><i style="width:${v/max*100}%;background:${lineColor(k)}"></i></div></div>`).join('')
+      : `<div class="po-tile empty"><div class="t">لسه مفيش إنتاج</div><div class="v">—</div><div class="u">املا الجدول فوق</div></div>`}</div></div>
+    <div class="po-sec"><h3>إجمالي الأوردر</h3><div class="po-grid">
+      <div class="po-tile hero"><div class="t">إجمالي الإنتاج</div><div class="v">${unit==='ton'?fx(tG/1e6,3):fx(tG/1000,2)}</div><div class="u">${poUn(unit)}</div></div>
+      <div class="po-tile" style="--tc:#3462e8"><div class="t"><i style="background:#3462e8"></i>الكراتين</div><div class="v">${fx(tQ,0)}</div><div class="u">كرتونة</div></div>
+      <div class="po-tile" style="--tc:#c9790a"><div class="t"><i style="background:#c9790a"></i>الاستيكر</div><div class="v">${fx(tS,0)}</div><div class="u">${sRows?`استيكر · ${sRows} صنف`:'مفيش أصناف بستيكر'}</div></div>
+      <div class="po-tile" style="--tc:#7c5cd6"><div class="t"><i style="background:#7c5cd6"></i>الأصناف</div><div class="v">${cnt}</div><div class="u">صنف</div></div></div></div>`;
+}
+const poMeta = pairs => `<div class="po-meta">${pairs.map(([l,v])=>`<div><label>${l}</label><b>${v?esc(v):'................'}</b></div>`).join('')}</div>`;
+const poSign = `<div class="po-sign"><div>السيلز</div><div>مسئول الإنتاج</div><div>مدير المصنع</div></div>`;
+const d8 = s => s ? new Date(String(s).slice(0,10)+'T00:00:00').toLocaleDateString('en-GB') : '';
+
+/* ---------- production order (sweets / gum / lollipops) ---------- */
+function poMainDoc(o, items){
+  const pr=o.production||{}, unit=pr.unit||'kg';
+  let tG=0,tS=0,sRows=0;
+  const rows = items.map((it,i)=>{ const r=poRow(it); tG+=r.grams; tS+=r.stk; if(it.stickers) sRows++;
+    return `<tr><td class="no">${i+1}</td><td class="desc">${esc(it.nameAr||it.nameEn)}</td><td>${r.g||''}</td><td>${r.s||''}</td><td>${r.u||''}</td><td>${r.q||''}</td>
+      <td class="calc g-out">${poW(r.grams,unit)}</td>
+      <td class="stk"><span>${it.stickers?'☑ بستيكر':'☐  بدون'}</span><span class="stkT ${it.stickers?'':'dim'}">${it.stickers?fx(r.stk,0):'—'}</span></td>
+      <td>${packLabel(it.packType)}</td><td class="line"><i style="background:${lineColor(it.line)}"></i>${esc(it.line||'')}</td><td class="notes">${esc(it.notes||'')}</td></tr>`; }).join('');
+  return `<div class="po">
+    ${poMeta([['اسم العميل',custName(o)],['البلد',(o.customer||{}).country],['اسم السيلز',o.salesRep],['التاريخ',d8(pr.orderDate||pr.startedAt||todayISO())],['رقم الأوردر',o.number],['تاريخ التسليم',d8(o.deliveryDate)],['تاريخ التحميل',d8(o.loadingDate)],['تاريخ الصلاحية',expiryLabel(pr.expiry??defaultExpiry(o))]])}
+    <table class="po-t"><thead>
+      <tr class="band"><th></th><th colspan="5" class="b-in"><span>بيانات المنتج</span></th><th class="b-out"><span>الناتج</span></th><th colspan="2" class="b-stk"><span>الاستيكر والتعبئة</span></th><th colspan="2" class="b-line"><span>التصنيف والملاحظات</span></th></tr>
+      <tr><th style="width:22px"></th><th class="g-in" style="width:152px;text-align:right;padding-inline-start:5px">المنتج</th><th class="g-in">جرام</th><th class="g-in">حجم العبوة</th><th class="g-in">وحدات</th><th class="g-in">كراتين</th>
+        <th class="g-out">الإنتاج (${({kg:'كجم',ton:'طن',both:'كجم/طن'})[unit]})</th><th class="g-stk" style="width:100px">استيكر</th><th class="g-stk" style="width:90px">التعبئة</th><th class="g-line" style="width:100px">خط الإنتاج</th><th class="g-line">ملاحظات</th></tr></thead>
+      <tbody>${rows}</tbody>
+      <tfoot><tr><td colspan="6" class="flbl" style="text-align:right;padding-inline-start:12px">الإجمالي</td><td class="g-out">${poW(tG,unit)}</td><td class="g-stk">${fx(tS,0)}<small>${sRows?sRows+' أصناف':'—'}</small></td><td colspan="3"></td></tr></tfoot></table>
+    ${poTiles(items,unit)}${poSign}</div>`;
+}
+
+/* ---------- pasta production order ---------- */
+function poPastaDoc(o, items){
+  const pr=o.production||{}; let tKg=0,tC=0,tPcs=0,cnt=0;
+  const rows = items.map((it,i)=>{ const s=unitGrams(it), u=n(it.unitsPerCarton), q=n(it.cartons), pcs=u*q, kg=s*pcs/1000; tKg+=kg; tC+=q; tPcs+=pcs; if(kg>0) cnt++;
+    return `<tr><td class="no">${i+1}</td><td class="desc">${esc(it.nameAr||it.nameEn)}</td><td>${s||''}</td><td>${u||''}</td><td>${q||''}</td><td class="calc g-out">${kg>0?`${fx(kg,2)}<small>${fx(kg/1000,3)} طن</small>`:'0'}</td><td class="pline">${PASTA_LINE}</td><td class="notes">${esc(it.notes||'')}</td></tr>`; }).join('');
+  return `<div class="po">
+    ${poMeta([['رقم الأمر',o.number],['التاريخ',d8(pr.orderDate||pr.startedAt||todayISO())],['اسم العميل',custName(o)],['تاريخ التسليم',d8(o.deliveryDate)]])}
+    <table class="po-t"><thead><tr><th style="width:22px"></th><th class="g-in" style="width:190px;text-align:right;padding-inline-start:5px">الصنف</th><th class="g-in">حجم العبوة (جم)</th><th class="g-in">وحدات / كرتونة</th><th class="g-in">كراتين</th><th class="g-out">الإنتاج (كجم)</th><th class="g-pl">خط الإنتاج</th><th class="g-line">ملاحظات</th></tr></thead>
+      <tbody>${rows}</tbody>
+      <tfoot><tr><td colspan="4" class="flbl" style="text-align:right;padding-inline-start:12px">الإجمالي</td><td>${fx(tC,0)}<small>كرتونة</small></td><td class="g-out">${fx(tKg,2)}<small>${fx(tKg/1000,3)} طن</small></td><td colspan="2"></td></tr></tfoot></table>
+    <div class="po-sec"><h3>إجمالي أمر المكرونة</h3><div class="po-grid">
+      <div class="po-tile hero"><div class="t">المفروض تنتج</div><div class="v">${fx(tKg,2)}</div><div class="u">كجم · ${fx(tKg/1000,3)} طن</div></div>
+      <div class="po-tile" style="--tc:#3462e8"><div class="t"><i style="background:#3462e8"></i>الكراتين</div><div class="v">${fx(tC,0)}</div><div class="u">كرتونة</div></div>
+      <div class="po-tile" style="--tc:#b45309"><div class="t"><i style="background:#b45309"></i>العبوات</div><div class="v">${fx(tPcs,0)}</div><div class="u">عبوة</div></div>
+      <div class="po-tile" style="--tc:#7c5cd6"><div class="t"><i style="background:#7c5cd6"></i>الأصناف</div><div class="v">${cnt}</div><div class="u">صنف</div></div></div></div>
+    ${poSign}</div>`;
+}
+function printProduction(){
+  if(OD && $('pr-tbl')) collectProd();
+  const o=OD.o; const main=o.items.filter(it=>it.line!==PASTA_LINE), pasta=o.items.filter(it=>it.line===PASTA_LINE);
+  const pages=[]; if(main.length || !pasta.length) pages.push(poMainDoc(o,main)); if(pasta.length) pages.push(poPastaDoc(o,pasta));
+  openPrint(`أمر إنتاج ${o.number}`, pages, {land:true});
+}
+
+/* ---------- invoice / PI / quotation — same layout as the invoice generator ---------- */
+function invoiceDoc(o, kind){
+  const s=S.settings, c=orderCalc(o), cur=o.currency||'USD', dp=n(o.depositPct??50);
+  const title = {inv:'فاتورة تجارية — COMMERCIAL INVOICE', pi:'فاتورة مبدئية — PROFORMA INVOICE', quote:'عرض سعر — QUOTATION'}[kind];
+  const noLbl = {inv:'Invoice No:', pi:'Proforma No:', quote:'Quotation No:'}[kind];
+  const dtLbl = {inv:'Invoice Date:', pi:'Proforma Date:', quote:'Quotation Date:'}[kind];
+  const no = kind==='inv' ? (o.invoiceNo||o.piNumber||o.number) : kind==='pi' ? (o.piNumber||'PI-'+o.number) : 'Q-'+o.number;
+  const dt = kind==='inv' ? (o.invoiceDate||todayISO()) : kind==='pi' ? (o.piDate||todayISO()) : todayISO();
+  const fd = new Date(dt+'T00:00:00').toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+  const dt2 = deliveryText(o); const vd = n(o.validityDays)||14;
+  const lbl = 'font-size:9px;font-weight:700;color:#2d2a76;text-transform:uppercase;margin-bottom:2px';
+  const cell = (l,v,big) => `<div style="padding:8px 11px"><div style="${lbl}">${l}</div><div style="font-size:${big?12:11}px;font-weight:${big?700:600};color:#111">${v?esc(v):'—'}</div></div>`;
+  const cu = o.customer||{};
+  const rows = c.items.map(({it,c:x},i)=>{
+    const flav = (it.flavours||[]).length ? `<div style="margin-top:4px;line-height:1.8"><span style="font-size:9px;color:#555;font-style:italic">Flavours: </span>${it.flavours.map(f=>`<span style="display:inline-block;background:#f0eeff;border:1px solid #2d2a76;color:#2d2a76;font-size:9px;font-weight:700;padding:1px 7px;border-radius:20px;margin:1px 2px">${esc(f)}</span>`).join('')}</div>` : '';
+    const disc = (it.onDiscount && n(o.discountPct)>0) ? `<span style="display:inline-block;margin-top:4px;background:#fef2f2;border:1px solid #f87171;color:#b91c1c;font-size:9px;font-weight:700;padding:1px 7px;border-radius:20px">−${n(o.discountPct)}% / خصم</span>` : '';
+    return `<tr style="background:${i%2?'#f0f4ff':'#ffffff'}"><td>${i+1}</td><td><div style="font-weight:700">${esc(it.nameEn||it.nameAr)||'—'}</div>${flav}${disc}</td><td>${esc(it.packSize)||'—'}</td><td>${it.unitsPerCarton||'—'}</td><td>${x.cartons||'—'}</td><td>${x.price>0?money(x.price,cur):'—'}</td><td>${x.line>0?money(x.line,cur):'—'}</td></tr>`; }).join('');
+  const discRow = c.disc>0 ? `<tr><td colspan="6" style="text-align:right;font-weight:700;color:#b91c1c;background:#fef2f2">Discount (${n(o.discountPct)}%) on marked items / خصم على المنتجات المحددة</td><td style="color:#b91c1c;font-weight:700;background:#fef2f2;text-align:center">−${money(c.disc,cur)}</td></tr>` : '';
+  const sm = 'font-weight:500;opacity:.8;font-size:8.5px';
+  const tl = 'color:#ffb607;font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px';
+  const tp = 'font-size:9.5px;color:rgba(255,255,255,.85);line-height:1.8;margin:0 0 7px';
+  const br = t => esc(t).replace(/\n/g,'<br>');
+  const bk = (l,v,mono,extra='') => `<div style="padding:8px 14px;${extra}"><div style="${lbl}">${l}</div><div style="font-size:11.5px;font-weight:600;color:#111;${mono?'font-family:monospace':''}">${esc(v)}</div></div>`;
+  return `<div class="inv">
+  <div style="background:#fff;border-bottom:1px solid #e5e7eb;display:grid;grid-template-columns:1fr auto">
+    <div style="padding:10px 14px;border-right:1px solid #e5e7eb;font-size:10px;color:#374151;line-height:1.9"><b style="color:#2d2a76">Address:</b> ${esc(s.address)}<br><b style="color:#2d2a76">Website:</b> ${esc(s.website)} &nbsp; <b style="color:#2d2a76">E-Mail:</b> ${esc(s.email)}</div>
+    <div style="padding:10px 14px;display:flex;flex-direction:column;gap:5px;justify-content:center;min-width:195px">
+      <div style="display:flex;justify-content:space-between;gap:14px"><span style="font-size:9.5px;font-weight:700;color:#2d2a76;text-transform:uppercase">${noLbl}</span><span style="font-size:12px;font-weight:800;font-family:monospace;color:#1e3a8a">${esc(no)}</span></div>
+      <div style="display:flex;justify-content:space-between;gap:14px"><span style="font-size:9.5px;font-weight:700;color:#2d2a76;text-transform:uppercase">${dtLbl}</span><span style="font-size:12px;font-weight:700;color:#111">${fd}</span></div></div></div>
+  <div style="background:linear-gradient(135deg,#2d2a76,#3d3a96);padding:14px 20px;display:flex;justify-content:space-between;align-items:center">
+    <div style="display:flex;align-items:center;gap:14px"><img src="${LOGO_W}" style="width:140px;display:block">
+      <div><div style="color:#fff;font-size:13px;font-weight:800">Egyptian Gulf International</div><div style="color:rgba(255,255,255,.8);font-size:9.5px">For Snacks &amp; Food Industries</div><div style="color:rgba(255,255,255,.5);font-size:8.5px;margin-top:1px">الشركة المصرية الخليجية الدولية للصناعات والأغذية الخفيفة</div></div></div>
+    <div style="text-align:right"><div style="color:#ffb607;font-size:12px;font-weight:800">Egyptian Gulf International</div><div style="color:rgba(255,255,255,.85);font-size:10px;font-weight:600">For Snacks &amp; Food Industries</div><div style="color:rgba(255,255,255,.5);font-size:9px;margin-top:2px;direction:rtl">للصناعات و الأغذية الخفيفة</div></div></div>
+  <div style="background:#2d2a76;color:#ffb607;font-size:13px;font-weight:800;text-align:center;padding:8px;letter-spacing:2px;text-transform:uppercase;border-bottom:3px solid #ffb607">${title}</div>
+  <div style="border:1px solid #e5e7eb;border-top:none">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid #e5e7eb" class="inv-cg">${cell('Website:',cu.website)}${cell('Country / البلد:',cu.country)}${cell('Phone / الموبايل:',cu.phone)}</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr" class="inv-cg">${cell('Company Name / اسم الشركة:',cu.company,1)}${cell('Address / العنوان:',cu.address)}${cell('Email / الإيميل:',cu.email)}</div></div>
+  <table class="inv-table"><thead><tr><th style="width:34px">NO</th><th style="text-align:left">Product Description<br><span style="${sm}">وصف المنتج</span></th><th>Pack Size<br><span style="${sm}">حجم العبوة</span></th><th>Units/Carton<br><span style="${sm}">عدد الوحدات</span></th><th>Qty (Cartons)<br><span style="${sm}">الكمية</span></th><th>Unit Price (${cur})<br><span style="${sm}">سعر الوحدة</span></th><th>Total Value (${cur})<br><span style="${sm}">الإجمالي</span></th></tr></thead>
+    <tbody>${rows}${discRow}<tr class="inv-total-row"><td colspan="4" style="text-align:right;font-size:11px">Total Quantity (Cartons) / إجمالي الكمية</td><td style="font-size:13px">${fx(c.cartons,0)} cartons</td><td style="text-align:right;font-size:11px">TOTAL VALUE (${cur})</td><td style="font-size:14px">${money(c.total,cur)}</td></tr></tbody></table>
+  <div style="display:grid;grid-template-columns:1fr 1fr;border:1px solid #e5e7eb;border-top:none">
+    <div style="padding:8px 13px;border-right:1px solid #e5e7eb;font-size:12px;color:#111"><b style="color:#2d2a76">Loading Point / نقطة الشحن:–</b> &nbsp;${esc(o.loadingPoint)||'—'}</div>
+    <div style="padding:8px 13px;font-size:12px;color:#111"><b style="color:#2d2a76">Discharge Point / نقطة الوصول:–</b> &nbsp;${esc(o.dischargePoint)||'—'}</div></div>
+  <div style="margin-top:10px;background:#2d2a76">
+    <div style="background:#ffb607;color:#2d2a76;font-weight:800;font-size:11px;letter-spacing:1.3px;text-transform:uppercase;padding:7px 14px;text-align:center">PAYMENT TERMS, DELIVERY &amp; LIABILITY — شروط السداد والتسليم والمسؤولية</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr">
+      <div style="padding:11px 14px;border-right:1px solid rgba(255,255,255,.12)"><div style="${tl}">PAYMENT TERMS</div><p style="${tp}">${br(fillTerms(s.payTermsEn,{depositPct:dp}))}</p><div style="${tl}">DELIVERY &amp; RISK TRANSFER</div><p style="${tp}">${esc(dt2.en)}</p><div style="${tl}">LIMITATION OF LIABILITY</div><p style="${tp};margin:0">${esc(s.liabilityEn)}</p></div>
+      <div style="padding:11px 14px;direction:rtl;text-align:right"><div style="${tl}">شروط السداد</div><p style="${tp}">${br(fillTerms(s.payTermsAr,{depositPct:dp}))}</p><div style="${tl}">التسليم وتحمل المخاطر</div><p style="${tp}">${esc(dt2.ar)}</p><div style="${tl}">تحديد المسؤولية</div><p style="${tp};margin:0">${esc(s.liabilityAr)}</p></div></div></div>
+  <div style="background:#ffb607;padding:6px 14px;font-size:10px;color:#1e3a8a;text-align:center;font-weight:700;margin-top:8px">The quotation / invoice is valid for ${vd===14?'two weeks (14 days)':vd+' days'} from the date of issue — مدة صلاحية عرض السعر أو الفاتورة (${vd} يوماً) من تاريخ الإصدار</div>
+  ${kind==='inv'?`<div style="background:#dcfce7;border:1px solid #86efac;padding:6px 14px;font-size:10px;color:#14532d;text-align:center;font-weight:700;margin-top:4px">This invoice is issued for commercial and customs purposes only — تم إصدار هذه الفاتورة لأغراض تجارية وجمركية فقط</div>`:''}
+  ${o.notes?`<div style="background:#fffbeb;border:1px solid #fcd34d;padding:8px 14px;font-size:11px;color:#78350f;margin-top:4px;border-radius:4px"><b>Notes / ملاحظات:</b> ${esc(o.notes)}</div>`:''}
+  <div style="margin-top:10px"><div style="background:#2d2a76;color:#fff;font-weight:800;font-size:11px;letter-spacing:1.3px;text-transform:uppercase;padding:7px 14px;text-align:center">BANK DETAILS (FOR PAYMENT PURPOSES ONLY)</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;border:1px solid #e5e7eb;border-top:none">
+      ${bk('Bank',s.bank,0,'border-right:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb')}${bk('Beneficiary',s.beneficiary,0,'border-bottom:1px solid #e5e7eb')}
+      ${bk('Account No',s.account,1,'border-right:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb')}${bk(`IBAN (${cur})`,s.iban,1,'border-bottom:1px solid #e5e7eb')}
+      ${bk('SWIFT / BIC',s.swift,1,'grid-column:1/-1')}</div></div>
+  <div style="height:16px"></div></div>`;
+}
+function printInvoice(kind){ const o=OD.o; openPrint(`${({inv:'Invoice',pi:'PI',quote:'Quotation'})[kind]} ${o.number}`, [invoiceDoc(o,kind)]); }
 
 boot();
 </script>
