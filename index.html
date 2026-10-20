@@ -1264,16 +1264,9 @@ const readTags = (root,name) => { const w=root.querySelector(`[data-tags="${name
 /* ---------- demo seed ---------- */
 async function seedDemo(){
   const flag = await DB.get('meta','seeded'); if(flag) return;
-  const P = [ // نفس أصناف أوردر الإنتاج (بيانات تجريبية)
-    {code:'LT-TREE',nameAr:'شجرة لايت',nameEn:'Light Lollipop Tree',category:'candy',line:'لايت مصاص',pieceG:14,piecesPerPack:72,unitsPerCarton:6,packSize:'72 × 14g',cartonL:40,cartonW:28,cartonH:23,cartonGrossKg:6.8,hsCode:'1704.90',shelfLifeMonths:24,flavours:['فراولة','تفاح','مانجو'],packType:'none',active:true,_q:400,_so:true,_n:'1800 قاعده — 11000 حلقه'},
-    {code:'LT-CAR',nameAr:'عربيه لايت',nameEn:'Light Lollipop Car',category:'candy',line:'لايت مصاص',pieceG:14,piecesPerPack:80,unitsPerCarton:8,packSize:'80 × 14g',cartonL:46,cartonW:31,cartonH:26.5,cartonGrossKg:9.6,hsCode:'1704.90',shelfLifeMonths:24,flavours:[],packType:'none',active:true,_q:300,_so:true},
-    {code:'LT-BAG-YR',nameAr:'اكياس لايت اصفر + احمر',nameEn:'Light Lollipop Bags Yellow + Red',category:'candy',line:'لايت مصاص',pieceG:8,piecesPerPack:100,unitsPerCarton:12,packSize:'100 × 8g',cartonL:22,cartonW:33,cartonH:45,cartonGrossKg:10.2,hsCode:'1704.90',shelfLifeMonths:24,flavours:[],packType:'none',active:true,_q:300},
-    {code:'MJ-BOX',nameAr:'موجو علب',nameEn:'Mojo Lollipop Boxes',category:'candy',line:'موجو مصاص',pieceG:14,piecesPerPack:30,unitsPerCarton:24,packSize:'30 × 14g',cartonL:49.5,cartonW:33,cartonH:24,cartonGrossKg:11,hsCode:'1704.90',shelfLifeMonths:24,flavours:[],packType:'box',active:true,_q:200,_so:true},
-    {code:'BB-BOX',nameAr:'بنبون علب',nameEn:'Bonbon Boxes',category:'candy',line:'بونبون',pieceG:3,piecesPerPack:100,unitsPerCarton:10,packSize:'100 × 3g',cartonL:46,cartonW:25,cartonH:18.5,cartonGrossKg:3.6,hsCode:'1704.90',shelfLifeMonths:18,flavours:[],packType:'box',active:true,_q:200},
-    {code:'GUM-JAR',nameAr:'لبان برطمان',nameEn:'Chewing Gum Jar',category:'gum',line:'لبان',pieceG:3,piecesPerPack:250,unitsPerCarton:6,packSize:'250 × 3g',cartonL:37,cartonW:24,cartonH:23.5,cartonGrossKg:5.2,hsCode:'1704.10',shelfLifeMonths:24,flavours:['فراولة','نعناع','موز','تفاح','كولا','مانجو'],packType:'jar',active:true,_q:150,_so:true,_n:'فراوله35 · نعناع35 · موز35 · تفاح20 · كولا15 · مانجو10'},
-    {code:'PS-PEN-400',nameAr:'مكرونة قلم',nameEn:'Penne Pasta',category:'pasta',line:'مكرونة',pieceG:400,piecesPerPack:1,unitsPerCarton:20,packSize:'400g',cartonL:38,cartonW:28,cartonH:22,cartonGrossKg:8.4,hsCode:'1902.19',shelfLifeMonths:24,flavours:[],packType:'none',active:true,_q:100},
-  ];
-  const ids=[]; for(const p of P){ const c={...p}; delete c._q; delete c._so; delete c._n; ids.push(await DB.add('products',c)); }
+  const P = [...catalogProducts(), {code:'PS-PEN-400',nameAr:'مكرونة قلم',nameEn:'Penne Pasta',category:'pasta',line:'مكرونة',pieceG:400,piecesPerPack:1,unitsPerCarton:20,packSize:'400g',cartonL:38,cartonW:28,cartonH:22,cartonGrossKg:8.4,hsCode:'1902.19',flavours:[],packType:'none',active:true,price:7.2}];
+  const DEMO = {'LP-TREE72':[400,true,'1800 قاعده — 11000 حلقه'],'LP-CAR80':[300,true],'LP-BAG100-7':[300,false],'MJ-BOX30':[200,true],'BB-BOX100':[200,false],'HN-JAR250':[150,true,'فراوله35 · نعناع35 · موز35 · تفاح20 · كولا15 · مانجو10'],'PS-PEN-400':[100,false]};
+  const ids=[]; for(const p of P) ids.push(await DB.add('products',p));
   const cust = await DB.add('customers',{company:'Sample Trading Co. (Demo)',country:'Cuba',contactName:'Mr. Demo',email:'buyer@example.com',phone:'+53 000 000',address:'Havana',website:'',defaultIncoterm:'FOB',defaultPort:'Mariel',salesRep:'كريم'});
   const countries = [
     {name:'Saudi Arabia',nameAr:'السعودية',originType:'arab',labelLang:'العربية',requiredDocs:['pi','ci','pl','health','origin','halal','bl'],legalization:false,notes:'شهادة مطابقة لكل شحنة عبر نظام فسح (المستورد) — تسجيل المنتج في SFDA'},
@@ -1291,10 +1284,10 @@ async function seedDemo(){
   const o = {number:`EGF-${String(new Date().getFullYear()).slice(2)}-${pad(seqN)}`, status:'confirmed', customerId:cust, customer:{company:'Sample Trading Co. (Demo)',country:'Cuba',email:'buyer@example.com',phone:'+53 000 000',address:'Havana',website:''},
     currency:'USD', incoterm:'FOB', loadingPoint:'Alexandria Port', dischargePoint:'Mariel, Cuba', depositPct:50, discountPct:0, validityDays:14,
     piNumber:`PI-EGF-${String(new Date().getFullYear()).slice(2)}-${pad(seqN)}`, piDate:todayISO(), loadingDate:addMonths(todayISO(),1), salesRep:'كريم',
-    items: P.map((p,i)=>mkItem(byIdP(p,ids[i]),{cartons:p._q,pricePerCarton:[18,22,12.5,26,9,24,7.2][i],stickers:!!p._so,notes:p._n||''})),
+    items: Object.entries(DEMO).map(([code,[q,st,nt]])=>{ const i=P.findIndex(p=>p.code===code); return mkItem(byIdP(P[i],ids[i]),{cartons:q,stickers:st,notes:nt||''}); }),
     shipment:{mode:'FCL',containerType:'40'}, docs:{}, health:{status:'draft'}, history:[{at:nowISO(),by:'Demo',action:t('h_created')}]};
   const oid = await DB.add('orders',o);
-  await DB.add('payments',{orderId:oid,kind:'deposit',method:'transfer',amount:14435,currency:'USD',date:todayISO(),reference:'SWIFT-DEMO-001',confirmed:true,confirmedBy:'Demo',confirmedAt:nowISO()});
+  await DB.add('payments',{orderId:oid,kind:'deposit',method:'transfer',amount:Math.round(orderCalc(o).total/2*100)/100,currency:'USD',date:todayISO(),reference:'SWIFT-DEMO-001',confirmed:true,confirmedBy:'Demo',confirmedAt:nowISO()});
   await DB.set('meta','seeded',{v:1});
 }
 function byIdP(p,id){ return {...p,id}; }
@@ -1349,7 +1342,7 @@ const CATS = ['candy','gum','snacks','pasta','other'];
 PAGES.products = { perm:'products', async render(){
   await Promise.all([DB.all('products',true), DB.all('tests',true), loadCartons()]);
   $('view').innerHTML = pageHead(`<div class="row wrap">${searchBox('p-q',t('search_products'),'prodList()')}<select class="in" id="p-cat" style="width:160px" onchange="prodList()"><option value="">${t('all_cats')}</option>${CATS.map(c=>`<option value="${c}">${t('cat_'+c)}</option>`).join('')}</select></div>`,
-    can('products.edit')?`<button class="btn btn-p" onclick="prodForm()">${IC.plus} ${t('new_product')}</button>`:'')
+    can('products.edit')?`<button class="btn btn-o" onclick="importCatalog()">${IC.download} استيراد كاتالوج الحلويات (${CATALOG_CANDY.length} صنف)</button><button class="btn btn-p" onclick="prodForm()">${IC.plus} ${t('new_product')}</button>`:'')
     + `<div class="card"><div class="tbl-wrap" id="p-list"></div></div>`;
   prodList();
 }};
@@ -1357,9 +1350,9 @@ function prodList(){
   const q=($('p-q')||{}).value?.toLowerCase()||'', cat=($('p-cat')||{}).value||'';
   const rows=(S.cache.products||[]).filter(p=>(!cat||p.category===cat)&&(!q||[p.code,p.nameAr,p.nameEn,p.hsCode,p.brand].join(' ').toLowerCase().includes(q))).sort((a,b)=>(a.code||'').localeCompare(b.code||''));
   const tb = s => !s ? `<span class="bdg b-bad">${t('missing')}</span>` : `<span class="bdg ${s.s.state==='valid'?'b-ok':s.s.state==='soon'?'b-warn':s.s.state==='expired'?'b-bad':'b-gray'}">${t('ts_'+s.s.state)}</span>`;
-  $('p-list').innerHTML = rows.length? `<table class="tbl"><thead><tr><th>${t('code')}</th><th>${t('product')}</th><th>${t('category')}</th><th>${t('pack')}</th><th>${t('upc')}</th><th>${t('ctn_net_gross')}</th><th>CBM/${t('ctn')}</th><th>HS</th><th>${t('shelf_life')}</th><th>${t('test_cert_s')}</th><th>${t('lab_result_s')}</th><th></th></tr></thead><tbody>
+  $('p-list').innerHTML = rows.length? `<table class="tbl"><thead><tr><th>${t('code')}</th><th>${t('product')}</th><th>${t('category')}</th><th>${t('pack')}</th><th>${t('upc')}</th><th>سعر الكرتونة</th><th>${t('ctn_net_gross')}</th><th>CBM/${t('ctn')}</th><th>HS</th><th>${t('shelf_life')}</th><th>${t('test_cert_s')}</th><th>${t('lab_result_s')}</th><th></th></tr></thead><tbody>
   ${rows.map(p=>{ const c=itemCalc({...p,cartons:1}); const bt=bestTests(p.id,S.cache.tests,S.settings); return `<tr class="${p.active===false?'faint':''}"><td class="mono small nowrap">${esc(p.code)}</td><td><div class="bold">${esc(p.nameAr)}</div><div class="small muted">${esc(p.nameEn)}</div>${(p.flavours||[]).length?`<div class="row wrap" style="gap:3px;margin-top:3px">${p.flavours.map(f=>`<span class="tag">${esc(f)}</span>`).join('')}</div>`:''}</td>
-  <td>${t('cat_'+(p.category||'other'))}</td><td class="num">${esc(p.packSize)}</td><td class="num">${fmt(p.unitsPerCarton)}</td><td class="num">${fmt(c.ctnNet,2)} / ${fmt(c.ctnGross,2)}</td><td class="num">${fmt(c.ctnCbm,4)}</td><td class="mono small">${esc(p.hsCode)}</td><td class="num nowrap">${p.shelfLifeMonths?p.shelfLifeMonths+' '+t('months'):'—'}</td>
+  <td>${t('cat_'+(p.category||'other'))}</td><td class="num nowrap" dir="ltr">${esc(p.packSize)}</td><td class="num">${fmt(p.unitsPerCarton)}</td><td class="num bold nowrap">${p.price!==''&&p.price!=null?money(p.price,p.currency||'USD'):'<span class="faint">—</span>'}</td><td class="num">${fmt(c.ctnNet,2)} / ${fmt(c.ctnGross,2)}</td><td class="num">${fmt(c.ctnCbm,4)}</td><td class="mono small">${esc(p.hsCode)}</td><td class="num nowrap">${p.shelfLifeMonths?p.shelfLifeMonths+' '+t('months'):'—'}</td>
   <td><a href="#/tests/${p.id}">${tb(bt.cert)}</a></td><td><a href="#/tests/${p.id}">${tb(bt.lab)}</a></td>
   <td class="act">${can('products.edit')?`<button class="btn btn-g btn-xs" onclick="prodForm('${p.id}')">${IC.edit}</button>`:''}${S.profile.role==='admin'?`<button class="btn btn-g btn-xs" onclick="prodDel('${p.id}')">${IC.trash}</button>`:''}</td></tr>`}).join('')}</tbody></table>` : emptyBox(t('no_products'), can('products.edit')?`<button class="btn btn-p" onclick="prodForm()">${IC.plus} ${t('new_product')}</button>`:'');
 }
@@ -1377,7 +1370,7 @@ function prodForm(id){
     ${fld(t('ctn_l'),'cartonL',p.cartonL,{type:'number'})}${fld(t('ctn_w'),'cartonW',p.cartonW,{type:'number'})}${fld(t('ctn_h'),'cartonH',p.cartonH,{type:'number'})}
     ${fld(t('ctn_net_kg'),'cartonNetKg',p.cartonNetKg,{type:'number',hint:t('auto_if_empty')})}${fld(t('ctn_gross_kg'),'cartonGrossKg',p.cartonGrossKg,{type:'number'})}<div class="field"><label>${t('calc_preview')}</label><div class="in ro" id="pf-prev" style="display:flex;align-items:center;font-size:12px"></div></div>
     <div class="full sep"></div>
-    ${fld(t('hs_code'),'hsCode',p.hsCode,{ph:'1704.90'})}${fld(t('shelf_life_m'),'shelfLifeMonths',p.shelfLifeMonths,{type:'number'})}${fld(t('pack_type'),'packType',(PACK_TYPES.includes(p.packType)?p.packType:'none'),{opts:PACK_TYPES.map(x=>[x,t('pk_'+x)])})}
+    ${fld('سعر الكرتونة (USD)','price',p.price,{type:'number',ph:'0.00',hint:'بينزل لوحده في الفاتورة لما تختار الصنف'})}${fld(t('hs_code'),'hsCode',p.hsCode,{ph:'1704.90'})}${fld(t('shelf_life_m'),'shelfLifeMonths',p.shelfLifeMonths,{type:'number'})}${fld(t('pack_type'),'packType',(PACK_TYPES.includes(p.packType)?p.packType:'none'),{opts:PACK_TYPES.map(x=>[x,t('pk_'+x)])})}
     ${fld(t('allergens'),'allergens',p.allergens,{cls:'span2',ph:t('allergens_ph')})}${fld(t('active'),'active',p.active!==false,{type:'checkbox'})}
     ${fld(t('ingredients'),'ingredients',p.ingredients,{type:'textarea',cls:'full'})}
     <div class="field full"><label>${t('flavours')}</label>${tagsInput('flavours',p.flavours||[])}</div></div>`,
@@ -1538,11 +1531,73 @@ PAGES.settings = { perm:'admin', async render(){
     try{ await DB.set('settings','company',f); await loadSettings(true); toast(t('saved'),'ok'); }catch(e){ errToast(e); } };
 }};
 
+/* ============================================================================
+   كاتالوج الحلويات بالأسعار (من ملف الكاتالوج PDF) — السعر بالدولار للكرتونة،
+   و«40FT» = عدد الكراتين الفعلي في حاوية 40 قدم زي ما هو مكتوب في الكاتالوج.
+   الجرام = أول رقم في المدى المكتوب (مثلاً 14-15جم ← 14) وتقدر تعدله من المنتجات.
+   ============================================================================ */
+const CATALOG_CANDY = [
+  // code, brand, ar, en, g(range), pieces, units/ctn, L,W,H, price, 40ft, line, pack, cat
+  ['LP-BAG50-14','Light Pop','لايت بوب مصاص كيس 50 قطعة','Light Pop Fruits Lollipop Bag 50 pcs','14-15',50,12,33,26,27,14.60,2864,'لايت مصاص','none','candy'],
+  ['LP-BAG100-7','Light Pop','لايت بوب مصاص كيس 100 قطعة','Light Pop Fruits Lollipop Bag 100 pcs','7-8',100,12,45,33,22,18.80,1964,'لايت مصاص','none','candy'],
+  ['LP-BAG50-19','Light Pop','لايت بوب مصاص كيس 50 قطعة (19-20جم)','Light Pop Fruits Lollipop Bag 50 pcs (19-20g)','19-20',50,12,33,26.5,28.2,18.80,2696,'لايت مصاص','none','candy'],
+  ['LP-BAG50-17','Light Pop','لايت بوب مصاص كيس 50 قطعة (17-18جم)','Light Pop Fruits Lollipop Bag 50 pcs (17-18g)','17-18',50,12,33,22.5,28,18,3127,'لايت مصاص','none','candy'],
+  ['LP-JAR120','Light Pop','لايت بوب مصاص برطمان 120 قطعة','Light Pop Fruits Lollipop Jar 120 pcs','14-15',120,6,40,28,26,19,2268,'لايت مصاص','jar','candy'],
+  ['LP-JAR150','Light Pop','لايت بوب مصاص برطمان 150 قطعة','Light Pop Fruits Lollipop Jar 150 pcs','14-15',150,6,46,31,26.5,24,1730,'لايت مصاص','jar','candy'],
+  ['LP-CAR80','Light Pop','لايت بوب مصاص عربية 80 قطعة','Light Pop Lollipop Car 80 pcs','14-15',80,8,46,31,26.5,18.50,1730,'لايت مصاص','none','candy'],
+  ['LP-TREE72','Light Pop','لايت بوب مصاص شجرة 72 قطعة','Light Pop Lollipop Tree 72 pcs','14-15',72,6,40,28,23,15,2520,'لايت مصاص','none','candy'],
+  ['LP-TREE120','Light Pop','لايت بوب مصاص شجرة 120 قطعة','Light Pop Lollipop Tree 120 pcs','14-15',120,6,44.5,32,28,22.5,1593,'لايت مصاص','none','candy'],
+  ['MJ-BAG50','Mojo','موجو مصاص كيس 50 قطعة','Mojo Bubble Gum Lollipop Bag 50 pcs','14-15',50,12,33,22.5,28,15.60,2779,'موجو مصاص','none','candy'],
+  ['MJ-BOX100','Mojo','موجو مصاص علبة 100 قطعة','Mojo Bubble Gum Lollipop Box 100 pcs','14-15',100,8,49.5,33,24,21.50,1650,'موجو مصاص','box','candy'],
+  ['MJ-BOX30','Mojo','موجو مصاص علبة 30 قطعة','Mojo Bubble Gum Lollipop Box 30 pcs','14-15',30,24,22,28,50,19,2064,'موجو مصاص','box','candy'],
+  ['MJ-JAR120','Mojo','موجو مصاص برطمان 120 قطعة','Mojo Bubble Gum Lollipop Jar 120 pcs','14-15',120,6,40,28,26,20,2268,'موجو مصاص','jar','candy'],
+  ['MJ-JAR150','Mojo','موجو مصاص برطمان 150 قطعة','Mojo Bubble Gum Lollipop Jar 150 pcs','14-15',150,6,46,31,26.5,25,1730,'موجو مصاص','jar','candy'],
+  ['MJ-TREE72','Mojo','موجو مصاص شجرة 72 قطعة','Mojo Lollipop Tree 72 pcs','14-15',72,6,40,28,23,16,2520,'موجو مصاص','none','candy'],
+  ['MJ-TREE120','Mojo','موجو مصاص شجرة 120 قطعة','Mojo Lollipop Tree 120 pcs','14-15',120,6,44.5,32,28,23.5,1593,'موجو مصاص','none','candy'],
+  ['TL-BAG50','Tutti Lolly','توتي لولي كيس 50 قطعة','Tutti Lolly Lollipop Bag 50 pcs','7-8',50,12,35,23,23.5,10.50,3460,'لايت مصاص','none','candy'],
+  ['TL-JAR30','Tutti Lolly','توتي لولي برطمان 30 قطعة','Tutti Lolly Lollipop Jar 30 pcs','7-8',30,12,37,28,17,8,3616,'لايت مصاص','jar','candy'],
+  ['TL-TREE72','Tutti Lolly','توتي لولي شجرة 72 قطعة','Tutti Lolly Lollipop Tree 72 pcs','14-15',72,6,40,28,23,15,2520,'لايت مصاص','none','candy'],
+  ['BB-BAG50','Light Pop','لايت بوب بونبون كيس 50 قطعة','Light Pop Bonbon Bag 50 pcs','3-4',50,24,43,25.5,22.5,11,2628,'بونبون','none','candy'],
+  ['BB-BOX100','Light Pop','لايت بوب بونبون علبة 100 قطعة','Light Pop Bonbon Box 100 pcs','3-4',100,10,46,25,18.5,10,3085,'بونبون','box','candy'],
+  ['BB-JAR250','Light Pop','لايت بوب بونبون برطمان 250 قطعة','Light Pop Bonbon Jar 250 pcs','3-4',250,6,47,24,23.5,14,3160,'بونبون','jar','candy'],
+  ['HN-BOX50','Honey','هاني لبان علبة 50 قطعة','Honey Gum Box 50 pcs','3-4',50,24,28,28,22,15,3648,'لبان','box','gum'],
+  ['HN-BOX100','Honey','هاني لبان علبة 100 قطعة','Honey Gum Box 100 pcs','3-4',100,12,28,28,22,15,3648,'لبان','box','gum'],
+  ['HN-JAR250','Honey','هاني لبان برطمان 250 قطعة','Honey Gum Jar 250 pcs','3-4',250,6,37,24,23.5,15,3160,'لبان','jar','gum'],
+  ['LT-SF-LOL-BAG','Light','لايت مصاص خالي من السكر كيس','Light Sugar Free Mixed Fruit Lollipops Bag','30-35',1,24,33,25,28,'',null,'لايت مصاص','none','candy'],
+  ['LT-SF-BB-BAG','Light','لايت بونبون خالي من السكر كيس','Light Sugar Free Mixed Fruit Bonbon Bag','30-35',1,24,33,25,28,'',null,'بونبون','none','candy'],
+  ['HN-SF-GUM-BAG','Honey','هاني لايت لبان خالي من السكر كيس','Honey Light Sugar Free Mixed Fruit Gum Bag','30-35',1,24,33,25,28,'',null,'لبان','none','gum'],
+  ['LT-SF-LOL-BOX','Light','لايت مصاص خالي من السكر علبة هرم','Light Sugar Free Mixed Fruit Lollipops Pyramid Box','30-35',1,24,33,25,28,'',null,'لايت مصاص','box','candy'],
+  ['LT-SF-BB-BOX','Light','لايت بونبون خالي من السكر علبة هرم','Light Sugar Free Mixed Fruit Bonbon Pyramid Box','30-35',1,24,33,25,28,'',null,'بونبون','box','candy'],
+  ['HN-SF-GUM-BOX','Honey','هاني لايت لبان خالي من السكر علبة هرم','Honey Light Sugar Free Gum Pyramid Box','30-35',1,24,33,25,28,'',null,'لبان','box','gum'],
+  ['TF-BAG90','Light Pop','لايت بوب توفي كيس 90 جم','Light Pop Toffee Bag 90g','90-100',1,24,40,26,18,4.5,3570,'أخرى','none','candy'],
+];
+function catalogProducts(){
+  return CATALOG_CANDY.map(([code,brand,nameAr,nameEn,g,pcs,upc,L,W,H,price,r40,line,packType,category])=>{
+    const g0=n(String(g).split('-')[0]);
+    const packSize = pcs>1 ? `${pcs} pcs × ${g}g` : `${g}g`;
+    return { code, brand, nameAr, nameEn, category, line, packType, pieceG:g0, piecesPerPack:pcs, unitsPerCarton:upc, packSize,
+      cartonL:L, cartonW:W, cartonH:H, price: price===''?'':n(price), currency:'USD', realQty40: r40==null?null:r40,
+      hsCode: category==='gum'?'1704.10':'1704.90', flavours:[], active:true, source:'catalog' };
+  });
+}
+async function importCatalog(){
+  await DB.all('products',true);
+  const cat=catalogProducts(), have=S.cache.products||[];
+  const add=cat.filter(p=>!have.some(x=>x.code===p.code)), upd=cat.filter(p=>have.some(x=>x.code===p.code));
+  if(!await confirmBox(`كاتالوج الحلويات فيه ${cat.length} صنف:\n• ${add.length} صنف جديد هيتضاف\n• ${upd.length} صنف موجود هيتحدّث سعره ومقاس الكرتونة والعدد الفعلي في 40 قدم بس\n\nكمّل؟`)) return;
+  toast(t('uploading'));
+  try{
+    for(const p of add) await DB.add('products',p);
+    for(const p of upd){ const x=have.find(y=>y.code===p.code); await DB.update('products',x.id,{price:p.price,currency:'USD',cartonL:p.cartonL,cartonW:p.cartonW,cartonH:p.cartonH,realQty40:p.realQty40}); }
+    toast(`تم: ${add.length} جديد، ${upd.length} اتحدّث`,'ok'); await DB.all('products',true); prodList();
+  }catch(e){ errToast(e); }
+}
+
 /* ============================== orders ============================== */
 function mkItem(p, extra={}){
   return { id:uid(), productId:p.id||'', code:p.code||'', nameAr:p.nameAr||'', nameEn:p.nameEn||'', packSize:p.packSize||'', netWeightG:n(p.netWeightG), pieceG:n(p.pieceG), piecesPerPack:n(p.piecesPerPack), unitsPerCarton:n(p.unitsPerCarton),
     cartonL:n(p.cartonL), cartonW:n(p.cartonW), cartonH:n(p.cartonH), cartonNetKg:n(p.cartonNetKg), cartonGrossKg:n(p.cartonGrossKg), hsCode:p.hsCode||'', shelfLifeMonths:n(p.shelfLifeMonths), real20:p.realQty20??null, real40:p.realQty40??null,
-    line:p.line||'', packType:PACK_TYPES.includes(p.packType)?p.packType:'none', flavours:[...(p.flavours||[])], cartons:'', pricePerCarton:'', onDiscount:false, stickers:false, notes:'', batch:'', prodDate:'', expDate:'', loadedCartons:'', ...extra };
+    line:p.line||'', packType:PACK_TYPES.includes(p.packType)?p.packType:'none', flavours:[...(p.flavours||[])], cartons:'', pricePerCarton:(p.price!==''&&p.price!=null)?n(p.price):'', onDiscount:false, stickers:false, notes:'', batch:'', prodDate:'', expDate:'', loadedCartons:'', ...extra };
 }
 const pad = (v,l=4) => String(v).padStart(l,'0');
 
@@ -2353,7 +2408,7 @@ function tabInvoice(){
           <div class="ig-g2">${fi('c.email','Email',cu.email,{ph:'client@company.com'})}${fi('c.phone','Phone',cu.phone,{ph:'+49...'})}</div>
           <div class="ig-g2">${fi('c.address','Address / العنوان',cu.address,{ph:'Street, City, ZIP'})}${fi('c.website','Website',cu.website,{ph:'www.client.com'})}</div></div>
         <div class="ig-card"><div class="ig-rowh"><div class="ig-sec" style="margin:0">Line Items</div>${ed?`<button class="ig-btn ig-outline ig-sm" onclick="igAddRow()">+ Add Row</button>`:''}</div>
-          ${ed?`<select class="ig-fi" id="ig-prod" style="margin-bottom:12px"><option value="">+ Add from products / ضيف من المنتجات…</option>${prods.map(p=>`<option value="${p.id}">${esc(p.nameEn||p.nameAr)} — ${esc(p.nameAr||'')} (${esc(p.packSize||'')})</option>`).join('')}</select>`:''}
+          ${ed?`<select class="ig-fi" id="ig-prod" style="margin-bottom:12px"><option value="">+ Add from products / ضيف من المنتجات…</option>${prods.map(p=>`<option value="${p.id}">${esc(p.nameEn||p.nameAr)} — ${esc(p.nameAr||'')} (${esc(p.packSize||'')})${p.price?' · $'+p.price:''}</option>`).join('')}</select>`:''}
           <div class="ig-hdr"><span>Product / Flavours</span><span>Pack</span><span>U/Ctn</span><span>Qty</span><span>Price</span><span></span></div>
           <div id="ig-items"></div>
           <div class="ig-g2" style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)">${fi('notes','Notes',o.notes,{ph:'Special packing, LC…'})}${fi('discountPct','Discount %',n(o.discountPct),{type:'number'})}</div>
