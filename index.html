@@ -565,6 +565,31 @@ table.d-tbl{width:100%;border-collapse:collapse;margin-top:0}
 @media (max-width:760px){.cb .input-row,.cb .edit-grid{grid-template-columns:1fr 1fr}.cb .input-row>div:first-child{grid-column:1/-1}.cb .summary{grid-template-columns:1fr}}
 .cb input.qty-input,.cb input.ship-qty{width:80px;padding:6px 8px;font-size:13px;border-radius:7px}
 
+/* ===== الخطوة الجاية + الرئيسية + البيانات الأساسية ===== */
+.nx{display:flex;align-items:center;gap:16px;background:#fff8e1;border:2px solid var(--yellow);border-radius:var(--r);padding:14px 18px;margin-bottom:16px;flex-wrap:wrap}
+.nx.done{background:var(--ok-50);border-color:#9fd8b8}
+.nx-n{width:42px;height:42px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:19px;font-weight:800;flex:none}
+.nx.done .nx-n{background:var(--ok)}
+.nx-b{flex:1;min-width:220px}
+.nx-t{font-size:16px;font-weight:800;color:var(--navy-dd)}
+.nx-r{font-size:11px;font-weight:700;background:#fff;border:1px solid var(--line-2);color:var(--muted);border-radius:20px;padding:2px 9px;margin-inline-start:6px;vertical-align:middle}
+.nx-d{font-size:13px;color:var(--ink-2);margin-top:3px}
+.nx-l{margin:6px 0 0;padding-inline-start:18px;font-size:12px;color:var(--warn)}
+.nx-a{display:flex;gap:8px;flex-wrap:wrap}
+.tab.nxt{position:relative}
+.tab.nxt::after{content:'';position:absolute;top:8px;inset-inline-end:6px;width:8px;height:8px;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 2px #fff}
+.nx-chip{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;font-size:12px;font-weight:800;flex:none}
+.list-al .task{align-items:center;gap:10px}
+.guide{display:flex;gap:16px;align-items:flex-start;justify-content:space-between;background:var(--navy-50);border:1px solid var(--navy-100);border-radius:var(--r);padding:16px 20px;font-size:13.5px;color:var(--ink)}
+.guide ol{margin:8px 0 0;padding-inline-start:20px;line-height:2}
+.hub{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.hub-c{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px;color:inherit;text-decoration:none;box-shadow:var(--sh);transition:border-color .15s,transform .15s}
+.hub-c:hover{border-color:var(--yellow);transform:translateY(-1px)}
+.hub-i{width:42px;height:42px;border-radius:12px;background:var(--navy-50);color:var(--navy);display:grid;place-items:center;flex:none}
+.hub-i svg{width:22px;height:22px}
+.hub-c b{display:block;font-size:15px;color:var(--navy-dd);margin-bottom:4px}
+.hub-c span span{font-size:12.5px;color:var(--muted);line-height:1.6}
+
 </style>
 </head>
 <body>
@@ -623,6 +648,7 @@ const IC = {
 /* ============================== translations ============================== */
 const I18N = {
 ar:{
+pg_data:'البيانات الأساسية',
 pg_health:'الشهادات الصحية', hc_open:'محتاجة شهادة', hc_tests:'التحاليل', batches_ok:'التشغيلات', hc_ok:'كاملة', hc_none:'مفيش طلبيات محتاجة شهادة صحية دلوقتي.', hc_hint:'كل طلبية مؤكدة محتاجة شهادة صحية بتظهر هنا. «ZIP» بينزّل ملف فيه طلب الشهادة (Word) وشهادات التحليل ونتايج المعمل لكل صنف بأسماء واضحة. «Gmail» بيفتح إيميل جاهز لـ {e} بالعنوان والبيانات، وانت ترفق ملفات الـ ZIP وتبعت. بعد ما تبعت، افتح الطلبية وغيّر الحالة لـ «اتبعت»، ولما الشهادة تطلع ارفعها هناك.',
 del_item_both:'الصنف هيتشال من الفاتورة وأمر الإنتاج مع بعض.',
 tab_invoice:'الفاتورة', tab_prodorder:'أمر الإنتاج',
@@ -675,6 +701,7 @@ calc_intro:'دخّل أبعاد ووزن الكرتونة وعدد الكرات�
 print_pdf:'طباعة / PDF'
 },
 en:{
+pg_data:'Master data',
 pg_health:'Health certificates', hc_open:'Needs certificate', hc_tests:'Tests', batches_ok:'Batches', hc_ok:'Complete', hc_none:'No orders need a health certificate right now.', hc_hint:'Every confirmed order that needs a health certificate shows here. “ZIP” downloads the request (Word) plus each item’s test certificate and lab result with clear names. “Gmail” opens a ready email to {e}; attach the ZIP files and send. Then open the order, set the status to “Sent”, and upload the certificate when it is issued.',
 del_item_both:'The item is removed from both the invoice and the production order.',
 tab_invoice:'Invoice', tab_prodorder:'Production order',
@@ -916,7 +943,7 @@ function gateBlockers(o, target, ctx){
   const b = []; const calc = orderCalc(o); const pay = payCalc(o, ctx.payments);
   const idx = FLOW.indexOf(target);
   if(idx >= FLOW.indexOf('quoted')){
-    if(!o.customerId) b.push(t('g_customer'));
+    if(!o.customerId && !(o.customer||{}).company) b.push(t('g_customer'));
     if(!(o.items||[]).length) b.push(t('g_items'));
     if((o.items||[]).some(it=>!n(it.cartons)||!n(it.pricePerCarton))) b.push(t('g_qty_price'));
   }
@@ -1116,24 +1143,12 @@ const AUTH = {
 /* ============================== app shell ============================== */
 const PAGES = {};
 const NAV = [
-  {sec:'nav_work'},
   {k:'dashboard', ic:'dash', perm:null},
   {k:'orders', ic:'clipboard', perm:'orders'},
-  {k:'invoices', ic:'file', perm:'orders'},
-  {k:'production', ic:'factory', perm:'production'},
-  {k:'health', ic:'heart', perm:'health'},
-  {k:'payments', ic:'wallet', perm:'payments.view'},
   {k:'calc', ic:'calc', perm:'calc'},
-  {sec:'nav_data'},
-  {k:'customers', ic:'building', perm:'customers'},
-  {k:'products', ic:'box', perm:'products'},
-  {k:'tests', ic:'flask', perm:'tests'},
-  {k:'countries', ic:'globe', perm:'countries'},
-  {k:'certs', ic:'award', perm:'certs'},
-  {sec:'nav_admin', admin:true},
-  {k:'users', ic:'users', perm:'admin'},
-  {k:'settings', ic:'settings', perm:'admin'},
+  {k:'data', ic:'box', perm:null},
 ];
+const NAV_OWNER = {order:'orders', invoices:'orders', production:'orders', health:'orders', payments:'data', customers:'data', products:'data', tests:'data', countries:'data', certs:'data', users:'data', settings:'data'};
 const permOk = p => !p || (p==='admin' ? S.profile && S.profile.role==='admin' : can(p));
 
 function applyLang(){
@@ -1228,7 +1243,7 @@ async function route(){
   if(!S.profile || !$('view')) return;
   const h = location.hash.replace(/^#\/?/,''); const [k, ...rest] = h.split('/');
   const key = k || 'dashboard';
-  document.querySelectorAll('.nav a').forEach(a=>a.classList.toggle('on', a.dataset.k===key || (key==='order' && a.dataset.k==='orders')));
+  document.querySelectorAll('.nav a').forEach(a=>a.classList.toggle('on', a.dataset.k===key || NAV_OWNER[key]===a.dataset.k));
   $('side') && $('side').classList.remove('open');
   const pg = PAGES[key];
   if(!pg){ location.hash='#/dashboard'; return; }
@@ -1618,12 +1633,12 @@ function ordList(){
   const rows=(S.cache.orders||[]).filter(o=> (st==='open'? !['closed','cancelled','delivered'].includes(o.status) : !st || o.status===st) && (!cu||o.customerId===cu)
     && (!q || [o.number,o.piNumber,custName(o),(o.customer||{}).country,o.dischargePoint,(o.shipment||{}).containerNo,(o.shipment||{}).blNo].join(' ').toLowerCase().includes(q)))
     .sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||''));
-  $('o-list').innerHTML = rows.length? `<table class="tbl"><thead><tr><th>${t('order_no')}</th><th>${t('customer')}</th><th>${t('destination')}</th><th>${t('status')}</th><th>${t('value')}</th><th>${t('cartons')}</th><th>${t('paid')}</th><th>${t('loading_date')}</th><th>${t('incoterm')}</th></tr></thead><tbody>
+  $('o-list').innerHTML = rows.length? `<table class="tbl"><thead><tr><th>${t('order_no')}</th><th>${t('customer')}</th><th>${t('destination')}</th><th>${t('status')}</th><th>${t('value')}</th><th>${t('cartons')}</th><th>${t('paid')}</th><th>${t('loading_date')}</th><th>الخطوة الجاية</th></tr></thead><tbody>
   ${rows.map(o=>{ const c=orderCalc(o), p=payCalc(o,S.cache.payments); const d=daysUntil(o.loadingDate); const late = o.loadingDate && d<0 && FLOW.indexOf(o.status)<FLOW.indexOf('loaded') && o.status!=='cancelled';
-    return `<tr class="click" onclick="location.hash='#/order/${o.id}'"><td><div class="bold mono">${esc(o.number)}</div>${o.piNumber?`<div class="tiny muted mono">${esc(o.piNumber)}</div>`:''}</td><td class="bold">${esc(custName(o))}</td><td>${esc((o.customer||{}).country||'')}<div class="tiny muted">${esc(o.dischargePoint||'')}</div></td>
+    return `<tr class="click" onclick="location.hash='#/order/${o.id}/'+((nextStep(o)||{}).tab||'invoice')"><td><div class="bold mono">${esc(o.number)}</div>${o.piNumber?`<div class="tiny muted mono">${esc(o.piNumber)}</div>`:''}</td><td class="bold">${esc(custName(o))}</td><td>${esc((o.customer||{}).country||'')}<div class="tiny muted">${esc(o.dischargePoint||'')}</div></td>
     <td>${statusBadge(o.status)}</td><td class="num bold">${money(c.total,o.currency)}</td><td class="num">${fmt(c.cartons)}</td>
     <td style="min-width:110px"><div class="bar ${p.fullOk?'ok':p.depositOk?'warn':''}"><i style="width:${p.pct}%"></i></div><div class="tiny muted num">${fmt(p.pct)}%</div></td>
-    <td class="num">${o.loadingDate?fmtDate(o.loadingDate):'—'} ${late?`<span class="bdg b-bad">${t('late')}</span>`:''}</td><td>${esc(o.incoterm||'')}</td></tr>`}).join('')}</tbody></table>` : emptyBox(t('no_orders'), can('orders.edit')?`<button class="btn btn-p" onclick="newOrder()">${IC.plus} ${t('new_order')}</button>`:'');
+    <td class="num">${o.loadingDate?fmtDate(o.loadingDate):'—'} ${late?`<span class="bdg b-bad">${t('late')}</span>`:''}</td><td>${(()=>{ const x=nextStep(o); return x?`<span class="nx-chip">${x.n}</span> <span class="small">${esc(x.title)}</span>`:'—'; })()}</td></tr>`}).join('')}</tbody></table>` : emptyBox(t('no_orders'), can('orders.edit')?`<button class="btn btn-p" onclick="newOrder()">${IC.plus} ${t('new_order')}</button>`:'');
 }
 
 /* ---------------- new order ---------------- */
@@ -1673,7 +1688,8 @@ function renderOrder(){
   const o = OD.o, c = orderCalc(o), p = payCalc(o,S.cache.payments);
   const idx = FLOW.indexOf(o.status), next = o.status==='cancelled'? null : FLOW[idx+1];
   const country = countryOf(o,S.cache.countries);
-  const tabs = [['invoice',t('tab_invoice'),IC.file],['production',t('tab_prodorder'),IC.factory],['payments',t('tab_payments'),IC.wallet],['shipping',t('tab_shipping'),IC.ship],['docs',t('tab_docs'),IC.file],['health',t('tab_health'),IC.heart],['history',t('tab_history'),IC.clock]];
+  const tabs = [['invoice','١ الفاتورة'],['payments','٢ الدفعات'],['production','٣ أمر الإنتاج'],['shipping','٤ الشحن'],['health','٥ الشهادة الصحية'],['docs','٦ المستندات'],['history',t('tab_history')]];
+  const ns = nextStep(o);
   const reqDocs = requiredDocs(o,S.cache.countries); const docsDone = reqDocs.filter(k=>['done','na'].includes((o.docs[k]||{}).status)).length;
   $('view').innerHTML = `
   <div class="card mb"><div class="card-b">
@@ -1683,11 +1699,11 @@ function renderOrder(){
         <div class="muted small mt-s">${esc(custName(o))} · ${esc((o.customer||{}).country||'')} ${country?'':`<span class="bdg b-warn">${t('country_not_set')}</span>`} · ${esc(o.incoterm||'')} ${esc(o.incoterm==='EXW'?o.loadingPoint:['FOB','FCA'].includes(o.incoterm)?o.loadingPoint:o.dischargePoint)}</div></div></div>
       <div class="row wrap">
         <div class="ord-print" style="position:relative"><button class="btn btn-o" onclick="printMenu(this)">${IC.print} ${t('documents')}</button></div>
-        ${can('orders.status') && next ? `<button class="btn btn-a" onclick="advance('${next}')">${t('move_to')}: ${t('st_'+next)} ${IC.arrow}</button>`:''}
         <button class="btn btn-g icon-btn" title="${t('more')}" onclick="orderMore()">⋯</button>
       </div></div>
     ${o.status==='cancelled'?`<div class="alert al-bad mt">${IC.alert}<div><b>${t('cancelled')}</b> — ${esc(o.cancelReason||'')}</div></div>`:`<div class="steps mt">${FLOW.map((s,i)=>`<div class="step ${i<idx?'done':i===idx?'cur':''}"><div class="c">${i<idx?'✓':i+1}</div>${t('st_'+s)}</div>`).join('')}</div>`}
   </div></div>
+  ${nextBanner(o)}
   <div class="grid g5 mb">
     ${kpi(t('value'),money(c.total,o.currency), c.disc?`${t('discount')}: ${money(c.disc,o.currency)}`:'', 'accent')}
     ${kpi(t('cartons'),fmt(c.cartons), `<span class="num">${fmt(c.units)}</span> ${t('units')}`)}
@@ -1695,7 +1711,7 @@ function renderOrder(){
     <div class="card kpi"><div class="k">${t('paid')}</div><div class="v">${fmt(p.pct)}%</div><div class="bar ${p.fullOk?'ok':p.depositOk?'warn':''}"><i style="width:${p.pct}%"></i></div><div class="s"><span class="num">${money(p.paid,o.currency)} / ${money(p.total,o.currency)}</span></div></div>
     ${kpi(t('documents'),`${docsDone}/${reqDocs.length}`, o.loadingDate? `${t('loading_date')}: ${fmtDate(o.loadingDate)}`:'')}
   </div>
-  <div class="card"><div class="tabs">${tabs.map(([k,l,ic])=>`<button class="tab ${OD.tab===k?'on':''}" onclick="odTab('${k}')">${l}</button>`).join('')}</div><div id="od-body"></div></div>`;
+  <div class="card"><div class="tabs">${tabs.map(([k,l,ic])=>`<button class="tab ${OD.tab===k?'on':''} ${ns&&ns.tab===k?'nxt':''}" onclick="odTab('${k}')">${l}</button>`).join('')}</div><div id="od-body"></div></div>`;
   renderTab();
 }
 function odTab(k){ if(OD.dirty && !confirm(t('unsaved_q'))) return; OD.dirty=false; OD.tab=k; history.replaceState(null,'','#/order/'+OD.o.id+'/'+k); renderOrder(); }
@@ -1996,7 +2012,8 @@ PAGES.dashboard = { async render(){
   const cDays=n(st.certAlertDays||60);
   certs.forEach(c=>{ const d=daysUntil(c.expiryDate); if(c.expiryDate && d<=cDays) alerts.push({lvl:d<0?'bad':'warn', ic:IC.award, txt:`${c.type==='other'?(c.title||''):t('ct_'+c.type)} — ${d<0?t('expired_ago').replace('{n}',-d):t('expires_in').replace('{n}',d)}`, href:'#/certs'}); });
   const prodsOpen = new Set(open.flatMap(o=>(o.items||[]).map(it=>it.productId)).filter(Boolean));
-  [...prodsOpen].forEach(pid=>{ const b=bestTests(pid,tests,st); const p=byId(S.cache.products,pid); if(!b.cert||b.cert.s.state==='expired'||!b.lab||b.lab.s.state==='expired') alerts.push({lvl:'warn', ic:IC.flask, txt:`${t('al_test_missing')} — ${prodName(p)}`, href:`#/tests/${pid}`}); });
+  { const miss=[...prodsOpen].filter(pid=>{ const b=bestTests(pid,tests,st); return !b.cert||b.cert.s.state==='expired'||!b.lab||b.lab.s.state==='expired'; });
+    if(miss.length) alerts.push({lvl:'warn', ic:IC.flask, txt:`${miss.length} صنف في طلبيات مفتوحة تحاليلهم ناقصة أو منتهية — ارفعها من «تحاليل المنتجات»`, href:'#/tests'}); }
   const unconf = payments.filter(p=>!p.confirmed && !p.void);
   if(unconf.length && can('payments.confirm')) alerts.push({lvl:'warn', ic:IC.money, txt:`${unconf.length} ${t('al_unconfirmed')}`, href:'#/payments'});
   const lvlOrder={bad:0,warn:1}; alerts.sort((a,b)=>lvlOrder[a.lvl]-lvlOrder[b.lvl]);
@@ -2005,6 +2022,13 @@ PAGES.dashboard = { async render(){
   $('view').innerHTML = `
   <div class="row between wrap mb"><div><div style="font-size:20px;font-weight:800;color:var(--navy-dd)">${t('hello')} ${esc((S.profile.name||'').split(' ')[0])}</div><div class="muted small">${new Date().toLocaleDateString(S.lang==='ar'?'ar-EG':'en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</div></div>
     ${can('orders.edit')?`<button class="btn btn-p" onclick="newOrder()">${IC.plus} ${t('new_order')}</button>`:''}</div>
+  ${(()=>{ let seen=false; try{ seen=localStorage.getItem('egf_guide_seen')==='1'; }catch(e){}
+    return seen?'':`<div class="guide mb" id="guide"><div><b>إزاي السيستم بيشتغل؟</b>
+      <ol><li>كل شحنة = <b>طلبية</b>. ابدأ بزرار «طلبية جديدة».</li><li>جوه الطلبية امشي على التابات بالترتيب: <b>١ الفاتورة ← ٢ الدفعات ← ٣ أمر الإنتاج ← ٤ الشحن ← ٥ الشهادة الصحية ← ٦ المستندات</b>.</li>
+      <li>الشريط الأصفر فوق الطلبية بيقولك <b>الخطوة الجاية</b> وفيه زرار يعملها — ومش محتاج تفتكر حاجة.</li><li>المنتجات والعملاء والتحاليل في «البيانات الأساسية».</li></ol></div>
+      <button class="btn btn-o btn-s" onclick="try{localStorage.setItem('egf_guide_seen','1')}catch(e){};this.parentNode.remove()">فهمت</button></div>`; })()}
+  ${(()=>{ const tk=myTasks(open); return `<div class="card mb"><div class="card-h"><h3>مطلوب منك دلوقتي</h3><span class="bdg ${tk.length?'b-yel':'b-ok'}" style="margin-inline-start:auto">${tk.length}</span></div>
+    <div class="list-al">${tk.map(({o,s})=>`<a class="it task" href="#/order/${o.id}/${s.tab}" style="color:inherit"><span class="nx-chip">${s.n}</span><span class="grow"><b>${esc(s.title)}</b><span class="muted small"> — ${esc(o.number)} · ${esc(custName(o))}${o.loadingDate?' · تحميل '+fmtDate(o.loadingDate):''}</span></span><span class="bdg b-gray nodot">${ROLE_AR[s.role]||''}</span></a>`).join('') || `<div class="empty">${IC.check}<div>مفيش حاجة مستنياك دلوقتي.</div></div>`}</div></div>`; })()}
   <div class="grid g4 mb">
     ${kpi(t('k_open'),open.length, `${t('k_value')}: ${valByCur(open)}`,'accent')}
     ${kpi(t('k_in_prod'),orders.filter(o=>['production','ready'].includes(o.status)).length, t('k_in_prod_s'))}
@@ -2835,6 +2859,80 @@ function cbShipment(){
     if(o){ CB.qtyOverride=CB.qtyOverride||{}; CB.qtyOverride[k]=v; } else { const m=lsGet('egf-cbm-ship',{}); if(v>0) m[k]=v; else delete m[k]; lsSet('egf-cbm-ship',m); }
     cbRender(); }));
 }
+
+/* ============================================================================
+   «الخطوة الجاية» — بتحدد لكل طلبية إيه المطلوب دلوقتي ومين يعمله وفين.
+   بتظهر كشريط فوق الطلبية، وكقايمة «مطلوب منك دلوقتي» في الرئيسية.
+   ============================================================================ */
+const ROLE_AR = {sales:'المبيعات', accounts:'الحسابات', production:'المصنع', export:'التصدير'};
+function nextStep(o){
+  if(!o || ['cancelled','closed'].includes(o.status)) return null;
+  const pays=S.cache.payments||[], p=payCalc(o,pays), items=o.items||[], sh=o.shipment||{}, hs=(o.health||{}).status||'draft', cur=o.currency||'USD';
+  const hDone = hs==='issued' || ['done','na'].includes(((o.docs||{}).health||{}).status);
+  const pend=pays.filter(x=>x.orderId===o.id && !x.confirmed && !x.void);
+  const st=(n,title,desc,tab,actions,role,target)=>({n,title,desc,tab,actions,role,target});
+  const itemsOk = items.length && items.every(it=>n(it.cartons)&&n(it.pricePerCarton)) && (o.customerId || (o.customer||{}).company);
+  const payStep = (what,amount)=> pend.length
+    ? st(2,`أكّد استلام ${what}`,`فيه دفعة متسجلة (${money(sum(pend,x=>x.amount),cur)}) مستنية الحسابات تأكد إن الفلوس وصلت.`,'payments',[{l:'افتح الدفعات',tab:'payments',primary:1}],'accounts')
+    : st(2,`سجّل ${what}`,`المطلوب ${money(amount,cur)}. سجّل التحويل أو الكاش، وبعدين الحسابات تأكد الاستلام.`,'payments',[{l:'سجّل دفعة',js:`payForm(null,'${o.id}')`,perm:'payments.add',primary:1},{l:'افتح الدفعات',tab:'payments'}],'accounts');
+  switch(o.status){
+    case 'inquiry': case 'quoted':
+      if(!itemsOk) return st(1,'اكتب الفاتورة','اختار العميل وضيف الأصناف بالكراتين والأسعار، ودوس Save.','invoice',[{l:'افتح الفاتورة',tab:'invoice',primary:1}],'sales');
+      return st(1,'ابعت الـ PI للعميل','اطبع الـ PI وابعتها للعميل. لما يوافق دوس «العميل وافق».','invoice',[{l:'اطبع الـ PI',js:"printInvoice('pi')"},{l:'العميل وافق ✓',adv:'confirmed',primary:1}],'sales','confirmed');
+    case 'confirmed':
+      if(!p.depositOk) return payStep('المقدم', p.depositReq-p.paid);
+      return st(3,'ابدأ الإنتاج','المقدم وصل. اطبع أمر الإنتاج وابعته للمصنع، ودوس «ابدأ الإنتاج».','production',[{l:'اطبع أمر الإنتاج',js:'printProduction()'},{l:'ابدأ الإنتاج ✓',adv:'production',primary:1}],'export','production');
+    case 'production':
+      return st(3,'المصنع بيشتغل','المصنع يكمّل أمر الإنتاج ويسجّل التشغيلات وتواريخ الإنتاج. لما يخلص دوس «الإنتاج خلص».','production',[{l:'افتح أمر الإنتاج',tab:'production'},{l:'الإنتاج خلص ✓',adv:'ready',primary:1}],'production','ready');
+    case 'ready':
+      if(!p.fullOk) return payStep('باقي المبلغ', p.remaining);
+      if(!hDone && ['draft','rejected'].includes(hs)) return st(5,'اطلب الشهادة الصحية','نزّل الـ ZIP وافتح إيميل الهيئة، وبعد ما تبعت غيّر الحالة لـ «اتبعت».','health',[{l:'افتح الشهادة الصحية',tab:'health',primary:1}],'export');
+      if(!sh.containerNo || !sh.sealNo || (o.incoterm!=='EXW' && (!sh.bookingNo || !n(sh.vgmKg)))) return st(4,'سجّل بيانات الحاوية','رقم الحجز والحاوية والختم والـ VGM — من تاب الشحن.','shipping',[{l:'افتح الشحن',tab:'shipping',primary:1}],'export');
+      return st(4,'حمّل الحاوية','كل حاجة جاهزة للتحميل. بعد التحميل سجّل الكميات اللي اتحملت فعلاً ودوس «اتحملت».','shipping',[{l:'افتح الشحن',tab:'shipping'},{l:'اتحملت ✓',adv:'loaded',primary:1}],'export','loaded');
+    case 'loaded':
+      if(!hDone) return st(5,'تابع الشهادة الصحية',`حالة الطلب: ${t('hs_'+hs)}. لما الشهادة تطلع ارفعها وغيّر الحالة لـ «طلعت».`,'health',[{l:'افتح الشهادة الصحية',tab:'health',primary:1}],'export');
+      { const miss=requiredDocs(o,S.cache.countries).filter(k=>!['done','na'].includes(((o.docs||{})[k]||{}).status));
+        if(miss.length) return st(6,'كمّل المستندات',`ناقص: ${miss.map(k=>t('doc_'+k)).join('، ')}.`,'docs',[{l:'افتح المستندات',tab:'docs',primary:1}],'export'); }
+      if(o.incoterm!=='EXW' && !sh.blNo) return st(4,'سجّل رقم البوليصة','من تاب الشحن، بعد ما الخط الملاحي يبعت البوليصة.','shipping',[{l:'افتح الشحن',tab:'shipping',primary:1}],'export');
+      return st(4,'الشحنة اتشحنت؟','كل المستندات خلصت. لما المركب يتحرك دوس «اتشحنت».','shipping',[{l:'اتشحنت ✓',adv:'shipped',primary:1}],'export','shipped');
+    case 'shipped':
+      if(!sh.docsReleased) return st(6,'ابعت المستندات للعميل','ابعت الأصول أو Telex release، وعلّم «المستندات اتسلمت للعميل» في تاب الشحن.','shipping',[{l:'افتح الشحن',tab:'shipping',primary:1}],'export');
+      return st(6,'العميل استلم؟','لما العميل يستلم البضاعة دوس «اتسلمت».','shipping',[{l:'اتسلمت ✓',adv:'delivered',primary:1}],'export','delivered');
+    case 'delivered':
+      return st(6,'اقفل الطلبية','الطلبية خلصت. اقفلها عشان تخرج من الشغل المفتوح.','history',[{l:'اقفل الطلبية ✓',adv:'closed',primary:1}],'export','closed');
+  }
+  return null;
+}
+function nextBanner(o){
+  if(o.status==='closed') return `<div class="nx done"><div class="nx-n">✓</div><div class="nx-b"><div class="nx-t">الطلبية مقفولة</div><div class="nx-d">كل الخطوات خلصت.</div></div></div>`;
+  const s=nextStep(o); if(!s) return '';
+  const bl = s.target ? gateBlockers(o,s.target,{payments:S.cache.payments,countries:S.cache.countries}) : [];
+  const btn = a => { if(a.adv && !can('orders.status')) return ''; if(a.perm && !can(a.perm) && S.profile.role!=='admin') return '';
+    const cls=a.primary?'btn btn-a':'btn btn-o'; const on = a.adv?`advance('${a.adv}')` : a.tab?`odTab('${a.tab}')` : a.js; return `<button class="${cls}" onclick="${on}">${a.l}</button>`; };
+  return `<div class="nx"><div class="nx-n">${s.n}</div><div class="nx-b"><div class="nx-t">الخطوة الجاية: ${s.title} <span class="nx-r">${ROLE_AR[s.role]||''}</span></div><div class="nx-d">${s.desc}</div>
+    ${bl.length?`<ul class="nx-l">${bl.map(b=>`<li>${esc(b)}</li>`).join('')}</ul>`:''}</div><div class="nx-a">${s.actions.map(btn).join('')}</div></div>`;
+}
+function myTasks(orders){
+  const role=S.profile.role, all = role==='admin' || role==='export';
+  return orders.map(o=>({o, s:nextStep(o)})).filter(x=>x.s && (all || x.s.role===role))
+    .sort((a,b)=>(a.o.loadingDate||'9').localeCompare(b.o.loadingDate||'9'));
+}
+
+/* ---------------- البيانات الأساسية: صفحة واحدة توصل لكل حاجة ---------------- */
+PAGES.data = { async render(){
+  await DB.all('products').catch(()=>[]);
+  const cards = [
+    ['products','box','المنتجات','الأصناف بالأسعار ومقاسات الكراتين والجرام — ومنها «استيراد كاتالوج الحلويات».','products'],
+    ['customers','building','العملاء','بيانات العملاء اللي بتنزل في الفاتورة.','customers'],
+    ['tests','flask','تحاليل المنتجات','شهادة التحليل ونتيجة المعمل لكل صنف — بتتسحب لوحدها في طلب الشهادة الصحية.','tests'],
+    ['countries','globe','الدول والمتطلبات','المستندات المطلوبة لكل دولة ونوع شهادة المنشأ.','countries'],
+    ['certs','award','شهادات الشركة','سجل المصدرين، الحلال، ISO… مع تنبيه قبل الانتهاء.','certs'],
+    ['payments','wallet','كل الدفعات','كل الدفعات من كل الطلبيات، والمستني تأكيد.','payments.view'],
+    ['users','users','المستخدمين','الموافقة على الحسابات الجديدة وتحديد دور كل واحد.','admin'],
+    ['settings','settings','الإعدادات','بيانات الشركة والبنك وشروط الدفع وخطوط الإنتاج.','admin'],
+  ].filter(c=>permOk(c[4]));
+  $('view').innerHTML = `<div class="hub">${cards.map(([k,ic,tl,d])=>`<a class="hub-c" href="#/${k}"><span class="hub-i">${IC[ic]}</span><span><b>${tl}</b><span>${d}</span></span></a>`).join('')}</div>`;
+}};
 
 boot();
 </script>
