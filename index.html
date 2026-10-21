@@ -1685,12 +1685,12 @@ function ordList(){
   const rows=(S.cache.orders||[]).filter(o=> (st==='open'? !['closed','cancelled','delivered'].includes(o.status) : !st || o.status===st) && (!cu||o.customerId===cu)
     && (!q || [o.number,o.piNumber,custName(o),(o.customer||{}).country,o.dischargePoint,(o.shipment||{}).containerNo,(o.shipment||{}).blNo].join(' ').toLowerCase().includes(q)))
     .sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||''));
-  $('o-list').innerHTML = rows.length? `<table class="tbl"><thead><tr><th>${t('order_no')}</th><th>${t('customer')}</th><th>${t('destination')}</th><th>${t('status')}</th><th>${t('value')}</th><th>${t('cartons')}</th><th>${t('paid')}</th><th>${t('loading_date')}</th><th>الخطوة الجاية</th></tr></thead><tbody>
+  $('o-list').innerHTML = rows.length? `<table class="tbl"><thead><tr><th>${t('order_no')}</th><th>${t('customer')}</th><th>${t('destination')}</th><th>${t('status')}</th><th>${t('value')}</th><th>${t('cartons')}</th><th>${t('paid')}</th><th>${t('loading_date')}</th><th>الخطوة الجاية</th>${S.profile.role==='admin'?'<th></th>':''}</tr></thead><tbody>
   ${rows.map(o=>{ const c=orderCalc(o), p=payCalc(o,S.cache.payments); const d=daysUntil(o.loadingDate); const late = o.loadingDate && d<0 && FLOW.indexOf(o.status)<FLOW.indexOf('loaded') && o.status!=='cancelled';
     return `<tr class="click" onclick="location.hash='#/order/${o.id}/'+((nextStep(o)||{}).tab||'invoice')"><td><div class="bold mono">${esc(o.number)}</div>${o.piNumber?`<div class="tiny muted mono">${esc(o.piNumber)}</div>`:''}</td><td class="bold">${esc(custName(o))}</td><td>${esc((o.customer||{}).country||'')}<div class="tiny muted">${esc(o.dischargePoint||'')}</div></td>
     <td>${statusBadge(o.status)}</td><td class="num bold">${money(c.total,o.currency)}</td><td class="num">${fmt(c.cartons)}</td>
     <td style="min-width:110px"><div class="bar ${p.fullOk?'ok':p.depositOk?'warn':''}"><i style="width:${p.pct}%"></i></div><div class="tiny muted num">${fmt(p.pct)}%</div></td>
-    <td class="num">${o.loadingDate?fmtDate(o.loadingDate):'—'} ${late?`<span class="bdg b-bad">${t('late')}</span>`:''}</td><td>${(()=>{ const x=nextStep(o); return x?`<span class="nx-chip">${x.n}</span> <span class="small">${esc(x.title)}</span>`:'—'; })()}</td></tr>`}).join('')}</tbody></table>` : emptyBox(t('no_orders'), can('orders.edit')?`<button class="btn btn-p" onclick="newOrder()">${IC.plus} ${t('new_order')}</button>`:'');
+    <td class="num">${o.loadingDate?fmtDate(o.loadingDate):'—'} ${late?`<span class="bdg b-bad">${t('late')}</span>`:''}</td><td>${(()=>{ const x=nextStep(o); return x?`<span class="nx-chip">${x.n}</span> <span class="small">${esc(x.title)}</span>`:'—'; })()}</td>${S.profile.role==='admin'?`<td class="act"><button class="btn btn-g btn-xs" title="حذف الطلبية" onclick="event.stopPropagation();deleteOrderFull('${o.id}').then(ok=>ok&&ordList())">${IC.trash}</button></td>`:''}</tr>`}).join('')}</tbody></table>` : emptyBox(t('no_orders'), can('orders.edit')?`<button class="btn btn-p" onclick="newOrder()">${IC.plus} ${t('new_order')}</button>`:'');
 }
 
 /* ---------------- new order ---------------- */
@@ -1811,7 +1811,7 @@ function orderMore(){
     Object.assign(d,{number:`${S.settings.orderPrefix||'EGF'}-${String(new Date().getFullYear()).slice(2)}-${pad(num)}`,status:'inquiry',piNumber:'',piDate:'',docs:{},health:{status:'draft'},shipment:{mode:d.shipment.mode,containerType:d.shipment.containerType},production:{},cancelReason:'',
       items:d.items.map(it=>({...it,id:uid(),batch:'',prodDate:'',expDate:'',loadedCartons:''})),history:[{at:nowISO(),by:who(),action:t('h_dup_from')+' '+o.number}],createdAt:nowISO()});
     const id=await DB.add('orders',d); location.hash='#/order/'+id; });
-  on('m-del',async ()=>{ closeModal(bg); if(!await confirmBox(t('delete_order_q'),{danger:1})) return; await DB.del('orders',o.id); location.hash='#/orders'; });
+  on('m-del',async ()=>{ closeModal(bg); if(await deleteOrderFull(o.id)) location.hash='#/orders'; });
 }
 function editHeader(){
   const o=OD.o;
@@ -1999,6 +1999,15 @@ function printMenu(btn){
     <button class="btn btn-o" onclick="closeModal();printDoc('ci')">${IC.file} ${t('doc_ci_customs')}</button>
     <button class="btn btn-o" onclick="closeModal();printDoc('pl')">${IC.box} ${t('doc_pl')}</button>
     <button class="btn btn-o" onclick="closeModal();printHealthReq()">${IC.heart} ${t('req_doc_print')}</button></div>`});
+}
+
+/* حذف الطلبية ومعاها دفعاتها (للمدير بس) */
+async function deleteOrderFull(id){
+  if(S.profile.role!=='admin'){ toast(t('no_access'),'bad'); return false; }
+  const o=byId(S.cache.orders,id) || await DB.get('orders',id); if(!o) return false;
+  await DB.all('payments').catch(()=>[]); const pays=(S.cache.payments||[]).filter(p=>p.orderId===id);
+  if(!await confirmBox(`هتمسح الطلبية ${o.number} — ${custName(o)} نهائي${pays.length?`، ومعاها ${pays.length} دفعة متسجلة عليها`:''}.\nمش هينفع ترجعها. متأكد؟`,{danger:1, okText:'امسح نهائي'})) return false;
+  try{ for(const p of pays) await DB.del('payments',p.id); await DB.del('orders',id); toast(`اتمسحت الطلبية ${o.number}`,'ok'); updateCounts(); return true; }catch(e){ errToast(e); return false; }
 }
 
 /* ============================== dashboard / payments / calculator ============================== */
