@@ -590,6 +590,25 @@ table.d-tbl{width:100%;border-collapse:collapse;margin-top:0}
 .hub-c b{display:block;font-size:15px;color:var(--navy-dd);margin-bottom:4px}
 .hub-c span span{font-size:12.5px;color:var(--muted);line-height:1.6}
 
+/* ===== الشهادة الصحية ===== */
+.hc-steps{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.hc-st{flex:1;min-width:120px;display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;background:var(--bg);color:var(--muted);font-weight:700;font-size:13px}
+.hc-st b{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:#fff;border:1.5px solid var(--line-2);font-size:12px}
+.hc-st.done{color:var(--ok)}.hc-st.done b{background:var(--ok);border-color:var(--ok);color:#fff}
+.hc-st.cur{background:#fff8e1;color:var(--navy-dd);box-shadow:inset 0 0 0 2px var(--yellow)}.hc-st.cur b{background:var(--navy);border-color:var(--navy);color:#fff}
+.hc-card{border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;background:#fff}
+.hc-card.on{border:2px solid var(--yellow);box-shadow:0 4px 18px rgba(255,182,7,.12)}
+.hc-card h3{display:flex;align-items:center;gap:10px;font-size:15px;margin:0 0 12px;color:var(--navy-dd)}
+.hc-card h3>span{width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:13px}
+.hc-card h3 small{margin-inline-start:auto;font-weight:400}
+.hc-ok{color:var(--ok);font-weight:800}.hc-no{color:var(--bad);font-weight:800;font-size:12px}.hc-warn{color:var(--warn);font-weight:700;font-size:12px}
+.hc-send{display:flex;flex-direction:column;gap:10px}
+.hc-n{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;background:var(--bg);flex-wrap:wrap}
+.hc-n>b{width:28px;height:28px;border-radius:8px;background:var(--yellow);color:var(--navy-dd);display:grid;place-items:center;flex:none}
+.hc-n>div:first-of-type{flex:1;min-width:200px;font-weight:700;font-size:13.5px}
+.hc-log{display:flex;flex-direction:column;gap:6px;max-height:240px;overflow:auto}
+.hc-log>div{display:flex;gap:12px;align-items:baseline;padding:7px 10px;border-radius:8px;background:var(--bg);font-size:13px;flex-wrap:wrap}
+
 </style>
 </head>
 <body>
@@ -648,6 +667,7 @@ const IC = {
 /* ============================== translations ============================== */
 const I18N = {
 ar:{
+hs_info:'الهيئة طالبة حاجة',
 pg_data:'البيانات الأساسية',
 pg_health:'الشهادات الصحية', hc_open:'محتاجة شهادة', hc_tests:'التحاليل', batches_ok:'التشغيلات', hc_ok:'كاملة', hc_none:'مفيش طلبيات محتاجة شهادة صحية دلوقتي.', hc_hint:'كل طلبية مؤكدة محتاجة شهادة صحية بتظهر هنا. «ZIP» بينزّل ملف فيه طلب الشهادة (Word) وشهادات التحليل ونتايج المعمل لكل صنف بأسماء واضحة. «Gmail» بيفتح إيميل جاهز لـ {e} بالعنوان والبيانات، وانت ترفق ملفات الـ ZIP وتبعت. بعد ما تبعت، افتح الطلبية وغيّر الحالة لـ «اتبعت»، ولما الشهادة تطلع ارفعها هناك.',
 del_item_both:'الصنف هيتشال من الفاتورة وأمر الإنتاج مع بعض.',
@@ -701,6 +721,7 @@ calc_intro:'دخّل أبعاد ووزن الكرتونة وعدد الكرات�
 print_pdf:'طباعة / PDF'
 },
 en:{
+hs_info:'Authority asked for info',
 pg_data:'Master data',
 pg_health:'Health certificates', hc_open:'Needs certificate', hc_tests:'Tests', batches_ok:'Batches', hc_ok:'Complete', hc_none:'No orders need a health certificate right now.', hc_hint:'Every confirmed order that needs a health certificate shows here. “ZIP” downloads the request (Word) plus each item’s test certificate and lab result with clear names. “Gmail” opens a ready email to {e}; attach the ZIP files and send. Then open the order, set the status to “Sent”, and upload the certificate when it is issued.',
 del_item_both:'The item is removed from both the invoice and the production order.',
@@ -873,7 +894,7 @@ const DEFAULT_SETTINGS = {
   payTermsAr:'{deposit}% من إجمالي قيمة الفاتورة قبل بدء الإنتاج.\n{balance}% قبل تحميل البضاعة من أرض المصنع.\nلا يتم الإنتاج أو التحميل قبل استلام الدفعات كاملة.',
   liabilityEn:'The exporter shall not be liable for any indirect or consequential damages once goods leave the factory.',
   liabilityAr:'لا تتحمل الشركة المصدرة أي مسؤولية عن أضرار غير مباشرة بعد مغادرة البضاعة للمصنع.',
-  healthEmail:'h.certificate@nfsa.gov.eg',
+  healthEmail:'h.certificate@nfsa.gov.eg', whitelistNo:'', healthFollowupDays:3,
   orderPrefix:'EGF', receiptPrefix:'RC',
   lines:['لايت مصاص','موجو مصاص','بونبون','لبان','مكرونة','أخرى'],
   certAlertDays:60, cutoffAlertDays:3, testValidityDays:180,
@@ -1538,7 +1559,7 @@ PAGES.settings = { perm:'admin', async render(){
       ${fld(t('pay_terms_en'),'payTermsEn',s.payTermsEn,{type:'textarea',hint:t('terms_hint')})}${fld(t('pay_terms_ar'),'payTermsAr',s.payTermsAr,{type:'textarea'})}
       ${fld(t('liability_en'),'liabilityEn',s.liabilityEn,{type:'textarea'})}${fld(t('liability_ar'),'liabilityAr',s.liabilityAr,{type:'textarea'})}</div></div>
     <div class="card"><div class="card-h"><h3>${t('set_ops')}</h3></div><div class="card-b grid g3">
-      ${fld(t('health_email'),'healthEmail',s.healthEmail,{type:'email'})}${fld(t('order_prefix'),'orderPrefix',s.orderPrefix)}${fld(t('receipt_prefix'),'receiptPrefix',s.receiptPrefix)}
+      ${fld(t('health_email'),'healthEmail',s.healthEmail,{type:'email'})}${fld('رقم القائمة البيضاء (سلامة الغذاء)','whitelistNo',s.whitelistNo)}${fld('تنبيه لو رد الهيئة اتأخر (أيام)','healthFollowupDays',s.healthFollowupDays??3,{type:'number'})}${fld(t('order_prefix'),'orderPrefix',s.orderPrefix)}${fld(t('receipt_prefix'),'receiptPrefix',s.receiptPrefix)}
       ${fld(t('cert_alert_days'),'certAlertDays',s.certAlertDays,{type:'number'})}${fld(t('cutoff_alert_days'),'cutoffAlertDays',s.cutoffAlertDays,{type:'number'})}${fld(t('test_validity_days'),'testValidityDays',s.testValidityDays,{type:'number',hint:t('test_validity_hint')})}
       <div class="field full"><label>${t('prod_lines')}</label>${tagsInput('lines',s.lines||[])}</div></div></div>
     <div class="row"><button class="btn btn-p" id="sf-save">${IC.check} ${t('save_settings')}</button></div></div>`;
@@ -1900,55 +1921,12 @@ async function docSet(k, patch, quiet){
 }
 async function docUpload(k){ const f=await pickFile(); if(!f) return; toast(t('uploading')); try{ const id=await FILES.upload(f,{col:'orders',id:OD.o.id,doc:k}); await DB.all('files',true); const cur=OD.o.docs[k]||{}; await docSet(k,{fileId:id, status: cur.status==='na'?'na':'done', date: cur.date||todayISO()}); }catch(e){ errToast(e); } }
 
-/* ----- tab: health certificate ----- */
-function tabHealth(){
-  const o=OD.o, h=o.health||{}, ed=(can('health')||S.profile.role==='admin') && o.status!=='cancelled';
-  const rows = o.items.map(it=>({it, bt: bestTests(it.productId, S.cache.tests, S.settings)}));
-  const problems = rows.filter(r=>!r.bt.cert || r.bt.cert.s.state==='expired' || !r.bt.lab || r.bt.lab.s.state==='expired');
-  const noBatch = o.items.filter(it=>!it.batch||!it.prodDate);
-  const cell = x => !x ? `<span class="bdg b-bad">${t('missing')}</span>` : `<div class="row" style="gap:6px">${filePillSync(x.x.fileId)}<span class="bdg ${x.s.state==='valid'?'b-ok':x.s.state==='soon'?'b-warn':x.s.state==='expired'?'b-bad':'b-gray'}">${x.s.until?fmtDate(x.s.until):t('ts_unknown')}</span></div>`;
-  const hs = h.status||'draft'; const hsCls={draft:'b-gray',sent:'b-info',sampled:'b-yel',issued:'b-ok',rejected:'b-bad'};
-  $('od-body').innerHTML = `<div class="card-b">
-    <div class="row between wrap mb"><div class="row"><span class="lbl">${t('health_status')}:</span><span class="bdg ${hsCls[hs]}">${t('hs_'+hs)}</span>${h.sentAt?`<span class="small muted">${t('sent_at')}: ${fmtDate(h.sentAt)}</span>`:''}</div>
-      <div class="small muted">${t('to')}: <span class="mono">${esc(S.settings.healthEmail)}</span></div></div>
-    ${problems.length?`<div class="alert al-bad mb">${IC.alert}<div><b>${t('tests_problems')}</b><div class="small mt-s">${problems.map(r=>esc(L(r.it.nameAr,r.it.nameEn))).join('، ')}</div><div class="small mt-s"><a href="#/tests">${t('go_tests')}</a></div></div></div>`:`<div class="alert al-ok mb">${IC.check}<div>${t('tests_all_ok')}</div></div>`}
-    ${noBatch.length?`<div class="alert al-warn mb">${IC.alert}<div>${t('batches_missing_health')} <a href="#" onclick="odTab('production');return false">${t('tab_production')}</a></div></div>`:''}
-    <div class="tbl-wrap"><table class="tbl"><thead><tr><th>${t('product')}</th><th>${t('batch')}</th><th>${t('cartons')}</th><th>${t('test_cert_s')}</th><th>${t('lab_result_s')}</th><th></th></tr></thead><tbody>
-    ${rows.map(({it,bt})=>`<tr><td><div class="bold">${esc(L(it.nameAr,it.nameEn))}</div><div class="tiny muted">${esc(it.packSize)}</div></td><td class="mono small">${esc(it.batch||'—')}</td><td class="num">${fmt(itemCalc(it).loaded)}</td><td>${cell(bt.cert)}</td><td>${cell(bt.lab)}</td>
-      <td class="act">${can('tests.edit')?`<button class="btn btn-g btn-xs" onclick="testForm(null,'${it.productId}')" title="${t('upload_test')}">${IC.upload}</button>`:''}</td></tr>`).join('')}</tbody></table></div>
-    <div class="sep"></div>
-    <h3 style="font-size:14px" class="mb">${t('send_request')}</h3>
-    <div class="row wrap">
-      <button class="btn btn-o" onclick="printHealthReq()">${IC.print} ${t('req_doc_print')}</button>
-      <button class="btn btn-o" onclick="healthDocWord()">${IC.word} ${t('req_doc_word')}</button>
-      <button class="btn btn-o" onclick="healthZip()">${IC.zip} ${t('download_zip')}</button>
-      <button class="btn btn-o" onclick="healthCopy()">${IC.copy} ${t('copy_email')}</button>
-      <button class="btn btn-a" onclick="healthGmail()">${IC.mail} ${t('open_gmail')}</button>
-    </div>
-    <div class="small muted mt-s">${t('send_steps')}</div>
-    <div class="sep"></div>
-    <div class="grid g4" id="hl-f">
-      ${fld(t('health_status'),'status',hs,{opts:['draft','sent','sampled','issued','rejected'].map(s=>[s,t('hs_'+s)]),ro:!ed})}${fld(t('sent_at'),'sentAt',h.sentAt,{type:'date',ro:!ed})}
-      ${fld(t('sample_date'),'sampleDate',h.sampleDate,{type:'date',ro:!ed})}${fld(t('cert_no'),'certNo',h.certNo,{ro:!ed})}
-      ${fld(t('issue_date'),'issuedAt',h.issuedAt,{type:'date',ro:!ed})}${fld(t('email_subject'),'subject',h.subject||defaultHealthSubject(o),{cls:'span2',ro:!ed})}
-      <div class="field"><label>${t('issued_cert_file')}</label><div class="row">${filePillSync(h.fileId)}${ed?`<button class="btn btn-o btn-s" onclick="healthUpload()">${IC.upload}</button>`:''}</div></div>
-      ${fld(t('notes'),'notes',h.notes,{type:'textarea',cls:'full',ro:!ed})}</div>
-    ${ed?`<div class="row mt"><button class="btn btn-p" id="od-save" onclick="saveHealth()">${IC.check} ${t('save')}</button></div>`:''}</div>`;
-  $('hl-f').addEventListener('input',markDirty);
-}
-const defaultHealthSubject = o => `استخراج شهادة صحية ${(countryOf(o,S.cache.countries)||{}).nameAr || (o.customer||{}).country || ''} — ${o.number}`;
-async function saveHealth(){
-  const f=readForm($('hl-f')); const h={...OD.o.health,...f}; const patch={health:h};
-  if(f.status==='issued' && h.fileId){ patch.docs={...OD.o.docs, health:{...(OD.o.docs.health||{}), status:'done', number:h.certNo||'', date:h.issuedAt||todayISO(), fileId:h.fileId}}; }
-  else if(f.status==='sent'||f.status==='sampled'){ patch.docs={...OD.o.docs, health:{...(OD.o.docs.health||{}), status:'submitted'}}; }
-  try{ await saveOrder(patch, `${t('h_health')}: ${t('hs_'+f.status)}`); toast(t('saved'),'ok'); renderOrder(); }catch(e){ errToast(e); }
-}
-async function healthUpload(){ const f=await pickFile(); if(!f) return; toast(t('uploading')); try{ const id=await FILES.upload(f,{col:'orders',id:OD.o.id,doc:'health'}); await DB.all('files',true); OD.o.health={...OD.o.health,fileId:id}; await saveOrder({health:OD.o.health}, t('h_health_file')); tabHealth(); toast(t('saved'),'ok'); }catch(e){ errToast(e); } }
+/* ----- tab: health certificate → health.js ----- */
 function healthFiles(){ const out=[]; OD.o.items.forEach(it=>{ const bt=bestTests(it.productId,S.cache.tests,S.settings); [bt.cert,bt.lab].forEach(x=>{ if(x && x.x.fileId && !out.find(o=>o.fileId===x.x.fileId)) out.push({fileId:x.x.fileId, label:`${it.nameAr||it.nameEn} - ${I18N.ar['tk_'+x.x.kind]}`}); }); }); return out; }
 function healthEmailBody(o){
   const c=orderCalc(o); const s=S.settings; const country=(countryOf(o,S.cache.countries)||{}).nameAr || (o.customer||{}).country || '';
   return `السادة / الهيئة القومية لسلامة الغذاء — إدارة الشهادات الصحية\nتحية طيبة وبعد،\n\nنرجو التكرم باستخراج شهادة صحية للشحنة الموضحة بياناتها:\n\n`+
-   `الشركة المصدرة: ${s.coNameAr}\nرقم الطلبية: ${o.number}${o.piNumber?' / '+o.piNumber:''}\nالمستورد: ${(o.customer||{}).company||''}\nبلد الوصول: ${country}\nميناء الشحن: ${o.loadingPoint||''} — ميناء الوصول: ${o.dischargePoint||''}\n`+
+   `الشركة المصدرة: ${s.coNameAr}${s.whitelistNo?' (القائمة البيضاء رقم '+s.whitelistNo+')':''}\nرقم الطلبية: ${o.number}${o.piNumber?' / '+o.piNumber:''}\nالمستورد: ${(o.customer||{}).company||''}\nبلد الوصول: ${country}\nميناء الشحن: ${o.loadingPoint||''} — ميناء الوصول: ${o.dischargePoint||''}\n`+
    `${o.shipment.containerNo?`رقم الحاوية: ${o.shipment.containerNo}\n`:''}\nالأصناف:\n`+
    o.items.map((it,i)=>{ const x=itemCalc(it); return `${i+1}) ${it.nameAr} (${it.nameEn}) — ${it.packSize} — ${fmt(x.loaded)} كرتونة — وزن صافي ${fmt(x.loadedNet,1)} كجم — تشغيلة ${it.batch||'—'} — إنتاج ${fmtDate(it.prodDate)} — انتهاء ${fmtDate(it.expDate)}`; }).join('\n')+
    `\n\nإجمالي: ${fmt(c.loaded)} كرتونة — صافي ${fmt(c.loadedNet,1)} كجم — قائم ${fmt(c.loadedGross,1)} كجم\n\nمرفق: طلب الشهادة، وشهادات التحليل ونتائج المعمل لكل صنف.\n\nوتفضلوا بقبول فائق الاحترام،\n${S.profile.name||''}\n${s.coNameAr}\n${s.email}${s.phone?' — '+s.phone:''}`;
@@ -2007,8 +1985,8 @@ PAGES.dashboard = { async render(){
     if(o.status==='ready' && !p.fullOk) alerts.push({lvl:'warn', ic:IC.wallet, txt:`${t('al_wait_balance')} — ${o.number} · ${custName(o)}`, href:`#/order/${o.id}/payments`});
     const d=daysUntil(o.loadingDate); if(o.loadingDate && d!==null && FLOW.indexOf(o.status)<FLOW.indexOf('loaded')){ if(d<0) alerts.push({lvl:'bad', ic:IC.clock, txt:`${t('al_loading_late')} (${-d} ${t('days')}) — ${o.number}`, href:`#/order/${o.id}`}); else if(d<=7) alerts.push({lvl:'warn', ic:IC.clock, txt:`${t('al_loading_soon')} ${fmtDate(o.loadingDate)} — ${o.number}`, href:`#/order/${o.id}`}); }
     ['cutoffCargo','cutoffSI','cutoffVGM'].forEach(k=>{ const dd=daysUntil(sh[k]); if(sh[k] && dd!==null && dd>=0 && dd<=n(st.cutoffAlertDays||3) && FLOW.indexOf(o.status)<FLOW.indexOf('shipped')) alerts.push({lvl:'bad', ic:IC.ship, txt:`${k.replace('cutoff','')} cut-off ${fmtDate(sh[k])} — ${o.number}`, href:`#/order/${o.id}/shipping`}); });
-    const hs=(o.health||{}).status||'draft'; if(['ready','loaded'].includes(o.status) && !['issued'].includes(hs)) alerts.push({lvl:'warn', ic:IC.heart, txt:`${t('al_health_pending')} (${t('hs_'+hs)}) — ${o.number}`, href:`#/order/${o.id}/health`});
   });
+  alerts.push(...healthAlerts(orders));
   const cDays=n(st.certAlertDays||60);
   certs.forEach(c=>{ const d=daysUntil(c.expiryDate); if(c.expiryDate && d<=cDays) alerts.push({lvl:d<0?'bad':'warn', ic:IC.award, txt:`${c.type==='other'?(c.title||''):t('ct_'+c.type)} — ${d<0?t('expired_ago').replace('{n}',-d):t('expires_in').replace('{n}',d)}`, href:'#/certs'}); });
   const prodsOpen = new Set(open.flatMap(o=>(o.items||[]).map(it=>it.productId)).filter(Boolean));
@@ -2166,7 +2144,7 @@ function healthReqInner(o, forWord){
     <p style="margin-top:10px">تحية طيبة وبعد،</p>
     <p>نتشرف بالتقدم بطلب استخراج <b>شهادة صحية (شهادة صلاحية) للتصدير</b> للرسالة الموضحة بياناتها أدناه:</p>
     <table style="width:100%;border-collapse:collapse;margin:8px 0" ${forWord?'border="1"':''} class="${forWord?'':'d-tbl'}"><tbody>
-      ${[['الشركة المصدرة',esc(s.coNameAr)],['المستورد',esc((o.customer||{}).company)],['بلد الوصول',esc(country)],['ميناء الشحن / الوصول',`${esc(o.loadingPoint||'')} / ${esc(o.dischargePoint||'')}`],['رقم الحاوية / الختم',`${esc(sh.containerNo||'—')} / ${esc(sh.sealNo||'—')}`],['رقم الفاتورة',esc((o.docs.ci||{}).number||'CI-'+o.number)]].map(([l,v])=>`<tr><td style="border:1px solid #ccd;padding:4px 8px;font-weight:700;width:30%;text-align:right">${l}</td><td style="border:1px solid #ccd;padding:4px 8px;text-align:right">${v}</td></tr>`).join('')}</tbody></table>
+      ${[['الشركة المصدرة',esc(s.coNameAr)],...(s.whitelistNo?[['رقم القائمة البيضاء',esc(s.whitelistNo)]]:[]),['المستورد',esc((o.customer||{}).company)],['بلد الوصول',esc(country)],['ميناء الشحن / الوصول',`${esc(o.loadingPoint||'')} / ${esc(o.dischargePoint||'')}`],['رقم الحاوية / الختم',`${esc(sh.containerNo||'—')} / ${esc(sh.sealNo||'—')}`],['رقم الفاتورة',esc((o.docs.ci||{}).number||'CI-'+o.number)]].map(([l,v])=>`<tr><td style="border:1px solid #ccd;padding:4px 8px;font-weight:700;width:30%;text-align:right">${l}</td><td style="border:1px solid #ccd;padding:4px 8px;text-align:right">${v}</td></tr>`).join('')}</tbody></table>
     <table style="width:100%;border-collapse:collapse" ${forWord?'border="1"':''} class="${forWord?'':'d-tbl'}"><thead><tr>${['م','الصنف','Product','العبوة','البند الجمركي','التشغيلة','تاريخ الإنتاج','تاريخ الانتهاء','الكراتين','صافي (كجم)','قائم (كجم)'].map(h=>`<th ${th}>${h}</th>`).join('')}</tr></thead>
     <tbody>${c.items.map(({it,c:x},i)=>`<tr><td ${td}>${i+1}</td><td ${td}>${esc(it.nameAr)}</td><td ${td}>${esc(it.nameEn)}</td><td ${td}>${esc(it.packSize)} × ${fmt(it.unitsPerCarton)}</td><td ${td}>${esc(it.hsCode||'')}</td><td ${td}>${esc(it.batch||'')}</td><td ${td}>${fmtDate(it.prodDate)}</td><td ${td}>${fmtDate(it.expDate)}</td><td ${td}>${fmt(x.loaded)}</td><td ${td}>${fmt(x.loadedNet,1)}</td><td ${td}>${fmt(x.loadedGross,1)}</td></tr>`).join('')}
       <tr class="tot"><td ${td} colspan="8"><b>الإجمالي</b></td><td ${td}><b>${fmt(c.loaded)}</b></td><td ${td}><b>${fmt(c.loadedNet,1)}</b></td><td ${td}><b>${fmt(c.loadedGross,1)}</b></td></tr></tbody></table>
@@ -2380,13 +2358,13 @@ function poList(){
 PAGES.health = { perm:'health', async render(){
   await Promise.all([DB.all('orders',true), DB.all('tests',true), DB.all('files',true), DB.all('countries')]);
   $('view').innerHTML = pageHead(`<div class="row wrap">${searchBox('hc-q',t('search_orders'),'hcList()')}
-      <select class="in" id="hc-st" style="width:200px" onchange="hcList()"><option value="open">${t('hc_open')}</option><option value="">${t('all')}</option>${['draft','sent','sampled','issued','rejected'].map(s=>`<option value="${s}">${t('hs_'+s)}</option>`).join('')}</select></div>`,
+      <select class="in" id="hc-st" style="width:200px" onchange="hcList()"><option value="open">${t('hc_open')}</option><option value="">${t('all')}</option>${HS_LIST.map(s=>`<option value="${s}">${t('hs_'+s)}</option>`).join('')}</select></div>`,
       `<a class="btn btn-o" href="#/tests">${IC.flask} ${t('pg_tests')}</a>`)
     + `<div class="alert al-info mb">${IC.info}<div>${t('hc_hint').replace('{e}',esc(S.settings.healthEmail))}</div></div><div class="card"><div class="tbl-wrap" id="hc-list"></div></div>`;
   hcList();
 }};
 function hcList(){
-  const q=($('hc-q').value||'').toLowerCase(), st=$('hc-st').value; const hsCls={draft:'b-gray',sent:'b-info',sampled:'b-yel',issued:'b-ok',rejected:'b-bad'};
+  const q=($('hc-q').value||'').toLowerCase(), st=$('hc-st').value; const hsCls=HS_CLS;
   const rows=(S.cache.orders||[]).filter(o=>{ const hs=(o.health||{}).status||'draft'; return o.status!=='cancelled' && (st==='open' ? hs!=='issued' && FLOW.indexOf(o.status)>=FLOW.indexOf('confirmed') && FLOW.indexOf(o.status)<FLOW.indexOf('delivered') : !st || hs===st)
     && (!q||[o.number,custName(o),(o.customer||{}).country].join(' ').toLowerCase().includes(q)); }).sort((a,b)=>(a.loadingDate||'9').localeCompare(b.loadingDate||'9'));
   $('hc-list').innerHTML = rows.length? `<table class="tbl"><thead><tr><th>${t('order_no')}</th><th>${t('customer')}</th><th>${t('country')}</th><th>${t('loading_date')}</th><th>${t('hc_tests')}</th><th>${t('batches_ok')}</th><th>${t('health_status')}</th><th>${t('cert_no')}</th><th></th></tr></thead><tbody>
@@ -2886,11 +2864,12 @@ function nextStep(o){
       return st(3,'المصنع بيشتغل','المصنع يكمّل أمر الإنتاج ويسجّل التشغيلات وتواريخ الإنتاج. لما يخلص دوس «الإنتاج خلص».','production',[{l:'افتح أمر الإنتاج',tab:'production'},{l:'الإنتاج خلص ✓',adv:'ready',primary:1}],'production','ready');
     case 'ready':
       if(!p.fullOk) return payStep('باقي المبلغ', p.remaining);
+      if(!hDone && hs==='info') return st(5,'الهيئة طالبة حاجة','شوف السجل في تاب الشهادة الصحية، ابعت المطلوب، وسجّل اللي حصل.','health',[{l:'افتح الشهادة الصحية',tab:'health',primary:1}],'export');
       if(!hDone && ['draft','rejected'].includes(hs)) return st(5,'اطلب الشهادة الصحية','نزّل الـ ZIP وافتح إيميل الهيئة، وبعد ما تبعت غيّر الحالة لـ «اتبعت».','health',[{l:'افتح الشهادة الصحية',tab:'health',primary:1}],'export');
       if(!sh.containerNo || !sh.sealNo || (o.incoterm!=='EXW' && (!sh.bookingNo || !n(sh.vgmKg)))) return st(4,'سجّل بيانات الحاوية','رقم الحجز والحاوية والختم والـ VGM — من تاب الشحن.','shipping',[{l:'افتح الشحن',tab:'shipping',primary:1}],'export');
       return st(4,'حمّل الحاوية','كل حاجة جاهزة للتحميل. بعد التحميل سجّل الكميات اللي اتحملت فعلاً ودوس «اتحملت».','shipping',[{l:'افتح الشحن',tab:'shipping'},{l:'اتحملت ✓',adv:'loaded',primary:1}],'export','loaded');
     case 'loaded':
-      if(!hDone) return st(5,'تابع الشهادة الصحية',`حالة الطلب: ${t('hs_'+hs)}. لما الشهادة تطلع ارفعها وغيّر الحالة لـ «طلعت».`,'health',[{l:'افتح الشهادة الصحية',tab:'health',primary:1}],'export');
+      if(!hDone) return st(5, hs==='info'?'الهيئة طالبة حاجة':['draft','rejected'].includes(hs)?'اطلب الشهادة الصحية':'تابع الشهادة الصحية', hs==='sent'?`اتبعت من ${daysSince((o.health||{}).sentAt)} يوم. لما الشهادة تطلع ارفعها من الخطوة ٤.`:`حالة الطلب: ${t('hs_'+hs)}.`,'health',[{l:'افتح الشهادة الصحية',tab:'health',primary:1}],'export');
       { const miss=requiredDocs(o,S.cache.countries).filter(k=>!['done','na'].includes(((o.docs||{})[k]||{}).status));
         if(miss.length) return st(6,'كمّل المستندات',`ناقص: ${miss.map(k=>t('doc_'+k)).join('، ')}.`,'docs',[{l:'افتح المستندات',tab:'docs',primary:1}],'export'); }
       if(o.incoterm!=='EXW' && !sh.blNo) return st(4,'سجّل رقم البوليصة','من تاب الشحن، بعد ما الخط الملاحي يبعت البوليصة.','shipping',[{l:'افتح الشحن',tab:'shipping',primary:1}],'export');
@@ -2933,6 +2912,121 @@ PAGES.data = { async render(){
   ].filter(c=>permOk(c[4]));
   $('view').innerHTML = `<div class="hub">${cards.map(([k,ic,tl,d])=>`<a class="hub-c" href="#/${k}"><span class="hub-i">${IC[ic]}</span><span><b>${tl}</b><span>${d}</span></span></a>`).join('')}</div>`;
 }};
+
+/* ============================================================================
+   الشهادة الصحية — السيستم بيجهّز كل حاجة، وانت بتدوس إرسال، وهو بيتابع ويفكّرك.
+   ١ جهّز: يشيك إن كل صنف عنده شهادة تحليل + نتيجة معمل سارية + تشغيلة
+   ٢ ابعت: ملف الطلب + المرفقات + إيميل جاهز للهيئة ← «بعتّ الإيميل»
+   ٣ تابع: سجل بكل اللي حصل، تنبيه لو الرد اتأخر، إيميل متابعة جاهز
+   ٤ الشهادة: ارفعها برقمها وتاريخها ← المستندات تتعلم «اتعمل» لوحدها
+   ============================================================================ */
+const HS_LIST = ['draft','sent','info','issued','rejected'];
+const HS_CLS = {draft:'b-gray',sent:'b-info',info:'b-warn',sampled:'b-yel',issued:'b-ok',rejected:'b-bad'};
+const hcFollowDays = () => n(S.settings.healthFollowupDays)||3;
+const daysSince = iso => iso ? -daysUntil(String(iso).slice(0,10)) : null;
+function hcReadiness(o){
+  const rows=(o.items||[]).map(it=>{ const bt=bestTests(it.productId,S.cache.tests,S.settings);
+    const ok = x => x && x.s.state!=='expired';
+    return {it, cert:bt.cert, lab:bt.lab, certOk:ok(bt.cert), labOk:ok(bt.lab), batchOk:!!(it.batch&&it.prodDate)}; });
+  const missTests=rows.filter(r=>!r.certOk||!r.labOk).length, missBatch=rows.filter(r=>!r.batchOk).length;
+  return {rows, missTests, missBatch, ready: rows.length>0 && !missTests};
+}
+function hcLog(o, text){ o.health=o.health||{}; o.health.log=[...(o.health.log||[]), {at:nowISO(), by:who(), text}]; }
+async function hcSave(patch, logText){ const o=OD.o; o.health={...(o.health||{}), ...patch}; if(logText) hcLog(o,logText);
+  const p={health:o.health};
+  if(o.health.status==='issued' && o.health.fileId) p.docs={...o.docs, health:{...(o.docs.health||{}), status:'done', number:o.health.certNo||'', date:o.health.issuedAt||todayISO(), fileId:o.health.fileId}};
+  else if(['sent','info'].includes(o.health.status)) p.docs={...o.docs, health:{...(o.docs.health||{}), status:'submitted'}};
+  if(p.docs) o.docs=p.docs;
+  await saveOrder(p, logText?`${t('h_health')}: ${logText}`:null); }
+
+function tabHealth(){
+  const o=OD.o, h=o.health=o.health||{status:'draft'}, ed=(can('health')||S.profile.role==='admin') && o.status!=='cancelled';
+  const hs=h.status||'draft', R=hcReadiness(o), files=healthFiles(), since=daysSince(h.sentAt), late = ['sent','info'].includes(hs) && since!==null && since>=hcFollowDays();
+  const stepIdx = hs==='issued'?4 : ['sent','info'].includes(hs)?2 : R.ready?1 : 0;
+  const steps=['جهّز','ابعت','تابع','الشهادة طلعت'];
+  const cell=(x,ok,kind,pid)=> ok ? `<span class="hc-ok">✓</span> ${filePillSync(x.x.fileId)} <span class="tiny muted">لحد ${fmtDate(x.s.until)}</span>`
+    : `<span class="hc-no">${x?'منتهي':'ناقص'}</span> ${ed&&can('tests.edit')?`<button class="btn btn-o btn-xs" onclick="hcUploadTest('${pid}','${kind}')">${IC.upload} ارفع</button>`:''}`;
+  const subject = h.subject || defaultHealthSubject(o);
+  $('od-body').innerHTML = `<div class="card-b hc">
+    <div class="hc-steps">${steps.map((s,i)=>`<div class="hc-st ${i<stepIdx?'done':i===stepIdx?'cur':''}"><b>${i<stepIdx?'✓':i+1}</b>${s}</div>`).join('')}</div>
+    ${late?`<div class="alert al-bad mb">${IC.clock}<div><b>الطلب اتبعت من ${since} يوم ومفيش شهادة لسه.</b> ابعت إيميل متابعة أو كلّم الهيئة.<div class="mt-s"><button class="btn btn-a btn-s" onclick="hcFollowup()">${IC.mail} ابعت إيميل متابعة</button></div></div></div>`:''}
+
+    <section class="hc-card ${stepIdx===0?'on':''}"><h3><span>١</span> جهّز الطلب <small>${R.ready?'<span class="bdg b-ok">كله جاهز</span>':`<span class="bdg b-bad">ناقص ${R.missTests} صنف</span>`}</small></h3>
+      <div class="tbl-wrap"><table class="tbl"><thead><tr><th>${t('product')}</th><th>شهادة تحليل (الزراعة)</th><th>نتيجة معمل (الصحة)</th><th>${t('batch')}</th></tr></thead><tbody>
+      ${R.rows.map(r=>`<tr><td><div class="bold">${esc(r.it.nameAr||r.it.nameEn)}</div><div class="tiny muted">${fmt(itemCalc(r.it).loaded)} ${t('cartons')}</div></td>
+        <td>${cell(r.cert,r.certOk,'test_cert',r.it.productId)}</td><td>${cell(r.lab,r.labOk,'lab_result',r.it.productId)}</td>
+        <td>${r.batchOk?`<span class="hc-ok">✓</span> <span class="mono small">${esc(r.it.batch)}</span>`:`<span class="hc-warn">مش متسجلة</span> <a href="#" onclick="odTab('production');return false" class="small">سجّلها</a>`}</td></tr>`).join('') || `<tr><td colspan="4">${emptyBox(t('no_items'))}</td></tr>`}</tbody></table></div>
+      <div class="small muted mt-s">التحاليل بتترفع مرة واحدة لكل صنف وبتتسحب لوحدها في أي شحنة لحد ما تنتهي. ${R.missBatch?'التشغيلات مش شرط عشان تبعت، بس بتطلع في ملف الطلب.':''}</div></section>
+
+    <section class="hc-card ${stepIdx===1?'on':''}"><h3><span>٢</span> ابعت للهيئة ${h.sentAt?`<small><span class="bdg b-info">اتبعت ${fmtDate(h.sentAt)}</span></small>`:''}</h3>
+      <div class="grid g2"><div class="field"><label>إلى</label><div class="in ro mono">${esc(S.settings.healthEmail)}</div></div>
+        <div class="field"><label>${t('email_subject')}</label><input class="in" id="hc-subj" value="${esc(subject)}" ${ed?'':'readonly'}></div></div>
+      ${S.settings.whitelistNo?`<div class="small muted mt-s">رقم القائمة البيضاء (${esc(S.settings.whitelistNo)}) مكتوب في الطلب والإيميل.</div>`:''}
+      <div class="hc-send mt">
+        <div class="hc-n"><b>أ</b><div>نزّل المرفقات<div class="tiny muted">${files.length} ملف تحاليل + ملف الطلب Word</div></div>
+          <div class="row wrap"><button class="btn btn-o" onclick="hcDownloadAll()" ${R.rows.length?'':'disabled'}>${IC.download} نزّل الملفات</button><button class="btn btn-g btn-s" onclick="healthZip()">${IC.zip} ZIP</button><button class="btn btn-g btn-s" onclick="printHealthReq()">${IC.print} معاينة الطلب</button></div></div>
+        <div class="hc-n"><b>ب</b><div>افتح الإيميل جاهز<div class="tiny muted">العنوان والنص مكتوبين — اسحب الملفات اللي نزلت جوه الإيميل</div></div>
+          <button class="btn btn-o" onclick="hcOpenMail()">${IC.mail} افتح في Gmail</button></div>
+        <div class="hc-n"><b>ج</b><div>بعد ما تدوس إرسال<div class="tiny muted">السيستم يبدأ يعد الأيام ويفكّرك لو الرد اتأخر ${hcFollowDays()} أيام</div></div>
+          ${ed?`<button class="btn btn-a" onclick="hcMarkSent()" ${!R.ready&&!h.sentAt?'title="فيه تحاليل ناقصة"':''}>✓ بعتّ الإيميل</button>`:''}</div>
+      </div></section>
+
+    <section class="hc-card ${stepIdx===2?'on':''}"><h3><span>٣</span> تابع <small><span class="bdg ${HS_CLS[hs]}">${t('hs_'+hs)}</span>${since!==null&&hs!=='issued'?` <span class="small muted">من ${since} يوم</span>`:''}</small></h3>
+      <div class="hc-log">${(h.log||[]).slice().reverse().map(l=>`<div><span class="num small muted">${fmtDT(l.at)}</span><span class="small bold">${esc(l.by||'')}</span><span>${esc(l.text)}</span></div>`).join('') || '<div class="muted small">لسه مفيش حاجة.</div>'}</div>
+      ${ed?`<div class="row wrap mt"><button class="btn btn-o btn-s" onclick="hcAsked()">الهيئة طلبت حاجة</button><button class="btn btn-o btn-s" onclick="hcFollowup()">${IC.mail} إيميل متابعة</button><button class="btn btn-g btn-s" onclick="hcNote()">${IC.edit} سجّل ملاحظة</button>${hs!=='rejected'&&h.sentAt?`<button class="btn btn-g btn-s" onclick="hcRejected()">اترفض</button>`:''}</div>`:''}</section>
+
+    <section class="hc-card ${stepIdx===3?'on':''}"><h3><span>٤</span> الشهادة طلعت</h3>
+      <div class="grid g3" id="hc-cert">${fld(t('cert_no'),'certNo',h.certNo,{ro:!ed})}${fld(t('issue_date'),'issuedAt',h.issuedAt||'',{type:'date',ro:!ed})}
+        <div class="field"><label>ملف الشهادة (PDF)</label><div class="row">${filePillSync(h.fileId)}${ed?`<button class="btn btn-o btn-s" onclick="healthUpload()">${IC.upload} ارفع</button>`:''}</div></div></div>
+      ${ed?`<div class="row mt"><button class="btn btn-p" onclick="hcIssued()">${IC.check} حفظ — الشهادة طلعت</button></div>`:''}</section>
+  </div>`;
+}
+const defaultHealthSubject = o => `استخراج شهادة صحية ${(countryOf(o,S.cache.countries)||{}).nameAr || (o.customer||{}).country || ''} — ${o.number}`;
+function hcSubject(){ const el=$('hc-subj'); return (el&&el.value.trim()) || OD.o.health.subject || defaultHealthSubject(OD.o); }
+async function hcUploadTest(pid, kind){
+  const f=await pickFile('.pdf,.jpg,.jpeg,.png'); if(!f) return; toast(t('uploading'));
+  try{ const fid=await FILES.upload(f,{col:'tests'}); await DB.add('tests',{productId:pid, kind, fileId:fid, testDate:todayISO(), lab: kind==='test_cert'?'وزارة الزراعة':'معمل وزارة الصحة'});
+    await Promise.all([DB.all('tests',true), DB.all('files',true)]); toast(t('saved'),'ok'); tabHealth(); }catch(e){ errToast(e); }
+}
+async function hcDownloadAll(){
+  const files=healthFiles(); toast(`بينزل ${files.length+1} ملف…`);
+  try{ for(const [i,f] of files.entries()){ const {blob,meta}=await FILES.blob(f.fileId); const dot=meta.name.lastIndexOf('.'); saveBlob(blob, `${pad(i+1,2)} - ${f.label}${dot>0?meta.name.slice(dot):''}`.replace(/[\\/:*?"<>|]+/g,' ')); await new Promise(r=>setTimeout(r,350)); }
+    healthDocWord(); toast('الملفات نزلت في فولدر التحميلات','ok'); }catch(e){ errToast(e); }
+}
+function hcOpenMail(){
+  const su=hcSubject(); if(su!==OD.o.health.subject){ OD.o.health.subject=su; }
+  window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(S.settings.healthEmail)}&su=${encodeURIComponent(su)}&body=${encodeURIComponent(healthEmailBody(OD.o))}`,'_blank');
+}
+async function hcMarkSent(){
+  const R=hcReadiness(OD.o);
+  if(!R.ready && !await confirmBox('فيه تحاليل ناقصة أو منتهية. بعت الإيميل برضه؟')) return;
+  try{ await hcSave({status:'sent', sentAt:OD.o.health.sentAt||todayISO(), subject:hcSubject()}, OD.o.health.sentAt?'اتبعت تاني':'الطلب اتبعت للهيئة'); toast(t('saved'),'ok'); renderOrder(); }catch(e){ errToast(e); }
+}
+async function hcAsked(){ const r=await promptBox('الهيئة طلبت إيه؟',''); if(!r) return; try{ await hcSave({status:'info'}, 'الهيئة طلبت: '+r); renderOrder(); }catch(e){ errToast(e); } }
+async function hcNote(){ const r=await promptBox('ملاحظة',''); if(!r) return; try{ await hcSave({}, r); tabHealth(); }catch(e){ errToast(e); } }
+async function hcRejected(){ const r=await promptBox('سبب الرفض',''); if(r===null) return; try{ await hcSave({status:'rejected'}, 'اترفض'+(r?': '+r:'')); renderOrder(); }catch(e){ errToast(e); } }
+async function hcFollowup(){
+  const o=OD.o, h=o.health||{}, su='متابعة: '+(h.subject||defaultHealthSubject(o));
+  const body=`السادة / الهيئة القومية لسلامة الغذاء — إدارة الشهادات الصحية\nتحية طيبة وبعد،\n\nبالإشارة لطلبنا المرسل بتاريخ ${fmtDate(h.sentAt)} لاستخراج شهادة صحية للشحنة رقم ${o.number} (${(o.customer||{}).company||''} — ${(o.customer||{}).country||''})،\nنرجو التكرم بإفادتنا بموقف الطلب، حيث أن موعد التحميل ${o.loadingDate?fmtDate(o.loadingDate):'قريب'}.\n${S.settings.whitelistNo?`\nرقم القائمة البيضاء: ${S.settings.whitelistNo}\n`:''}\nوتفضلوا بقبول فائق الاحترام،\n${S.profile.name||''}\n${S.settings.coNameAr}\n${S.settings.email}${S.settings.phone?' — '+S.settings.phone:''}`;
+  window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(S.settings.healthEmail)}&su=${encodeURIComponent(su)}&body=${encodeURIComponent(body)}`,'_blank');
+  try{ await hcSave({lastFollowup:todayISO()}, 'اتبعت إيميل متابعة'); tabHealth(); }catch(e){ errToast(e); }
+}
+async function hcIssued(){
+  const f=readForm($('hc-cert'));
+  if(!OD.o.health.fileId && !await confirmBox('مرفعتش ملف الشهادة. تحفظ من غير الملف؟ (المستندات مش هتتعلم «اتعمل» غير لما الملف يترفع)')) return;
+  try{ await hcSave({status:'issued', certNo:f.certNo, issuedAt:f.issuedAt||todayISO()}, `الشهادة طلعت${f.certNo?' — رقم '+f.certNo:''}`); toast(t('saved'),'ok'); renderOrder(); }catch(e){ errToast(e); }
+}
+async function healthUpload(){ const f=await pickFile('.pdf,.jpg,.jpeg,.png'); if(!f) return; toast(t('uploading'));
+  try{ const id=await FILES.upload(f,{col:'orders',id:OD.o.id,doc:'health'}); await DB.all('files',true); await hcSave({fileId:id}, 'اترفع ملف الشهادة'); tabHealth(); toast(t('saved'),'ok'); }catch(e){ errToast(e); } }
+// تنبيهات الرئيسية
+function healthAlerts(orders){
+  const out=[]; const fd=hcFollowDays();
+  orders.filter(o=>!['cancelled','closed','delivered','shipped'].includes(o.status)).forEach(o=>{ const h=o.health||{}, hs=h.status||'draft';
+    if(['sent','info'].includes(hs)){ const d=daysSince(h.sentAt); if(d!==null && d>=fd) out.push({lvl:'bad', ic:IC.heart, txt:`الشهادة الصحية متأخرة ${d} يوم — ${o.number} · ${custName(o)} — ابعت متابعة`, href:`#/order/${o.id}/health`}); else if(hs==='info') out.push({lvl:'warn', ic:IC.heart, txt:`الهيئة طالبة حاجة في الشهادة الصحية — ${o.number}`, href:`#/order/${o.id}/health`}); }
+    else if(hs!=='issued' && FLOW.indexOf(o.status)>=FLOW.indexOf('confirmed')){ const dl=daysUntil(o.loadingDate); if(o.loadingDate && dl!==null && dl<=7) out.push({lvl:dl<=3?'bad':'warn', ic:IC.heart, txt:`التحميل ${dl<0?'فات':'بعد '+dl+' يوم'} والشهادة الصحية لسه متبعتتش — ${o.number}`, href:`#/order/${o.id}/health`}); }
+  });
+  return out;
+}
 
 boot();
 </script>
