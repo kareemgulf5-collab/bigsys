@@ -616,6 +616,19 @@ table.d-tbl{width:100%;border-collapse:collapse;margin-top:0}
 .grid>*{min-width:0}
 @media (max-width:640px){.cb-mini .summary{grid-template-columns:1fr!important}}
 .cb input.qty-input,.cb input.ship-qty{width:84px!important}
+.tabs-pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;padding:10px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--bg)}
+
+/* ---------- ملف الأوردر / الحسابات ---------- */
+.neg{color:var(--bad)}.pos{color:var(--good)}
+.sm{gap:14px}.sm-c{border:1px solid var(--line);border-radius:var(--r-sm);padding:14px 16px;background:var(--card);min-width:0}
+.sm-c h4{font-size:13px;font-weight:800;color:var(--navy-dd);margin:0 0 10px;padding-bottom:8px;border-bottom:1px solid var(--line-soft)}
+.sm-r{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:4px 0}.sm-r span{color:var(--muted)}.sm-r b{font-weight:700;text-align:end;min-width:0;overflow-wrap:anywhere}
+.sm-r.big{border-top:1px solid var(--line-soft);margin-top:4px;padding-top:8px;font-size:14px}.sm-r.big span{color:var(--ink);font-weight:700}
+.sm-t{display:flex;align-items:center;gap:8px;margin-bottom:8px}.sm-t label{width:96px;font-size:12px;color:var(--muted);flex:none}.sm-t select{flex:1;min-width:0}
+.chk-list{display:flex;flex-direction:column;gap:6px}
+.chk-row{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid var(--line);border-radius:var(--r-sm);cursor:pointer;font-size:13px;background:var(--card)}
+.chk-row.done{background:var(--good-tint);border-color:transparent}.chk-row.done span:first-of-type{color:var(--muted)}
+.chk-row input{width:16px;height:16px;flex:none}
 
 </style>
 </head>
@@ -686,7 +699,7 @@ pg_invoices:'الفواتير', pg_production:'أوامر الإنتاج', new_i
 piece_g:'جرام (القطعة)', pieces_per_pack:'حجم العبوة (عدد القطع)', pieces_hint:'الإنتاج = جرام × حجم العبوة × وحدات × كراتين ÷ 1000', doc_invoice:'الفاتورة (الشكل المعتاد)', doc_ci_customs:'فاتورة تجارية للجمارك (المحمّل + HS)', invoice_no:'رقم الفاتورة', invoice_date:'تاريخ الفاتورة', expiry_period:'تاريخ الصلاحية', weight_unit:'الوزن', u_kg:'كجم', u_ton:'طن', u_both:'الاتنين', order_date:'التاريخ', sticker:'استيكر', with_sticker:'بستيكر', no_sticker:'بدون', packing:'التعبئة', lines_summary:'خطوط الإنتاج', order_totals:'إجمالي الأوردر', total_prod:'إجمالي الإنتاج', items_count:'الأصناف', batches_title:'التشغيلات وتواريخ الإنتاج', pasta_note:'أصناف خط المكرونة بتطلع في صفحة «أمر إنتاج مكرونة» منفصلة جوه نفس الطباعة.', grams:'جرام', units_s:'وحدات', prod_formula:'الإنتاج = جرام × حجم العبوة × وحدات × كراتين ÷ 1000 · الاستيكر = وحدات × كراتين',
 app_title:'نظام التصدير — إيجي جالف فودز', app_sub:'نظام إدارة التصدير', loading:'جاري التحميل…', err:'حصل خطأ', init_fail:'تعذر تشغيل النظام', ok:'تمام', cancel:'إلغاء', confirm:'تأكيد', save:'حفظ', saved:'تم الحفظ', close:'إغلاق', apply:'تطبيق', add:'إضافة', remove:'إزالة', open:'فتح', upload:'رفع', yes:'نعم', no:'لا', new:'جديد', all:'الكل', more:'خيارات', search:'بحث…', choose:'اختر…', refresh:'تحديث', details:'تفاصيل', manual:'يدوي', of:'من', to:'إلى', days:'يوم', months:'شهر', count:'العدد', total:'الإجمالي', totals:'الإجماليات', value:'القيمة', date:'التاريخ', status:'الحالة', notes:'ملاحظات', number:'الرقم', kind:'النوع', name:'الاسم', file:'الملف', document:'المستند', documents:'المستندات', required:'مطلوب', missing:'ناقص', late:'متأخر', item:'الصنف', result:'النتيجة', since:'تاريخ التسجيل', generate:'إنشاء', del_q:'تأكيد الحذف؟', unsaved_q:'توجد تعديلات غير محفوظة. المتابعة بدون حفظ؟', fill_required:'كمّل الخانات المطلوبة', no_access:'معندكش صلاحية للصفحة دي', not_found:'غير موجود',
 nav_work:'الشغل', nav_data:'البيانات الأساسية', nav_admin:'الإدارة',
-pg_dashboard:'الرئيسية', pg_orders:'الطلبيات', pg_order:'الطلبية', pg_payments:'الدفعات', pg_calc:'حاسبة الكونتينر', pg_customers:'العملاء', pg_products:'المنتجات', pg_tests:'تحاليل المنتجات', pg_countries:'الدول والمتطلبات', pg_certs:'شهادات الشركة', pg_users:'المستخدمين', pg_settings:'الإعدادات',
+pg_dashboard:'الرئيسية', pg_orders:'الأوردرات', pg_order:'الطلبية', pg_payments:'الدفعات', pg_calc:'حاسبة الكونتينر', pg_customers:'العملاء', pg_products:'المنتجات', pg_tests:'تحاليل المنتجات', pg_countries:'الدول والمتطلبات', pg_certs:'شهادات الشركة', pg_users:'المستخدمين', pg_settings:'الإعدادات', nav_money:'الحسابات', pg_accounts:'الحسابات', pg_commissions:'العمولات', pg_samples:'العينات', pg_team:'السيلز والسوشيال ميديا',
 login_hero:'إدارة التصدير', login_sub:'من عرض السعر لحد ما المستندات توصل للعميل.', login_f1:'عرض سعر وPI وأمر إنتاج وفاتورة وقائمة تعبئة من نفس البيانات', login_f2:'متابعة الدفعات وقفل الإنتاج والتحميل لحد التحصيل', login_f3:'طلب الشهادة الصحية بالتحاليل', login_f4:'تنبيهات مواعيد الشحن وانتهاء الشهادات',
 login_title:'تسجيل الدخول', login_hint:'ادخل بحسابك في النظام.', signup_title:'حساب جديد', signup_hint:'بعد التسجيل المدير هيفعّل حسابك ويحدد صلاحيتك.', demo_login_hint:'وضع تجريبي. أدخل اسمك.', your_name:'اسمك', full_name:'الاسم بالكامل', email:'الإيميل', password:'كلمة السر', login:'دخول', enter_demo:'دخول الوضع التجريبي', create_account:'إنشاء الحساب', have_account:'عندي حساب', new_account:'إنشاء حساب جديد', forgot:'نسيت كلمة السر؟', enter_email_first:'أدخل البريد الإلكتروني', reset_sent:'اتبعتلك رسالة لتغيير كلمة السر', bad_login:'الإيميل أو كلمة السر غلط', email_used:'البريد الإلكتروني مستخدم', weak_pass:'كلمة السر لازم 6 حروف على الأقل', bad_email:'البريد الإلكتروني غير صحيح', too_many:'محاولات كتير، استنى شوية وجرب تاني',
 pending_title:'حسابك مستني التفعيل', pending_body:'الحساب في انتظار التفعيل من المدير.', logout:'خروج', role:'الصلاحية', mode:'الوضع', mode_demo:'تجريبي (على المتصفح)',
@@ -742,7 +755,7 @@ pg_invoices:'Invoices', pg_production:'Production orders', new_invoice:'New invo
 piece_g:'Grams (per piece)', pieces_per_pack:'Pack size (pieces)', pieces_hint:'Like the production order: production = grams × pack size × units × cartons ÷ 1000. For pasta, enter pack grams and pack size 1.', doc_invoice:'Invoice (usual layout)', doc_ci_customs:'Customs commercial invoice (loaded + HS)', invoice_no:'Invoice no.', invoice_date:'Invoice date', expiry_period:'Expiry', weight_unit:'Weight', u_kg:'kg', u_ton:'ton', u_both:'Both', order_date:'Date', sticker:'Sticker', with_sticker:'Sticker', no_sticker:'None', packing:'Packing', lines_summary:'Production lines', order_totals:'Order totals', total_prod:'Total production', items_count:'Items', batches_title:'Batches & production dates', pasta_note:'Pasta-line items print on a separate “Pasta production order” page in the same printout.', grams:'g', units_s:'Units', prod_formula:'Production = grams × pack size × units × cartons ÷ 1000 · Stickers = units × cartons',
 app_title:'Export System — EgyGulf Foods', app_sub:'Export management system', loading:'Loading…', err:'Something went wrong', init_fail:'Could not start the system', ok:'OK', cancel:'Cancel', confirm:'Confirm', save:'Save', saved:'Saved', close:'Close', apply:'Apply', add:'Add', remove:'Remove', open:'Open', upload:'Upload', yes:'Yes', no:'No', new:'New', all:'All', more:'Options', search:'Search…', choose:'Choose…', refresh:'Refresh', details:'Details', manual:'manual', of:'of', to:'To', days:'days', months:'months', count:'Count', total:'Total', totals:'Totals', value:'Value', date:'Date', status:'Status', notes:'Notes', number:'Number', kind:'Type', name:'Name', file:'File', document:'Document', documents:'Documents', required:'Required', missing:'Missing', late:'Late', item:'Item', result:'Result', since:'Registered', generate:'Generate', del_q:'Delete this item?', unsaved_q:'You have unsaved changes. Continue without saving?', fill_required:'Please fill the required fields', no_access:'You do not have access to this page', not_found:'Not found',
 nav_work:'Work', nav_data:'Master data', nav_admin:'Admin',
-pg_dashboard:'Dashboard', pg_orders:'Orders', pg_order:'Order', pg_payments:'Payments', pg_calc:'Container calculator', pg_customers:'Customers', pg_products:'Products', pg_tests:'Product tests', pg_countries:'Countries & requirements', pg_certs:'Company certificates', pg_users:'Users', pg_settings:'Settings',
+pg_dashboard:'Dashboard', pg_orders:'Orders', pg_order:'Order', pg_payments:'Payments', pg_calc:'Container calculator', pg_customers:'Customers', pg_products:'Products', pg_tests:'Product tests', pg_countries:'Countries & requirements', pg_certs:'Company certificates', pg_users:'Users', pg_settings:'Settings', nav_money:'Finance', pg_accounts:'Accounts', pg_commissions:'Commissions', pg_samples:'Samples', pg_team:'Sales & social media',
 login_hero:'Every export order in one place', login_sub:'From quotation until the documents reach the buyer.', login_f1:'Quotation, PI, production order, invoice and packing list from the same data', login_f2:'Payment tracking that locks production and loading until paid', login_f3:'Health-certificate request with all product tests in one click', login_f4:'Alerts for cut-offs and expiring certificates',
 login_title:'Sign in', login_hint:'Sign in with your account.', signup_title:'Create account', signup_hint:'After signing up, an admin activates your account and sets your role.', demo_login_hint:'Demo mode: data is stored in this browser only. Type your name to enter.', your_name:'Your name', full_name:'Full name', email:'Email', password:'Password', login:'Sign in', enter_demo:'Enter demo', create_account:'Create account', have_account:'I have an account', new_account:'Create a new account', forgot:'Forgot password?', enter_email_first:'Enter your email first', reset_sent:'Password reset email sent', bad_login:'Wrong email or password', email_used:'This email is already registered', weak_pass:'Password must be at least 6 characters', bad_email:'Invalid email', too_many:'Too many attempts, try again later',
 pending_title:'Your account is waiting for activation', pending_body:'An admin needs to activate your account and set your role from the Users page. Then refresh.', logout:'Sign out', role:'Role', mode:'Mode', mode_demo:'Demo (browser)',
@@ -874,7 +887,27 @@ const PERMS = {
   production:['orders','production','products','tests','tests.edit','calc'],
   accounts:['orders','payments','payments.view','payments.add','payments.confirm','customers'],
 };
-const can = p => { const r = S.profile && S.profile.role; const ps = PERMS[r]||[]; return ps.includes('*') || ps.includes(p); };
+/* التابات اللي الأدمن بيختارها لكل مستخدم */
+const TABS = [
+  ['dashboard','الرئيسية'], ['orders','الأوردرات'], ['accounts','الحسابات'], ['commissions','العمولات'], ['samples','العينات'],
+  ['production','أوامر الإنتاج'], ['health','الشهادات الصحية'], ['calc','حاسبة الحاوية'], ['countries','الدول ومتطلباتها'],
+  ['products','المنتجات'], ['customers','العملاء'], ['team','السيلز والسوشيال ميديا'],
+];
+const PERM2TAB = {
+  'orders':['orders','production','health','accounts'], 'orders.edit':['orders'], 'orders.status':['orders'], 'docs':['orders'], 'shipping':['orders'],
+  'payments':['accounts'], 'payments.view':['accounts','orders'], 'payments.add':['accounts'], 'payments.confirm':['accounts'],
+  'production':['production','orders'], 'health':['health'], 'tests':['products','health','production'], 'tests.edit':['products','health','production'],
+  'customers':['customers','orders','accounts'], 'customers.edit':['customers','orders'], 'products':['products','orders','production'], 'products.edit':['products'],
+  'countries':['countries','orders','health'], 'countries.edit':['countries'], 'certs':['health','countries'], 'certs.edit':['health','countries'], 'calc':['calc','orders'],
+  'accounts':['accounts'], 'commissions':['commissions'], 'samples':['samples'], 'team':['team'], 'dashboard':['dashboard'],
+};
+// مستخدمين قدام (بدور بدل تابات) بياخدوا تابات حسب الدور
+const ROLE_TABS = { export:['dashboard','orders','production','health','calc','countries','products','customers','samples'], sales:['dashboard','orders','customers','samples','calc'],
+  production:['production','calc','products'], accounts:['dashboard','accounts','commissions','customers','orders'] };
+const isAdmin = () => !!(S.profile && S.profile.role==='admin');
+const myTabs = () => !S.profile ? [] : isAdmin() ? TABS.map(x=>x[0]) : (S.profile.tabs || ROLE_TABS[S.profile.role] || []);
+const hasTab = k => isAdmin() || myTabs().includes(k);
+const can = p => isAdmin() || (PERM2TAB[p]||[p]).some(hasTab);
 
 const FLOW = ['draft','confirmed','production','ready','shipped','closed'];
 // حالات قديمة بتتحول للحالات الجديدة
@@ -1003,6 +1036,7 @@ function gateBlockers(o, target, ctx){
     const req = requiredDocs(o, ctx.countries);
     const missing = req.filter(k=>{ const d=(o.docs||{})[k]||{}; return !['done','na'].includes(d.status); });
     if(missing.length) b.push(t('g_docs')+': '+missing.map(k=>t('doc_'+k)).join('، '));
+    if(typeof orderCheckList==='function'){ const ck=orderCheckList(o).filter(x=>!((o.checks||{})[x]||{}).done); if(ck.length) b.push('متطلبات الدخول للبلد: '+ck.join('، ')); }
   }
   if(idx >= FLOW.indexOf('closed')){
     if(!(o.shipment||{}).docsReleased) b.push(t('g_released'));
@@ -1035,7 +1069,7 @@ const DB = {
     if(this.mode==='local') return LocalDB.open();
     const v = CFG.firebaseSdkVersion || '10.12.2', base = `https://www.gstatic.com/firebasejs/${v}/`;
     const [app, auth, fs] = await Promise.all([import(base+'firebase-app.js'), import(base+'firebase-auth.js'), import(base+'firebase-firestore.js')]);
-    FB.app = app.initializeApp(CFG.firebase); FB.authMod = auth; FB.fs = fs;
+    FB.app = app.initializeApp(CFG.firebase); FB.appMod = app; FB.authMod = auth; FB.fs = fs;
     FB.auth = auth.getAuth(FB.app); FB.db = fs.getFirestore(FB.app);
   },
   async all(col, force){
@@ -1142,11 +1176,13 @@ async function loadSettings(force){
 }
 
 /* ---------- auth ---------- */
+const USER_DOMAIN = 'users.egygulf-foods.com';
+const toEmail = u => { u=String(u||'').trim().toLowerCase(); return u.includes('@') ? u : `${u}@${USER_DOMAIN}`; };
 const AUTH = {
   async start(onReady){
     if(DB.mode==='local'){
       let p = null; try{ p = JSON.parse(localStorage.getItem('egf_demo_user')||'null'); }catch(e){}
-      if(p){ S.user={uid:'demo'}; S.profile=p; }
+      if(p){ S.user={uid:p.id||'demo'}; S.profile=p; }
       return onReady();
     }
     FB.authMod.onAuthStateChanged(FB.auth, async u=>{
@@ -1155,24 +1191,47 @@ const AUTH = {
         try{
           let p = await DB.get('users', u.uid);
           const isAdminEmail = (CFG.adminEmails||[]).map(x=>x.toLowerCase()).includes((u.email||'').toLowerCase());
-          if(!p){ p = {name: u.displayName || u.email.split('@')[0], email:u.email, role: isAdminEmail?'admin':'pending', active: isAdminEmail};
-            await DB.set('users', u.uid, p); p.id=u.uid; }
-          else if(isAdminEmail && (p.role!=='admin' || !p.active)){ await DB.update('users',u.uid,{role:'admin',active:true}); p.role='admin'; p.active=true; }
-          S.profile = p;
+          if(!p && isAdminEmail){ p = {name: u.displayName || u.email.split('@')[0], email:u.email, username:u.email, role:'admin', active:true}; await DB.set('users', u.uid, p); p.id=u.uid; }
+          else if(p && isAdminEmail && (p.role!=='admin' || !p.active)){ await DB.update('users',u.uid,{role:'admin',active:true}); p.role='admin'; p.active=true; }
+          S.profile = p || {email:u.email, role:'pending', active:false};
         }catch(e){ errToast(e); }
       }
       onReady();
     });
   },
-  async login(email, pass){
-    if(DB.mode==='local'){ const p={id:'demo',name:email||'Demo Admin',email:'demo@local',role:'admin',active:true}; localStorage.setItem('egf_demo_user',JSON.stringify(p)); S.user={uid:'demo'}; S.profile=p; return; }
-    await FB.authMod.signInWithEmailAndPassword(FB.auth, email, pass);
+  async login(username, pass){
+    if(DB.mode==='local'){
+      const users = await LocalDB.all('users'); let p;
+      if(username){ const u=users.find(x=>x.username===String(username).trim().toLowerCase());
+        if(u){ if(u.password!==pass) throw {code:'auth/invalid-credential'}; if(!u.active) throw new Error('الحساب موقوف'); p={...u}; delete p.password; } }
+      if(!p) p={id:'demo',name:username||'Demo Admin',username:'admin',email:'demo@local',role:'admin',active:true};
+      localStorage.setItem('egf_demo_user',JSON.stringify(p)); S.user={uid:p.id}; S.profile=p; return;
+    }
+    await FB.authMod.signInWithEmailAndPassword(FB.auth, toEmail(username), pass);
   },
+  // حساب المدير لأول مرة بس (الإيميل لازم يكون في adminEmails)
   async signup(name, email, pass){
+    const isAdminEmail = (CFG.adminEmails||[]).map(x=>x.toLowerCase()).includes(email.toLowerCase());
+    if(!isAdminEmail) throw new Error('الحسابات بيعملها المدير من صفحة المستخدمين');
     const cred = await FB.authMod.createUserWithEmailAndPassword(FB.auth, email, pass);
     await FB.authMod.updateProfile(cred.user,{displayName:name});
-    const isAdminEmail = (CFG.adminEmails||[]).map(x=>x.toLowerCase()).includes(email.toLowerCase());
-    await DB.set('users', cred.user.uid, {name, email, role: isAdminEmail?'admin':'pending', active:isAdminEmail});
+    await DB.set('users', cred.user.uid, {name, email, username:email, role:'admin', active:true});
+  },
+  // المدير بيعمل مستخدم جديد من غير ما يخرج من حسابه (تطبيق Firebase تاني مؤقت)
+  async createUser({name, username, password, tabs, role}){
+    username=String(username).trim().toLowerCase();
+    if(!/^[a-z0-9._-]{3,}$/.test(username) && !username.includes('@')) throw new Error('اسم المستخدم: حروف إنجليزي وأرقام (3 على الأقل)');
+    if(String(password).length<6) throw new Error('كلمة المرور 6 حروف على الأقل');
+    const rec = {name, username, email:toEmail(username), tabs, role:role||'user', active:true};
+    if(DB.mode==='local'){ const all=await LocalDB.all('users'); if(all.some(x=>x.username===username)) throw new Error('اسم المستخدم موجود'); return DB.add('users',{...rec, password}); }
+    const sec = FB.appMod.initializeApp(CFG.firebase, 'sec'+Date.now()); const sAuth = FB.authMod.getAuth(sec);
+    try{ const cred = await FB.authMod.createUserWithEmailAndPassword(sAuth, rec.email, password); await FB.authMod.updateProfile(cred.user,{displayName:name});
+      await DB.set('users', cred.user.uid, rec); return cred.user.uid; }
+    finally{ try{ await FB.authMod.signOut(sAuth); }catch(e){} try{ await FB.appMod.deleteApp(sec); }catch(e){} }
+  },
+  async changePassword(oldPass, newPass){
+    if(DB.mode==='local'){ if(S.profile.id==='demo') throw new Error('مش متاح للحساب التجريبي'); const u=await LocalDB.get('users',S.profile.id); if(u.password!==oldPass) throw new Error('كلمة المرور الحالية غلط'); await LocalDB.put('users',S.profile.id,{...u,password:newPass}); return; }
+    const u=FB.auth.currentUser; const c=FB.authMod.EmailAuthProvider.credential(u.email, oldPass); await FB.authMod.reauthenticateWithCredential(u,c); await FB.authMod.updatePassword(u,newPass);
   },
   async reset(email){ await FB.authMod.sendPasswordResetEmail(FB.auth, email); },
   async logout(){ if(DB.mode==='local'){ localStorage.removeItem('egf_demo_user'); location.reload(); return; } await FB.authMod.signOut(FB.auth); location.hash=''; }
@@ -1181,26 +1240,31 @@ const AUTH = {
 /* ============================== app shell ============================== */
 const PAGES = {};
 const NAV = [
-  {k:'dashboard', ic:'dash', perm:null},
+  {k:'dashboard', ic:'dash', tab:'dashboard'},
   {sec:'nav_work'},
-  {k:'orders', ic:'clipboard', perm:'orders'},
-  {k:'production', ic:'factory', perm:'production'},
-  {k:'health', ic:'heart', perm:'health'},
-  {k:'payments', ic:'wallet', perm:'payments.confirm'},
-  {k:'calc', ic:'calc', perm:'calc'},
+  {k:'orders', ic:'clipboard', tab:'orders'},
+  {k:'production', ic:'factory', tab:'production'},
+  {k:'health', ic:'heart', tab:'health'},
+  {k:'calc', ic:'calc', tab:'calc'},
+  {k:'samples', ic:'ship', tab:'samples'},
+  {sec:'nav_money'},
+  {k:'accounts', ic:'wallet', tab:'accounts'},
+  {k:'commissions', ic:'money', tab:'commissions'},
   {sec:'nav_data'},
-  {k:'products', ic:'box', perm:'products'},
-  {k:'customers', ic:'building', perm:'customers'},
-  {k:'tests', ic:'flask', perm:'tests'},
-  {k:'countries', ic:'globe', perm:'countries'},
-  {k:'certs', ic:'award', perm:'certs'},
+  {k:'customers', ic:'building', tab:'customers'},
+  {k:'products', ic:'box', tab:'products'},
+  {k:'tests', ic:'flask', tab:['products','health','production']},
+  {k:'countries', ic:'globe', tab:'countries'},
+  {k:'certs', ic:'award', tab:['health','countries']},
+  {k:'team', ic:'users', tab:'team'},
   {sec:'nav_admin', admin:true},
-  {k:'users', ic:'users', perm:'admin'},
+  {k:'users', ic:'shield', perm:'admin'},
   {k:'settings', ic:'settings', perm:'admin'},
 ];
-const TAB2NAV = {production:'production', health:'health'};
-const NAV_OWNER = {invoices:'orders', data:'dashboard'};
-const permOk = p => !p || (p==='admin' ? S.profile && S.profile.role==='admin' : can(p));
+const TAB2NAV = {production:'production', health:'health', payments:'accounts'};
+const NAV_OWNER = {invoices:'orders', data:'dashboard', payments:'accounts'};
+const tabOk = tb => !tb || (Array.isArray(tb)? tb.some(hasTab) : hasTab(tb));
+const permOk = p => !p || (p==='admin' ? isAdmin() : can(p));
 
 function applyLang(){
   document.documentElement.lang = S.lang; document.documentElement.dir = S.lang==='ar' ? 'rtl' : 'ltr';
@@ -1234,16 +1298,15 @@ function renderLogin(mode='login'){
     <div class="form"><div class="box">
       <div class="row between mb"><img src="${LOGO}" style="width:130px" class="lg-only"><button class="btn btn-g btn-s" onclick="toggleLang()">${IC.lang} ${S.lang==='ar'?'English':'عربي'}</button></div>
       <h3>${mode==='signup'?t('signup_title'):t('login_title')}</h3>
-      <p class="muted small mb">${demo? t('demo_login_hint') : mode==='signup'? t('signup_hint') : t('login_hint')}</p>
+      ${mode==='signup'?`<p class="muted small mb">إنشاء حساب المدير لأول مرة (الإيميل المسجل في الإعدادات).</p>`:demo?`<p class="muted small mb">${t('demo_login_hint')}</p>`:''}
       <div class="stack" id="lg-form">
         ${mode==='signup'?fld(t('full_name'),'name','',{req:1}):''}
-        ${demo? fld(t('your_name'),'email','',{ph:'Demo Admin'}) : fld(t('email'),'email','',{type:'email',req:1})}
-        ${demo?'':fld(t('password'),'pass','',{type:'password',req:1})}
+        ${mode==='signup'? fld(t('email'),'email','',{type:'email',req:1}) : fld('اسم المستخدم','email','',{req:!demo, attrs:'autocomplete="username" dir="ltr"'})}
+        ${fld('كلمة المرور','pass','',{type:'password',req:!demo, attrs:'autocomplete="current-password" dir="ltr"'})}
         <div id="lg-err" class="alert al-bad hidden"></div>
-        <button class="btn btn-p" style="height:42px" id="lg-btn">${demo? t('enter_demo') : mode==='signup'? t('create_account') : t('login')}</button>
+        <button class="btn btn-p" style="height:42px" id="lg-btn">${mode==='signup'? t('create_account') : t('login')}</button>
         ${demo?'':`<div class="row between small">
-          ${mode==='signup'?`<a href="#" onclick="renderLogin('login');return false">${t('have_account')}</a>`:`<a href="#" onclick="renderLogin('signup');return false">${t('new_account')}</a>`}
-          ${mode==='login'?`<a href="#" id="lg-reset">${t('forgot')}</a>`:''}</div>`}
+          ${mode==='signup'?`<a href="#" onclick="renderLogin('login');return false">رجوع لتسجيل الدخول</a>`:`<a href="#" onclick="renderLogin('signup');return false" class="muted">حساب المدير لأول مرة</a>`}</div>`}
       </div></div></div></div>`;
   const go = async ()=>{
     const f = readForm($('lg-form')); const err=$('lg-err'); err.classList.add('hidden'); $('lg-btn').disabled=true;
@@ -1267,13 +1330,14 @@ function renderPending(){
 }
 
 function renderShell(){
-  const nav = NAV.filter(x=> x.sec ? (!x.admin || (S.profile && S.profile.role==='admin')) : permOk(x.perm))
+  let nav = NAV.filter(x=> x.sec ? (!x.admin || isAdmin()) : (x.tab? tabOk(x.tab) : permOk(x.perm)));
+  nav = nav.filter((x,i)=> !x.sec || (nav[i+1] && !nav[i+1].sec)); nav = nav
     .map(x=> x.sec ? `<div class="nav-sec">${t(x.sec)}</div>` : `<a href="#/${x.k}" data-k="${x.k}">${IC[x.ic]}<span>${x.lbl||t('pg_'+x.k)}</span><span class="cnt hidden" id="cnt-${x.k}"></span></a>`).join('');
   const p = S.profile||{};
   $('root').innerHTML = `<div class="app">
     <aside class="side" id="side"><div class="brand"><img src="${LOGO_W}"><div class="sub">${t('app_sub')}</div></div>
       <nav class="nav">${nav}</nav>
-      <div class="foot"><div class="bold" style="color:#fff">${esc(p.name||'')}</div><div>${t('role_'+(p.role||''))}</div></div></aside>
+      <div class="foot"><div class="bold" style="color:#fff">${esc(p.name||'')}</div><div>${isAdmin()?'مدير':esc(p.username||'')}</div></div></aside>
     <div class="main">
       ${DB.mode==='local'?`<div class="demo-bar">${IC.info}<span>${t('demo_bar')}</span><button class="btn btn-xs btn-o" style="margin-inline-start:auto" onclick="resetDemo()">${t('reset_demo')}</button></div>`:''}
       <header class="top"><button class="btn btn-g icon-btn menu-btn" onclick="$('side').classList.toggle('open')">${IC.menu}</button>
@@ -1285,8 +1349,8 @@ function renderShell(){
 }
 function userMenu(){
   const p=S.profile||{};
-  const bg = openModal({title:esc(p.name||''), size:'sm', body:`<dl class="kv"><dt>${t('email')}</dt><dd class="mono">${esc(p.email||'')}</dd><dt>${t('role')}</dt><dd>${t('role_'+p.role)}</dd><dt>${t('mode')}</dt><dd>${DB.mode==='local'?t('mode_demo'):'Firebase'}</dd></dl>`,
-    foot:`<button class="btn btn-d" onclick="AUTH.logout()">${IC.logout} ${t('logout')}</button>`});
+  const bg = openModal({title:esc(p.name||''), size:'sm', body:`<dl class="kv"><dt>اسم المستخدم</dt><dd class="mono">${esc(p.username||p.email||'')}</dd><dt>الصلاحية</dt><dd>${isAdmin()?'مدير':myTabs().map(k=>(TABS.find(x=>x[0]===k)||[,k])[1]).join('، ')}</dd><dt>${t('mode')}</dt><dd>${DB.mode==='local'?t('mode_demo'):'Firebase'}</dd></dl>`,
+    foot:`<button class="btn btn-o" onclick="closeModal();changePassword()">${IC.lock} تغيير كلمة المرور</button><button class="btn btn-d" onclick="AUTH.logout()">${IC.logout} ${t('logout')}</button>`});
 }
 function setTitle(title, crumb=''){ $('pg-title').textContent = title; $('pg-crumb').innerHTML = crumb; document.title = title+' — EgyGulf'; }
 
@@ -1297,9 +1361,10 @@ async function route(){
   const navKey = key==='order' ? (TAB2NAV[rest[1]]||'orders') : (NAV_OWNER[key]||key);
   document.querySelectorAll('.nav a').forEach(a=>a.classList.toggle('on', a.dataset.k===navKey));
   $('side') && $('side').classList.remove('open');
+  if(key==='dashboard' && !hasTab('dashboard') && myTabs().length){ location.hash='#/'+myTabs()[0]; return; }
   const pg = PAGES[key];
   if(!pg){ location.hash='#/dashboard'; return; }
-  if(pg.perm && !permOk(pg.perm)){ $('view').innerHTML = `<div class="card empty">${IC.lock}<div>${t('no_access')}</div></div>`; setTitle(t('no_access')); return; }
+  if((pg.tab && !tabOk(pg.tab)) || (!pg.tab && pg.perm && !permOk(pg.perm))){ $('view').innerHTML = `<div class="card empty">${IC.lock}<div>${t('no_access')}</div></div>`; setTitle(t('no_access')); return; }
   setTitle(t(pg.title || 'pg_'+key));
   $('view').innerHTML = `<div class="loader"><div class="spin"></div>${t('loading')}</div>`;
   window.scrollTo(0,0);
@@ -1337,30 +1402,42 @@ async function seedDemo(){
   const DEMO = {'LP-TREE72':[400,true,'1800 قاعده — 11000 حلقه'],'LP-CAR80':[300,true],'LP-BAG100-7':[300,false],'MJ-BOX30':[200,true],'BB-BOX100':[200,false],'HN-JAR250':[150,true,'فراوله35 · نعناع35 · موز35 · تفاح20 · كولا15 · مانجو10'],'PS-PEN-400':[100,false]};
   const ids=[]; for(const p of P) ids.push(await DB.add('products',p));
   const cust = await DB.add('customers',{company:'Sample Trading Co. (Demo)',country:'Cuba',contactName:'Mr. Demo',email:'buyer@example.com',phone:'+53 000 000',address:'Havana',website:'',defaultIncoterm:'FOB',defaultPort:'Mariel',salesRep:'كريم'});
-  const countries = [
-    {name:'Saudi Arabia',nameAr:'السعودية',originType:'arab',labelLang:'العربية',requiredDocs:['pi','ci','pl','health','origin','halal','bl'],legalization:false,notes:'شهادة مطابقة لكل شحنة عبر نظام فسح (المستورد) — تسجيل المنتج في SFDA'},
-    {name:'United Arab Emirates',nameAr:'الإمارات',originType:'arab',labelLang:'العربية',requiredDocs:['pi','ci','pl','health','origin','halal','bl'],legalization:false},
-    {name:'Germany',nameAr:'ألمانيا',originType:'eur1',labelLang:'الألمانية',requiredDocs:['pi','ci','pl','health','origin','bl'],legalization:false,notes:'EUR.1 للإعفاء الجمركي — الملصق بالألماني حسب 1169/2011'},
-    {name:'France',nameAr:'فرنسا',originType:'eur1',labelLang:'الفرنسية',requiredDocs:['pi','ci','pl','health','origin','bl']},
-    {name:'Netherlands',nameAr:'هولندا',originType:'eur1',labelLang:'الهولندية',requiredDocs:['pi','ci','pl','health','origin','bl']},
-    {name:'Cuba',nameAr:'كوبا',originType:'normal',labelLang:'الإسبانية',requiredDocs:['pi','ci','pl','health','origin','bl'],legalization:false},
-    {name:'Benin',nameAr:'بنين',originType:'normal',labelLang:'الفرنسية',requiredDocs:['pi','ci','pl','health','origin','bl'],legalization:false},
-  ];
-  for(const c of countries) await DB.add('countries',c);
+  await seedWorldCountries(true);
+  const sales = await DB.add('team',{name:'كريم',type:'sales',pct:2,phone:'',active:true}), social = await DB.add('team',{name:'منى',type:'social',pct:1,phone:'',active:true});
+  await DB.add('team',{name:'أحمد',type:'sales',pct:1.5,phone:'',active:true});
   const certs = [['exporters_reg','2027-03-31'],['nfsa_reg','2027-06-30'],['halal','2026-12-10'],['iso22000','2027-09-01'],['haccp','2027-09-01'],['fda','2026-12-31']];
   for(const [type,exp] of certs) await DB.add('certs',{type,number:'',issuer:'',issueDate:'',expiryDate:exp});
   const seqN = await DB.next('order_'+new Date().getFullYear());
   const o = {number:`EGF-${String(new Date().getFullYear()).slice(2)}-${pad(seqN)}`, status:'confirmed', customerId:cust, customer:{company:'Sample Trading Co. (Demo)',country:'Cuba',email:'buyer@example.com',phone:'+53 000 000',address:'Havana',website:''},
     currency:'USD', incoterm:'FOB', loadingPoint:'Alexandria Port', dischargePoint:'Mariel, Cuba', depositPct:50, discountPct:0, validityDays:14,
-    piNumber:`PI-EGF-${String(new Date().getFullYear()).slice(2)}-${pad(seqN)}`, piDate:todayISO(), loadingDate:addMonths(todayISO(),1), salesRep:'كريم',
+    piNumber:`PI-EGF-${String(new Date().getFullYear()).slice(2)}-${pad(seqN)}`, piDate:todayISO(), loadingDate:addMonths(todayISO(),1), deliveryDate:addMonths(todayISO(),1), salesRep:'كريم', salesId:sales, socialId:social, salesPct:'', socialPct:'',
     items: Object.entries(DEMO).map(([code,[q,st,nt]])=>{ const i=P.findIndex(p=>p.code===code); return mkItem(byIdP(P[i],ids[i]),{cartons:q,stickers:st,notes:nt||''}); }),
     shipment:{mode:'FCL',containerType:'40'}, docs:{}, health:{status:'draft'}, history:[{at:nowISO(),by:'Demo',action:t('h_created')}]};
   const oid = await DB.add('orders',o);
   await DB.add('payments',{orderId:oid,kind:'deposit',method:'transfer',amount:Math.round(orderCalc(o).total/2*100)/100,currency:'USD',date:todayISO(),reference:'SWIFT-DEMO-001',confirmed:true,confirmedBy:'Demo',confirmedAt:nowISO()});
+  const cust2 = await DB.add('customers',{company:'Gulf Sweets LLC (Demo)',country:'Saudi Arabia',contactName:'Mr. Ali',email:'ali@example.com',phone:'+966 000 000',address:'Jeddah',defaultIncoterm:'CFR',defaultPort:'Jeddah',currency:'USD'});
+  const n2 = await DB.next('order_'+new Date().getFullYear()), yy=String(new Date().getFullYear()).slice(2);
+  const o2 = {number:`EGF-${yy}-${pad(n2)}`, status:'shipped', customerId:cust2, customer:{company:'Gulf Sweets LLC (Demo)',country:'Saudi Arabia',email:'ali@example.com',phone:'+966 000 000',address:'Jeddah'},
+    currency:'USD', incoterm:'CFR', loadingPoint:'Alexandria Port', dischargePoint:'Jeddah, Saudi Arabia', depositPct:30, discountPct:0, validityDays:14, piNumber:`PI-EGF-${yy}-${pad(n2)}`, piDate:addMonths(todayISO(),-1), invoiceNo:`INV-${yy}-${pad(n2)}`, invoiceDate:todayISO(),
+    loadingDate:todayISO(), salesRep:'أحمد', salesId:(await DB.all('team',true)).find(x=>x.name==='أحمد').id, socialId:social, salesPct:'', socialPct:2,
+    items:['LP-CAR80','MJ-BOX30'].map(code=>{ const i=P.findIndex(p=>p.code===code); return mkItem(byIdP(P[i],ids[i]),{cartons:250,batch:'B-01',prodDate:todayISO(),loadedCartons:250}); }),
+    shipment:{mode:'FCL',containerType:'20',containerNo:'MSCU1234567',sealNo:'S-998',bookingNo:'BK-1',shippedAt:todayISO()}, docs:{}, health:{status:'issued'}, history:[{at:nowISO(),by:'Demo',action:t('h_created')}]};
+  const oid2 = await DB.add('orders',o2), t2=orderCalc(o2).total;
+  await DB.add('payments',{orderId:oid2,customerId:cust2,kind:'deposit',method:'transfer',amount:Math.round(t2*0.3*100)/100,receivedAmount:Math.round(t2*0.3*100)/100-25,currency:'USD',date:addMonths(todayISO(),-1),reference:'SWIFT-DEMO-002',confirmed:true,confirmedBy:'Demo',confirmedAt:nowISO()});
+  await DB.add('payments',{orderId:oid2,customerId:cust2,kind:'balance',method:'transfer',amount:Math.round(t2*0.7*100)/100,receivedAmount:Math.round(t2*0.7*100)/100-25,currency:'USD',date:todayISO(),reference:'SWIFT-DEMO-003',confirmed:true,confirmedBy:'Demo',confirmedAt:nowISO()});
+  await DB.add('samples',{date:addMonths(todayISO(),-2),customerId:cust2,country:'السعودية',city:'Jeddah',items:[{name:'مصاصة كرتون',qty:2},{name:'مارشميلو علبة',qty:2}],courier:'DHL',tracking:'1234567890',shippingCost:85,currency:'USD',paidBy:'customer',customerPaid:85,salesId:sales,status:'ordered',orderId:oid2,files:[]});
+  await DB.add('samples',{date:todayISO(),customerName:'Lagos Foods Ltd',country:'نيجيريا',city:'Lagos',items:[{name:'لوليبوب شجرة',qty:3}],courier:'Aramex',tracking:'AR-55821',shippingCost:120,currency:'USD',paidBy:'us',customerPaid:'',salesId:sales,status:'sent',files:[]});
   await DB.set('meta','seeded',{v:1});
 }
 function byIdP(p,id){ return {...p,id}; }
 async function resetDemo(){ if(!await confirmBox(t('reset_demo_q'),{danger:1})) return; await LocalDB.wipe(); S.cache={}; location.hash=''; location.reload(); }
+
+async function changePassword(){
+  const bg=openModal({title:'تغيير كلمة المرور', size:'sm', body:`<div class="stack" id="cpf">${fld('كلمة المرور الحالية','old','',{type:'password'})}${fld('كلمة المرور الجديدة','nw','',{type:'password'})}</div>`,
+    foot:`<button class="btn btn-o" onclick="closeModal()">${t('cancel')}</button><button class="btn btn-p" id="cpf-s">${t('save')}</button>`});
+  bg.querySelector('#cpf-s').onclick=async ()=>{ const f=readForm(bg.querySelector('#cpf')); if(String(f.nw).length<6){ toast('كلمة المرور 6 حروف على الأقل','bad'); return; }
+    try{ await AUTH.changePassword(f.old,f.nw); closeModal(bg); toast(t('saved'),'ok'); }catch(e){ toast(authMsg(e),'bad'); } };
+}
 
 /* ============================== master data pages ============================== */
 
@@ -1372,7 +1449,7 @@ async function pickInto(btn){ const f = await pickFile(); if(!f) return; const w
 async function saveFileField(root, name, ref){ const w = root.querySelector(`[data-file="${name}"]`); if(!w) return ''; if(w._file){ return FILES.upload(w._file, ref); } return w.dataset.cur||''; }
 
 /* ---------------- customers ---------------- */
-PAGES.customers = { perm:'customers', async render(){
+PAGES.customers = { tab:'customers', async render(){
   const [rows, orders] = await Promise.all([DB.all('customers',true), DB.all('orders',true)]);
   $('view').innerHTML = pageHead(searchBox('c-q',t('search_customers'),'custList()'), can('customers.edit')?`<button class="btn btn-p" onclick="custForm()">${IC.plus} ${t('new_customer')}</button>`:'')
     + `<div class="card"><div class="tbl-wrap" id="c-list"></div></div>`;
@@ -1408,7 +1485,7 @@ async function custDel(id){ if(!await confirmBox(t('del_q'),{danger:1})) return;
 
 /* ---------------- products ---------------- */
 const CATS = ['candy','gum','snacks','pasta','other'];
-PAGES.products = { perm:'products', async render(){
+PAGES.products = { tab:'products', async render(){
   await Promise.all([DB.all('products',true), DB.all('tests',true), loadCartons()]);
   $('view').innerHTML = pageHead(`<div class="row wrap">${searchBox('p-q',t('search_products'),'prodList()')}<select class="in" id="p-cat" style="width:160px" onchange="prodList()"><option value="">${t('all_cats')}</option>${CATS.map(c=>`<option value="${c}">${t('cat_'+c)}</option>`).join('')}</select></div>`,
     can('products.edit')?`<button class="btn btn-o" onclick="importCatalog()">${IC.download} استيراد كاتالوج الحلويات (${CATALOG_CANDY.length} صنف)</button><button class="btn btn-p" onclick="prodForm()">${IC.plus} ${t('new_product')}</button>`:'')
@@ -1458,7 +1535,7 @@ function prodForm(id){
 async function prodDel(id){ if(!await confirmBox(t('del_q'),{danger:1})) return; await DB.del('products',id); prodList(); }
 
 /* ---------------- product tests library ---------------- */
-PAGES.tests = { perm:'tests', async render([pid]){
+PAGES.tests = { tab:['products','health','production'], async render([pid]){
   await Promise.all([DB.all('products',true), DB.all('tests',true), DB.all('files',true)]);
   const prods = (S.cache.products||[]).filter(p=>p.active!==false);
   const missing = prods.filter(p=>{ const b=bestTests(p.id,S.cache.tests,S.settings); return !b.cert||b.cert.s.state==='expired'||!b.lab||b.lab.s.state==='expired'; });
@@ -1502,41 +1579,48 @@ function testForm(id, pid){
 async function testDel(id){ if(!await confirmBox(t('del_q'),{danger:1})) return; const x=byId(S.cache.tests,id); await DB.del('tests',id); if(x&&x.fileId) await FILES.remove(x.fileId).catch(()=>{}); testList(); }
 
 /* ---------------- countries ---------------- */
-PAGES.countries = { perm:'countries', async render(){
+PAGES.countries = { tab:'countries', async render(){
   await DB.all('countries',true);
-  $('view').innerHTML = ``
-    + pageHead(searchBox('co-q',t('search'),'ctryList()'), can('countries.edit')?`<button class="btn btn-p" onclick="ctryForm()">${IC.plus} ${t('new_country')}</button>`:'')
+  const ed=hasTab('countries');
+  $('view').innerHTML = pageHead(`<div class="row wrap">${searchBox('co-q',t('search'),'ctryList()')}
+      <select class="in" id="co-r" style="width:170px" onchange="ctryList()"><option value="">كل المناطق</option>${Object.entries(REGION_AR).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select>
+      <select class="in" id="co-v" style="width:150px" onchange="ctryList()"><option value="">الكل</option><option value="0">لم تتم مراجعتها</option><option value="1">تمت مراجعتها</option></select></div>`,
+      ed?`${(S.cache.countries||[]).length<WORLD.length?`<button class="btn btn-o" onclick="seedWorldCountries()">${IC.globe} إضافة كل دول العالم</button>`:''}<button class="btn btn-p" onclick="ctryForm()">${IC.plus} ${t('new_country')}</button>`:'')
     + `<div class="card"><div class="tbl-wrap" id="co-list"></div></div>`;
   ctryList();
 }};
 function ctryList(){
-  const q=($('co-q')||{}).value?.toLowerCase()||'';
-  const rows=(S.cache.countries||[]).filter(c=>!q||[c.name,c.nameAr].join(' ').toLowerCase().includes(q)).sort((a,b)=>(a.name||'').localeCompare(b.name||''));
-  $('co-list').innerHTML = rows.length? `<table class="tbl"><thead><tr><th>${t('country')}</th><th>${t('origin_type')}</th><th>${t('label_lang')}</th><th>${t('req_docs')}</th><th>${t('legalization')}</th><th>${t('notes')}</th><th></th></tr></thead><tbody>
-    ${rows.map(c=>`<tr><td><div class="bold">${esc(c.nameAr||'')}</div><div class="small muted">${esc(c.name)}</div></td><td>${t('ot_'+(c.originType||'normal'))}</td><td>${esc(c.labelLang||'')}</td>
-    <td><div class="row wrap" style="gap:3px">${(c.requiredDocs||DEFAULT_REQ_DOCS).map(k=>`<span class="bdg b-navy nodot">${t('doc_'+k)}</span>`).join('')}</div></td><td>${c.legalization?`<span class="bdg b-warn">${t('yes')}</span>`:t('no')}</td><td class="small muted" style="max-width:260px">${esc(c.notes||'')}</td>
-    <td class="act">${can('countries.edit')?`<button class="btn btn-g btn-xs" onclick="ctryForm('${c.id}')">${IC.edit}</button><button class="btn btn-g btn-xs" onclick="ctryDel('${c.id}')">${IC.trash}</button>`:''}</td></tr>`).join('')}</tbody></table>` : emptyBox(t('no_countries'));
+  const q=($('co-q')||{}).value?.toLowerCase()||'', r=($('co-r')||{}).value||'', v=($('co-v')||{}).value||'', ed=hasTab('countries');
+  const rows=(S.cache.countries||[]).filter(c=>(!q||[c.name,c.nameAr].join(' ').toLowerCase().includes(q)) && (!r||(c.region||'x')===r) && (!v||(!!c.reviewed)===(v==='1'))).sort((a,b)=>String(a.nameAr||a.name).localeCompare(String(b.nameAr||b.name),'ar'));
+  $('co-list').innerHTML = rows.length? `<table class="tbl"><thead><tr><th>${t('country')}</th><th>المنطقة</th><th>${t('origin_type')}</th><th>${t('label_lang')}</th><th>${t('req_docs')}</th><th>متطلبات الدخول</th><th>المراجعة</th><th></th></tr></thead><tbody>
+    ${rows.map(c=>`<tr class="${ed?'click':''}" ${ed?`onclick="ctryForm('${c.id}')"`:''}><td><div class="bold">${esc(c.nameAr||'')}</div><div class="small muted">${esc(c.name)}</div></td><td class="small">${REGION_AR[c.region||'x']||''}</td><td>${t('ot_'+(c.originType||'normal'))}</td><td class="small">${esc(c.labelLang||'')}</td>
+    <td><div class="row wrap" style="gap:3px">${(c.requiredDocs||DEFAULT_REQ_DOCS).map(k=>`<span class="bdg b-navy nodot">${t('doc_'+k)}</span>`).join('')}${c.legalization?`<span class="bdg b-warn nodot">${t('legalization')}</span>`:''}</div></td>
+    <td class="small" style="max-width:300px">${(c.checks||[]).map(x=>esc(x)).join('<br>')||'—'}</td>
+    <td>${c.reviewed?'<span class="bdg b-ok">تمت</span>':'<span class="bdg b-gray">أساسية</span>'}</td>
+    <td class="act">${isAdmin()?`<button class="btn btn-g btn-xs" onclick="event.stopPropagation();ctryDel('${c.id}')">${IC.trash}</button>`:''}</td></tr>`).join('')}</tbody></table>` : emptyBox(t('no_countries'));
 }
 function ctryForm(id){
-  const c = byId(S.cache.countries,id) || {originType:'normal', requiredDocs:[...DEFAULT_REQ_DOCS]};
+  const c = byId(S.cache.countries,id) || {originType:'normal', region:'x', requiredDocs:[...DEFAULT_REQ_DOCS], checks:[]};
   const req = c.requiredDocs||DEFAULT_REQ_DOCS;
-  const bg = openModal({title:id?t('edit_country'):t('new_country'), size:'lg', body:`<div class="grid g2" id="ctf">
+  const bg = openModal({title:id?(c.nameAr||c.name):t('new_country'), size:'lg', body:`<div class="grid g2" id="ctf">
     ${fld(t('name_en_country'),'name',c.name,{req:1,ph:'Saudi Arabia'})}${fld(t('name_ar'),'nameAr',c.nameAr,{ph:'السعودية'})}
-    ${fld(t('origin_type'),'originType',c.originType,{opts:ORIGIN_TYPES.map(x=>[x,t('ot_'+x)])})}${fld(t('label_lang'),'labelLang',c.labelLang)}
-    ${fld(t('legalization_req'),'legalization',c.legalization,{type:'checkbox'})}
+    ${fld('المنطقة','region',c.region||'x',{opts:Object.entries(REGION_AR)})}${fld(t('origin_type'),'originType',c.originType,{opts:ORIGIN_TYPES.map(x=>[x,t('ot_'+x)])})}
+    ${fld(t('label_lang'),'labelLang',c.labelLang)}<div class="field"><label>&nbsp;</label><div class="row">${fld(t('legalization_req'),'legalization',c.legalization,{type:'checkbox'})}${fld('تمت مراجعة المتطلبات','reviewed',c.reviewed,{type:'checkbox'})}</div></div>
     <div class="field full"><label>${t('req_docs')}</label><div class="grid g3" id="ctf-docs">${DOC_TYPES.map(k=>`<label class="chk"><input type="checkbox" value="${k}" ${req.includes(k)?'checked':''}> ${t('doc_'+k)}</label>`).join('')}</div></div>
-    ${fld(t('notes'),'notes',c.notes,{type:'textarea',cls:'full',ph:t('country_notes_ph')})}</div>`,
+    ${fld('متطلبات الدخول (كل بند في سطر)','checksText',(c.checks||[]).join('\n'),{type:'textarea',cls:'full',attrs:'rows="5"'})}
+    ${fld(t('notes'),'notes',c.notes,{type:'textarea',cls:'full'})}</div>`,
     foot:`<button class="btn btn-o" onclick="closeModal()">${t('cancel')}</button><button class="btn btn-p" id="ctf-save">${t('save')}</button>`});
   bg.querySelector('#ctf-save').onclick = async ()=>{
     const root=bg.querySelector('#ctf'); const f=readForm(root); f.requiredDocs=[...bg.querySelectorAll('#ctf-docs input:checked')].map(x=>x.value);
+    f.checks=String(f.checksText||'').split('\n').map(x=>x.trim()).filter(Boolean); delete f.checksText;
     if(!f.name){ toast(t('fill_required'),'bad'); return; }
-    try{ if(id) await DB.update('countries',id,f); else await DB.add('countries',f); closeModal(bg); toast(t('saved'),'ok'); ctryList(); }catch(e){ errToast(e); }
+    try{ if(id) await DB.update('countries',id,f); else await DB.add('countries',f); closeModal(bg); toast(t('saved'),'ok'); await DB.all('countries',true); ctryList(); }catch(e){ errToast(e); }
   };
 }
 async function ctryDel(id){ if(!await confirmBox(t('del_q'),{danger:1})) return; await DB.del('countries',id); ctryList(); }
 
 /* ---------------- company certificates ---------------- */
-PAGES.certs = { perm:'certs', async render(){
+PAGES.certs = { tab:['health','countries'], async render(){
   await Promise.all([DB.all('certs',true), DB.all('files',true)]);
   $('view').innerHTML = ``
     + pageHead('<div></div>', can('certs.edit')?`<button class="btn btn-p" onclick="certForm()">${IC.plus} ${t('new_cert')}</button>`:'')
@@ -1565,18 +1649,38 @@ function certForm(id){
 }
 async function certDel(id){ if(!await confirmBox(t('del_q'),{danger:1})) return; const c=byId(S.cache.certs,id); await DB.del('certs',id); if(c&&c.fileId) await FILES.remove(c.fileId).catch(()=>{}); certList(); }
 
-/* ---------------- users ---------------- */
+/* ---------------- users (المدير بس) ---------------- */
+const tabName = k => (TABS.find(x=>x[0]===k)||[,k])[1];
 PAGES.users = { perm:'admin', async render(){
-  const rows = await DB.all('users',true);
-  $('view').innerHTML = `
-    <div class="card"><div class="tbl-wrap"><table class="tbl"><thead><tr><th>${t('name')}</th><th>${t('email')}</th><th>${t('role')}</th><th>${t('active')}</th><th>${t('since')}</th></tr></thead><tbody>
-    ${rows.sort((a,b)=>(a.role==='pending'?-1:1)).map(u=>`<tr><td class="bold">${esc(u.name)} ${u.role==='pending'?`<span class="bdg b-warn">${t('new')}</span>`:''}</td><td class="mono small">${esc(u.email)}</td>
-      <td><select class="in sm" style="width:160px" onchange="userSet('${u.id}',{role:this.value})" ${u.id===S.user.uid?'disabled':''}>${['pending',...ROLES].map(r=>`<option value="${r}" ${u.role===r?'selected':''}>${t('role_'+r)}</option>`).join('')}</select></td>
-      <td><label class="chk"><input type="checkbox" ${u.active?'checked':''} ${u.id===S.user.uid?'disabled':''} onchange="userSet('${u.id}',{active:this.checked})"> ${t('active')}</label></td><td class="num small">${fmtDate(u.createdAt)}</td></tr>`).join('') || `<tr><td colspan="5">${emptyBox(t('no_users'))}</td></tr>`}
-    </tbody></table></div></div>
-    <div class="card mt"><div class="card-h"><h3>${t('roles_title')}</h3></div><div class="card-b"><div class="grid g2 small">${ROLES.map(r=>`<div><span class="bdg b-navy nodot">${t('role_'+r)}</span> <span class="muted">${t('role_desc_'+r)}</span></div>`).join('')}</div></div></div>`;
+  const rows = (await DB.all('users',true)).sort((a,b)=>(b.role==='admin')-(a.role==='admin') || String(a.name).localeCompare(String(b.name)));
+  $('view').innerHTML = pageHead('', `<button class="btn btn-p" onclick="userForm()">${IC.plus} مستخدم جديد</button>`)+`
+    <div class="card"><div class="tbl-wrap"><table class="tbl"><thead><tr><th>الاسم</th><th>اسم المستخدم</th><th>التابات</th><th>الحالة</th><th></th></tr></thead><tbody>
+    ${rows.map(u=>{ const me=u.id===(S.user||{}).uid; const tabs=u.role==='admin'?['كل التابات (مدير)']:(u.tabs||ROLE_TABS[u.role]||[]).map(tabName);
+      return `<tr class="${u.active===false?'faint':''}"><td class="bold">${esc(u.name||'')}${u.role==='admin'?' <span class="bdg b-navy nodot">مدير</span>':''}</td><td class="mono small" dir="ltr">${esc(u.username||u.email||'')}</td>
+      <td><div class="row wrap" style="gap:4px">${tabs.map(x=>`<span class="tag">${esc(x)}</span>`).join('')||'<span class="faint">—</span>'}</div></td>
+      <td>${u.active===false?'<span class="bdg b-bad">موقوف</span>':u.role==='pending'?'<span class="bdg b-warn">في الانتظار</span>':'<span class="bdg b-ok">فعّال</span>'}</td>
+      <td class="act nowrap">${me?'':`<button class="btn btn-o btn-xs" onclick="userForm('${u.id}')">${IC.edit} تعديل</button><button class="btn btn-g btn-xs" onclick="userSet('${u.id}',{active:${u.active===false}})">${u.active===false?'تفعيل':'إيقاف'}</button>`}</td></tr>`; }).join('') || `<tr><td colspan="5">${emptyBox('لا يوجد مستخدمين')}</td></tr>`}
+    </tbody></table></div></div>`;
 }};
-async function userSet(id, patch){ try{ if(patch.role && patch.role!=='pending') patch.active = true; await DB.update('users',id,patch); toast(t('saved'),'ok'); route(); }catch(e){ errToast(e); } }
+function userForm(id){
+  const u = id ? byId(S.cache.users,id) : {tabs:['dashboard','orders'], role:'user'};
+  const cur = u.role==='admin' ? TABS.map(x=>x[0]) : (u.tabs||ROLE_TABS[u.role]||[]);
+  const bg=openModal({title:id?'تعديل مستخدم':'مستخدم جديد', body:`<div class="grid g2" id="uf">
+    ${fld('الاسم','name',u.name,{req:1})}${id?`<div class="field"><label>اسم المستخدم</label><div class="in ro mono" dir="ltr">${esc(u.username||u.email||'')}</div></div>`:fld('اسم المستخدم','username','',{req:1,attrs:'dir="ltr" autocomplete="off"',ph:'ahmed'})}
+    ${id?'':fld('كلمة المرور','password','',{type:'password',req:1,attrs:'dir="ltr" autocomplete="new-password"'})}${fld('مدير (كل التابات وإدارة المستخدمين)','isAdmin',u.role==='admin',{type:'checkbox'})}
+    <div class="field full" id="uf-tabs"><label>التابات اللي تظهر له</label><div class="tabs-pick">${TABS.map(([k,l])=>`<label class="chk"><input type="checkbox" data-tab="${k}" ${cur.includes(k)?'checked':''}> ${l}</label>`).join('')}</div></div></div>
+    ${id?`<div class="small muted mt">كلمة المرور بيغيّرها المستخدم نفسه من قايمته. لو نسيها: أوقف الحساب واعمل له اسم مستخدم جديد.</div>`:''}`,
+    foot:`<button class="btn btn-o" onclick="closeModal()">${t('cancel')}</button><button class="btn btn-p" id="uf-s">${t('save')}</button>`});
+  const adm=bg.querySelector('[name=isAdmin]'), tw=bg.querySelector('#uf-tabs'); const sync=()=>tw.classList.toggle('faint',adm.checked); adm.onchange=sync; sync();
+  bg.querySelector('#uf-s').onclick=async ()=>{ const f=readForm(bg.querySelector('#uf')); const tabs=[...bg.querySelectorAll('[data-tab]:checked')].map(x=>x.dataset.tab);
+    if(!f.name || (!id && (!f.username||!f.password))){ toast(t('fill_required'),'bad'); return; }
+    if(!f.isAdmin && !tabs.length){ toast('اختار تاب واحدة على الأقل','bad'); return; }
+    const b=bg.querySelector('#uf-s'); b.disabled=true;
+    try{ if(id) await DB.update('users',id,{name:f.name, role:f.isAdmin?'admin':'user', tabs, active:true});
+      else await AUTH.createUser({name:f.name, username:f.username, password:f.password, tabs, role:f.isAdmin?'admin':'user'});
+      closeModal(bg); toast(t('saved'),'ok'); route(); }catch(e){ toast(authMsg(e),'bad'); b.disabled=false; } };
+}
+async function userSet(id, patch){ try{ await DB.update('users',id,patch); toast(t('saved'),'ok'); route(); }catch(e){ errToast(e); } }
 
 /* ---------------- settings ---------------- */
 PAGES.settings = { perm:'admin', async render(){
@@ -1673,8 +1777,8 @@ function mkItem(p, extra={}){
 const pad = (v,l=4) => String(v).padStart(l,'0');
 
 /* ---------------- list ---------------- */
-PAGES.orders = { perm:'orders', async render([filter]){
-  await Promise.all([DB.all('orders',true), DB.all('payments',true), DB.all('customers')]);
+PAGES.orders = { tab:'orders', async render([filter]){
+  await Promise.all([DB.all('orders',true), DB.all('payments',true), DB.all('customers'), DB.all('team')]);
   const custF = filter && filter.startsWith('c:') ? filter.slice(2) : '';
   const counts = {}; (S.cache.orders||[]).forEach(o=>counts[o.status]=(counts[o.status]||0)+1);
   $('view').innerHTML = pageHead(`<div class="row wrap">${searchBox('o-q',t('search_orders'),'ordList()')}
@@ -1689,28 +1793,32 @@ function ordList(){
   const rows=(S.cache.orders||[]).filter(o=> (st==='open'? !['closed','cancelled'].includes(o.status) : !st || o.status===st) && (!cu||o.customerId===cu)
     && (!q || [o.number,o.piNumber,custName(o),(o.customer||{}).country,o.dischargePoint,(o.shipment||{}).containerNo,(o.shipment||{}).blNo].join(' ').toLowerCase().includes(q)))
     .sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||''));
-  $('o-list').innerHTML = rows.length? `<table class="tbl"><thead><tr><th>${t('order_no')}</th><th>${t('customer')}</th><th>${t('destination')}</th><th>${t('status')}</th><th>${t('value')}</th><th>${t('cartons')}</th><th>${t('paid')}</th><th>${t('loading_date')}</th><th>الإجراء المطلوب</th>${S.profile.role==='admin'?'<th></th>':''}</tr></thead><tbody>
+  $('o-list').innerHTML = rows.length? `<table class="tbl"><thead><tr><th>${t('order_no')}</th><th>${t('customer')}</th><th>${t('destination')}</th><th>${t('status')}</th><th>${t('value')}</th><th>${t('paid')}</th><th>الباقي</th><th>السيلز / السوشيال</th><th>${t('loading_date')}</th><th>الإجراء المطلوب</th>${S.profile.role==='admin'?'<th></th>':''}</tr></thead><tbody>
   ${rows.map(o=>{ const c=orderCalc(o), p=payCalc(o,S.cache.payments); const d=daysUntil(o.loadingDate); const late = o.loadingDate && d<0 && FLOW.indexOf(o.status)<FLOW.indexOf('shipped') && o.status!=='cancelled';
-    return `<tr class="click" onclick="location.hash='#/order/${o.id}/'+((nextStep(o)||{}).tab||'invoice')"><td><div class="bold mono">${esc(o.number)}</div>${o.piNumber?`<div class="tiny muted mono">${esc(o.piNumber)}</div>`:''}</td><td class="bold">${esc(custName(o))}</td><td>${esc((o.customer||{}).country||'')}<div class="tiny muted">${esc(o.dischargePoint||'')}</div></td>
-    <td>${statusBadge(o.status)}</td><td class="num bold">${money(c.total,o.currency)}</td><td class="num">${fmt(c.cartons)}</td>
-    <td style="min-width:110px"><div class="bar ${p.fullOk?'ok':p.depositOk?'warn':''}"><i style="width:${p.pct}%"></i></div><div class="tiny muted num">${fmt(p.pct)}%</div></td>
+    return `<tr class="click" onclick="location.hash='#/order/${o.id}/summary'"><td><div class="bold mono">${esc(o.number)}</div>${o.piNumber?`<div class="tiny muted mono">${esc(o.piNumber)}</div>`:''}</td><td class="bold">${esc(custName(o))}</td><td>${esc((o.customer||{}).country||'')}<div class="tiny muted">${esc(o.dischargePoint||'')}</div></td>
+    <td>${statusBadge(o.status)}</td><td class="num bold">${money(c.total,o.currency)}<div class="tiny muted">${fmt(c.cartons)} ${t('cartons')}</div></td>
+    <td style="min-width:110px"><div class="num small">${money(p.paid,o.currency)}</div><div class="bar ${p.fullOk?'ok':p.depositOk?'warn':''}"><i style="width:${p.pct}%"></i></div></td>
+    <td class="num ${c.total-p.paid>0.004 && o.status!=='draft'?'neg bold':''}">${money(Math.max(0,c.total-p.paid),o.currency)}</td>
+    <td class="small">${esc((teamOf(o.salesId)||{}).name||o.salesRep||'—')}<div class="tiny muted">${esc((teamOf(o.socialId)||{}).name||'')}</div></td>
     <td class="num">${o.loadingDate?fmtDate(o.loadingDate):'—'} ${late?`<span class="bdg b-bad">${t('late')}</span>`:''}</td><td>${(()=>{ const x=nextStep(o); return x?`<span class="small bold">${esc(x.title)}</span>`:'—'; })()}</td>${S.profile.role==='admin'?`<td class="act"><button class="btn btn-g btn-xs" title="حذف الطلبية" onclick="event.stopPropagation();deleteOrderFull('${o.id}').then(ok=>ok&&ordList())">${IC.trash}</button></td>`:''}</tr>`}).join('')}</tbody></table>` : emptyBox(t('no_orders'), can('orders.edit')?`<button class="btn btn-p" onclick="newOrder()">${IC.plus} ${t('new_order')}</button>`:'');
 }
 
 /* ---------------- new order ---------------- */
+const teamOpts = k => (S.cache.team||[]).filter(x=>x.type===k && x.active!==false).map(x=>[x.id, `${x.name} (${fmt(x.pct,2)}%)`]);
 async function newOrder(tab){
-  await DB.all('customers');
+  await Promise.all([DB.all('customers'), DB.all('team')]);
   const custOpts = [['',t('choose_customer')],...(S.cache.customers||[]).map(c=>[c.id,c.company+' — '+(c.country||'')])];
   const bg = openModal({title:t('new_order'), body:`<div class="grid g2" id="nof">
     <div class="field full"><label class="req">${t('customer')}</label><div class="row"><select class="in grow" name="customerId">${custOpts.map(([v,l])=>`<option value="${v}">${esc(l)}</option>`).join('')}</select>${can('customers.edit')?`<button type="button" class="btn btn-o" id="nof-nc">${IC.plus} ${t('new')}</button>`:''}</div></div>
     ${fld(t('currency'),'currency','USD',{opts:CURRENCIES})}${fld(t('incoterm'),'incoterm','FOB',{opts:INCOTERMS})}
     ${fld(t('loading_point'),'loadingPoint','Alexandria Port',{ph:'Alexandria Port'})}${fld(t('discharge_point'),'dischargePoint','',{ph:'Port, Country'})}
-    ${fld(t('loading_date'),'loadingDate','',{type:'date'})}${fld(t('sales_rep'),'salesRep',S.profile.name)}</div>`,
+    ${fld('تاريخ التسليم من المصنع','deliveryDate','',{type:'date'})}${fld(t('loading_date'),'loadingDate','',{type:'date'})}
+    ${fld('السيلز','salesId','',{opts:[['','—'],...teamOpts('sales')]})}${fld('السوشيال ميديا','socialId','',{opts:[['','—'],...teamOpts('social')]})}</div>`,
     foot:`<button class="btn btn-o" onclick="closeModal()">${t('cancel')}</button><button class="btn btn-p" id="nof-go">${t('create_order')}</button>`});
   const sel = bg.querySelector('[name=customerId]');
   sel.onchange = ()=>{ const c=byId(S.cache.customers,sel.value); if(!c) return; const f=bg.querySelector('#nof');
     if(c.defaultIncoterm) f.querySelector('[name=incoterm]').value=c.defaultIncoterm; if(c.currency) f.querySelector('[name=currency]').value=c.currency;
-    if(c.defaultPort) f.querySelector('[name=dischargePoint]').value=c.defaultPort+(c.country?', '+c.country:''); if(c.salesRep) f.querySelector('[name=salesRep]').value=c.salesRep; };
+    if(c.defaultPort) f.querySelector('[name=dischargePoint]').value=c.defaultPort+(c.country?', '+c.country:''); if(c.salesId) f.querySelector('[name=salesId]').value=c.salesId; if(c.socialId) f.querySelector('[name=socialId]').value=c.socialId; };
   const nc = bg.querySelector('#nof-nc'); if(nc) nc.onclick = ()=> custForm(null, cid=>{ sel.insertAdjacentHTML('beforeend',`<option value="${cid}">${esc(byId(S.cache.customers,cid).company)}</option>`); sel.value=cid; sel.onchange(); });
   bg.querySelector('#nof-go').onclick = async ()=>{
     const f = readForm(bg.querySelector('#nof')); if(!f.customerId){ toast(t('choose_customer'),'bad'); return; }
@@ -1718,7 +1826,7 @@ async function newOrder(tab){
     try{
       const c = byId(S.cache.customers,f.customerId);
       const num = await DB.next('order_'+new Date().getFullYear());
-      const o = {...f, number:`${S.settings.orderPrefix||'EGF'}-${String(new Date().getFullYear()).slice(2)}-${pad(num)}`, status:'draft',
+      const o = {...f, salesRep:(teamOf(f.salesId)||{}).name||'', salesPct:'', socialPct:'', number:`${S.settings.orderPrefix||'EGF'}-${String(new Date().getFullYear()).slice(2)}-${pad(num)}`, status:'draft',
         customer:{company:c.company,country:c.country,email:c.email||'',phone:c.phone||'',address:c.address||'',website:c.website||'',contactName:c.contactName||''},
         depositPct:n(S.settings.depositPct)||50, discountPct:0, validityDays:n(S.settings.validityDays)||14, items:[], shipment:{mode:'FCL',containerType:'40'}, docs:{}, health:{status:'draft'},
         history:[{at:nowISO(),by:who(),action:t('h_created')}]};
@@ -1729,11 +1837,11 @@ async function newOrder(tab){
 
 /* ---------------- detail ---------------- */
 let OD = null;
-PAGES.order = { perm:'orders', async render([id, tab]){
-  const [o] = await Promise.all([DB.get('orders',id), DB.all('payments',true), DB.all('countries',true), DB.all('tests',true), DB.all('products'), DB.all('files',true), DB.all('certs',true)]);
+PAGES.order = { tab:['orders','production','health','accounts'], async render([id, tab]){
+  const [o] = await Promise.all([DB.get('orders',id), DB.all('payments',true), DB.all('countries',true), DB.all('tests',true), DB.all('products'), DB.all('files',true), DB.all('certs',true), DB.all('team')]);
   if(!o){ $('view').innerHTML = emptyBox(t('not_found')); return; }
   o.items=o.items||[]; o.shipment=o.shipment||{}; o.docs=o.docs||{}; o.health=o.health||{status:'draft'}; o.history=o.history||[]; o.production=o.production||{};
-  OD = { o, tab: tab || (OD && OD.o && OD.o.id===id ? OD.tab : 'invoice'), dirty:false };
+  OD = { o, tab: tab || (OD && OD.o && OD.o.id===id ? OD.tab : 'summary'), dirty:false };
   setTitle(o.number, `<a href="#/orders">${t('pg_orders')}</a> / ${esc(custName(o))}`);
   renderOrder();
 }};
@@ -1744,7 +1852,8 @@ function renderOrder(){
   const o = OD.o, c = orderCalc(o), p = payCalc(o,S.cache.payments);
   const idx = FLOW.indexOf(o.status), next = o.status==='cancelled'? null : FLOW[idx+1];
   const country = countryOf(o,S.cache.countries);
-  const tabs = [['invoice','الفاتورة'],['production','أمر الإنتاج'],['payments','الدفعات'],['shipping','الشحن'],['health','الشهادة الصحية'],['docs','المستندات'],['history',t('tab_history')]];
+  const tabs = orderTabs();
+  if(!tabs.some(x=>x[0]===OD.tab)) OD.tab = tabs[0][0];
   const ns = nextStep(o);
   const reqDocs = requiredDocs(o,S.cache.countries); const docsDone = reqDocs.filter(k=>['done','na'].includes((o.docs[k]||{}).status)).length;
   $('view').innerHTML = `
@@ -1770,8 +1879,10 @@ function renderOrder(){
   <div class="card"><div class="tabs">${tabs.map(([k,l,ic])=>`<button class="tab ${OD.tab===k?'on':''}" onclick="odTab('${k}')">${l}</button>`).join('')}</div><div id="od-body"></div></div>`;
   renderTab();
 }
+const ORDER_TABS = [['summary','الملخص',null],['invoice','الفاتورة',['orders']],['production','أمر الإنتاج',['orders','production']],['payments','الدفعات',['accounts','orders']],['shipping','الشحن',['orders','calc']],['health','الشهادة الصحية',['health','orders']],['docs','متطلبات البلد',['orders','health','countries']],['files','الملفات',null],['history','السجل',null]];
+const orderTabs = () => ORDER_TABS.filter(x=>!x[2] || x[2].some(hasTab));
 function odTab(k){ if(OD.dirty && !confirm(t('unsaved_q'))) return; OD.dirty=false; OD.tab=k; history.replaceState(null,'','#/order/'+OD.o.id+'/'+k); renderOrder(); const nk=TAB2NAV[k]||'orders'; document.querySelectorAll('.nav a').forEach(a=>a.classList.toggle('on', a.dataset.k===nk)); }
-function renderTab(){ ({invoice:tabInvoice,items:tabInvoice,payments:tabPayments,production:tabProduction,shipping:tabShipping,docs:tabDocs,health:tabHealth,history:tabHistory}[OD.tab]||tabItems)(); }
+function renderTab(){ ({summary:tabSummary,files:tabFiles,invoice:tabInvoice,items:tabInvoice,payments:tabPayments,production:tabProduction,shipping:tabShipping,docs:tabDocs,health:tabHealth,history:tabHistory}[OD.tab]||tabItems)(); }
 async function saveOrder(patch, action){
   const o = OD.o; Object.assign(o, patch);
   if(action){ o.history = [...(o.history||[]), {at:nowISO(), by:who(), action}]; patch.history = o.history; }
@@ -1847,7 +1958,7 @@ function tabPayments(){
 }
 function payRow(x,o){
   return `<tr class="${x.void?'faint':''}"><td class="num">${fmtDate(x.date)}</td><td>${t('pk2_'+x.kind)}</td><td>${x.method==='cash'?`<span class="bdg b-yel nodot">${t('cash')}</span>`:`<span class="bdg b-info nodot">${t('transfer')}</span>`}</td>
-    <td class="num bold">${money(x.amount,x.currency||o.currency)}</td><td class="small mono">${esc(x.reference||x.receiptNo||'')}${x.method==='cash'&&x.receivedBy?`<div class="tiny muted">${t('received_by')}: ${esc(x.receivedBy)}</div>`:''}</td><td>${filePillSync(x.fileId)}</td>
+    <td class="num bold">${money(x.amount,x.currency||o.currency)}${x.receivedAmount!=null&&Math.abs(n(x.receivedAmount)-n(x.amount))>0.004?`<div class="tiny muted">الواصل: ${money(x.receivedAmount,x.currency||o.currency)}</div>`:''}</td><td class="small mono">${esc(x.reference||x.receiptNo||'')}${x.method==='cash'&&x.receivedBy?`<div class="tiny muted">${t('received_by')}: ${esc(x.receivedBy)}</div>`:''}</td><td>${filePillSync(x.fileId)}</td>
     <td>${x.void?`<span class="bdg b-bad">${t('void')}</span>`:x.confirmed?`<span class="bdg b-ok">${t('confirmed')}</span><div class="tiny muted">${esc(x.confirmedBy||'')}</div>`:`<span class="bdg b-warn">${t('pending_confirm')}</span>`}</td>
     <td class="act">${x.method==='cash'?`<button class="btn btn-g btn-xs" onclick="printReceipt('${x.id}')" title="${t('receipt')}">${IC.print}</button>`:''}
       ${!x.confirmed&&!x.void&&(can('payments.confirm'))?`<button class="btn btn-ok btn-xs" onclick="payConfirm('${x.id}')">${IC.check} ${t('confirm_pay')}</button>`:''}
@@ -1860,17 +1971,19 @@ function payForm(id, orderId){
   const suggest = kind==='deposit' ? round(p.depositReq-p.paid) : round(p.remaining);
   const bg=openModal({title:t('add_payment')+' — '+esc(o.number), body:`<div class="grid g2" id="pyf">
     ${fld(t('kind'),'kind',kind,{opts:['deposit','balance','other'].map(k=>[k,t('pk2_'+k)])})}${fld(t('method'),'method','transfer',{opts:[['transfer',t('transfer')],['cash',t('cash')]]})}
-    ${fld(t('amount'),'amount',suggest||'',{type:'number',req:1})}${fld(t('currency'),'currency',o.currency||'USD',{opts:CURRENCIES})}
+    ${fld('المبلغ اللي حوّله العميل','amount',suggest||'',{type:'number',req:1})}${fld('الواصل للحساب البنكي','receivedAmount','',{type:'number',hint:'لو فيه مصاريف بنكية اتخصمت'})}
+    ${fld(t('currency'),'currency',o.currency||'USD',{opts:CURRENCIES})}
     ${fld(t('date'),'date',todayISO(),{type:'date'})}<div id="py-ref">${fld(t('transfer_ref'),'reference','',{ph:'SWIFT / MT103'})}</div>
     <div id="py-cash" class="hidden span2">${fld(t('received_by'),'receivedBy',S.profile.name)}</div>
     <div class="full">${fileField(t('pay_proof'),'file','')}</div>
     ${fld(t('notes'),'notes','',{type:'textarea',cls:'full'})}</div>`,
     foot:`<button class="btn btn-o" onclick="closeModal()">${t('cancel')}</button><button class="btn btn-p" id="pyf-s">${t('save')}</button>`});
+  const am=bg.querySelector('[name=amount]'), rc=bg.querySelector('[name=receivedAmount]'); rc.placeholder=am.value; am.oninput=()=>{ rc.placeholder=am.value; };
   const m=bg.querySelector('[name=method]'); const sw=()=>{ const cash=m.value==='cash'; bg.querySelector('#py-cash').classList.toggle('hidden',!cash); bg.querySelector('#py-ref').classList.toggle('hidden',cash); }; m.onchange=sw;
   bg.querySelector('#pyf-s').onclick=async ()=>{
     const root=bg.querySelector('#pyf'); const f=readForm(root); if(!n(f.amount)){ toast(t('fill_required'),'bad'); return; }
     const b=bg.querySelector('#pyf-s'); b.disabled=true;
-    try{ f.orderId=o.id; f.fileId=await saveFileField(root,'file',{col:'payments',id:o.id}); f.confirmed=false;
+    try{ if(f.receivedAmount===''||f.receivedAmount==null) f.receivedAmount=n(f.amount); f.orderId=o.id; f.customerId=o.customerId||''; f.fileId=await saveFileField(root,'file',{col:'payments',id:o.id}); f.confirmed=false;
       if(f.method==='cash'){ f.receiptNo = `${S.settings.receiptPrefix||'RC'}-${new Date().getFullYear()}-${pad(await DB.next('receipt_'+new Date().getFullYear()))}`; f.reference=''; } else f.receivedBy='';
       const pid = await DB.add('payments',f); await DB.all('files',true);
       if(OD && OD.o.id===o.id) await saveOrder({}, `${t('h_payment')}: ${money(f.amount,f.currency)} (${t(f.method)})`);
@@ -1932,6 +2045,8 @@ function tabDocs(){
   $('od-body').innerHTML = `<div class="card-b">
     ${country?`<div class="alert al-info mb">${IC.globe}<div><b>${esc(country.nameAr||country.name)}</b> — ${t('origin_type')}: <b>${t('ot_'+(country.originType||'normal'))}</b>${country.labelLang?` · ${t('label_lang')}: <b>${esc(country.labelLang)}</b>`:''}${country.legalization?` · <b>${t('legalization_req')}</b>`:''}${country.notes?`<div class="small mt-s">${esc(country.notes)}</div>`:''}</div></div>`
       :`<div class="alert al-warn mb">${IC.alert}<div>${t('country_missing_hint')} <a href="#/countries">${t('pg_countries')}</a></div></div>`}
+    ${orderChecksHtml(o, ed)}
+    <h3 style="font-size:14px" class="mb">المستندات المطلوبة</h3>
     <div class="tbl-wrap"><table class="tbl"><thead><tr><th>${t('document')}</th><th>${t('required')}</th><th>${t('status')}</th><th>${t('number')}</th><th>${t('date')}</th><th>${t('file')}</th><th></th></tr></thead><tbody>
     ${DOC_TYPES.map(k=>{ const d=o.docs[k]||{}; const isReq=req.includes(k); const st=d.status||(isReq?'required':''); return `<tr data-k="${k}" class="${!isReq&&!d.status?'faint':''}">
       <td class="bold">${t('doc_'+k)}${k==='origin'&&country?`<div class="tiny muted">${t('ot_'+(country.originType||'normal'))}</div>`:''}</td>
@@ -1946,6 +2061,17 @@ function tabDocs(){
     <h3 style="font-size:14px" class="mb">${t('company_certs_send')}</h3>
     <div class="row wrap">${(S.cache.certs||[]).filter(c=>c.fileId).map(c=>`<button class="btn btn-o btn-s" onclick="FILES.download('${c.fileId}')">${IC.download} ${c.type==='other'?esc(c.title||''):t('ct_'+c.type)} ${daysUntil(c.expiryDate)<0?`<span class="bdg b-bad">${t('ts_expired')}</span>`:''}</button>`).join('') || `<span class="muted small">${t('no_cert_files')} <a href="#/certs">${t('pg_certs')}</a></span>`}</div></div>`;
 }
+function orderCheckList(o){ const c=countryOf(o,S.cache.countries); return [...new Set([...((c&&c.checks)||[]), ...(o.extraChecks||[])])]; }
+function orderChecksHtml(o, ed){
+  const list=orderCheckList(o), st=o.checks||{}, done=list.filter(x=>(st[x]||{}).done).length;
+  return `<div class="row between mb"><h3 style="font-size:14px;margin:0">متطلبات الدخول للبلد</h3><span class="bdg ${done===list.length&&list.length?'b-ok':'b-warn'}">${done}/${list.length}</span></div>
+    <div class="chk-list mb">${list.map((x,i)=>{ const v=st[x]||{}; return `<label class="chk-row ${v.done?'done':''}"><input type="checkbox" ${v.done?'checked':''} ${ed?'':'disabled'} onchange="checkSet(${i},this.checked)"><span>${esc(x)}</span>${v.done?`<span class="tiny muted" style="margin-inline-start:auto">${esc(v.by||'')} · ${fmtDate(v.at)}</span>`:''}${(o.extraChecks||[]).includes(x)&&ed?`<button type="button" class="btn btn-g btn-xs" onclick="event.preventDefault();checkDel(${i})">${IC.x}</button>`:''}</label>`; }).join('') || '<div class="small muted">لا توجد متطلبات مسجلة لهذا البلد</div>'}
+    ${ed?`<div class="row mt-s"><input class="in grow" id="ck-new" placeholder="إضافة بند لهذا الأوردر"><button class="btn btn-o btn-s" onclick="checkAdd()">${IC.plus} إضافة</button></div>`:''}</div><div class="sep"></div>`;
+}
+async function checkSet(i, v){ const o=OD.o, x=orderCheckList(o)[i]; const checks={...(o.checks||{}), [x]: v?{done:true, by:who(), at:todayISO()}:{done:false}};
+  try{ await saveOrder({checks}, `${v?'تم':'إلغاء'}: ${x}`); tabDocs(); }catch(e){ errToast(e); } }
+async function checkAdd(){ const v=($('ck-new').value||'').trim(); if(!v) return; try{ await saveOrder({extraChecks:[...(OD.o.extraChecks||[]), v]}, 'إضافة متطلب: '+v); tabDocs(); }catch(e){ errToast(e); } }
+async function checkDel(i){ const x=orderCheckList(OD.o)[i]; try{ await saveOrder({extraChecks:(OD.o.extraChecks||[]).filter(y=>y!==x)}, 'حذف متطلب: '+x); tabDocs(); }catch(e){ errToast(e); } }
 async function docSet(k, patch, quiet){
   const o=OD.o; const docs={...o.docs, [k]:{...(o.docs[k]||{}), ...patch}};
   try{ await saveOrder({docs}, quiet?null:`${t('h_doc')}: ${t('doc_'+k)}${patch.status?' → '+t('ds_'+patch.status):''}`); if(!quiet) tabDocs(); else toast(t('saved'),'ok'); }catch(e){ errToast(e); }
@@ -1953,7 +2079,10 @@ async function docSet(k, patch, quiet){
 async function docUpload(k){ const f=await pickFile(); if(!f) return; toast(t('uploading')); try{ const id=await FILES.upload(f,{col:'orders',id:OD.o.id,doc:k}); await DB.all('files',true); const cur=OD.o.docs[k]||{}; await docSet(k,{fileId:id, status: cur.status==='na'?'na':'done', date: cur.date||todayISO()}); }catch(e){ errToast(e); } }
 
 /* ----- tab: health certificate → health.js ----- */
-function healthFiles(){ const out=[]; OD.o.items.forEach(it=>{ const bt=bestTests(it.productId,S.cache.tests,S.settings); [bt.cert,bt.lab].forEach(x=>{ if(x && x.x.fileId && !out.find(o=>o.fileId===x.x.fileId)) out.push({fileId:x.x.fileId, label:`${it.nameAr||it.nameEn} - ${I18N.ar['tk_'+x.x.kind]}`}); }); }); return out; }
+function healthFiles(){ const out=[]; const add=(fileId,label)=>{ if(fileId && !out.find(x=>x.fileId===fileId)) out.push({fileId,label}); };
+  Object.entries(OD.o.docs||{}).forEach(([k,d])=>{ if(k!=='health' && d && d.fileId) add(d.fileId, I18N.ar['doc_'+k]||k); });
+  (OD.o.files||[]).forEach(f=>add(f.fileId,f.label));
+  OD.o.items.forEach(it=>{ const bt=bestTests(it.productId,S.cache.tests,S.settings); [bt.cert,bt.lab].forEach(x=>{ if(x && x.x.fileId && !out.find(o=>o.fileId===x.x.fileId)) out.push({fileId:x.x.fileId, label:`${it.nameAr||it.nameEn} - ${I18N.ar['tk_'+x.x.kind]}`}); }); }); return out; }
 function healthEmailBody(o){
   const c=orderCalc(o); const s=S.settings; const country=(countryOf(o,S.cache.countries)||{}).nameAr || (o.customer||{}).country || '';
   return `السادة / الهيئة القومية لسلامة الغذاء — إدارة الشهادات الصحية\nتحية طيبة وبعد،\n\nنرجو التكرم باستخراج شهادة صحية للشحنة الموضحة بياناتها:\n\n`+
@@ -2012,8 +2141,8 @@ async function deleteOrderFull(id){
 
 /* ============================== dashboard / payments / calculator ============================== */
 PAGES.dashboard = { async render(){
-  const [orders, payments, certs, tests] = await Promise.all([DB.all('orders',true), can('payments.view')?DB.all('payments',true):[], DB.all('certs',true).catch(()=>[]), DB.all('tests',true).catch(()=>[])]);
-  await DB.all('countries',true).catch(()=>[]);
+  const [orders, payments, certs, tests] = await Promise.all([DB.all('orders',true), DB.all('payments',true).catch(()=>[]), DB.all('certs',true).catch(()=>[]), DB.all('tests',true).catch(()=>[])]);
+  await Promise.all([DB.all('countries',true).catch(()=>[]), DB.all('team').catch(()=>[])]);
   const st = S.settings; const open = orders.filter(o=>!['closed','cancelled'].includes(o.status));
   const month = todayISO().slice(0,7);
   const shippedMonth = orders.filter(o=>['shipped','closed'].includes(o.status) && ((o.shipment||{}).shippedAt||'').slice(0,7)===month);
@@ -2034,6 +2163,14 @@ PAGES.dashboard = { async render(){
     if(miss.length) alerts.push({lvl:'warn', ic:IC.flask, txt:`${miss.length} صنف في طلبيات مفتوحة تحاليلهم ناقصة أو منتهية — ارفعها من «تحاليل المنتجات»`, href:'#/tests'}); }
   const unconf = payments.filter(p=>!p.confirmed && !p.void);
   if(unconf.length && can('payments.confirm')) alerts.push({lvl:'warn', ic:IC.money, txt:`${unconf.length} ${t('al_unconfirmed')}`, href:'#/payments'});
+  if(hasTab('accounts')) orders.filter(o=>['shipped','closed'].includes(o.status)).forEach(o=>{ const m=orderMoney(o,payments); if(m.balance>0.004) alerts.push({lvl:'bad', ic:IC.wallet, txt:`مستحق بعد الشحن ${money(m.balance,m.cur)} — ${o.number} · ${custName(o)}`, href:`#/order/${o.id}/summary`}); });
+  let fin='';
+  if(hasTab('accounts')||hasTab('commissions')){
+    const inv=orders.filter(isInvoiced), bal=sumByCur(inv.map(o=>{ const m=orderMoney(o,payments); return [m.cur,m.balance]; }));
+    const rec=sumByCur(payments.filter(p=>p.confirmed && !p.void && (p.date||'').startsWith(month)).map(p=>[p.currency||'USD', p.receivedAmount!=null&&p.receivedAmount!==''?p.receivedAmount:p.amount]));
+    const com=sumByCur(inv.map(o=>orderCommission(o,payments)).filter(c=>c.due && c.month===month).flatMap(c=>c.people.map(x=>[c.cur,x.amount])));
+    fin=`<div class="grid g3 mb">${hasTab('accounts')?`<a href="#/accounts" style="color:inherit">${kpi('المستحق على العملاء',fmtCur(bal),'','accent')}</a><a href="#/accounts" style="color:inherit">${kpi('وصل الحساب البنكي الشهر ده',fmtCur(rec))}</a>`:''}${hasTab('commissions')?`<a href="#/commissions" style="color:inherit">${kpi('عمولات الشهر ده',fmtCur(com),monthAr(month))}</a>`:''}</div>`;
+  }
   const lvlOrder={bad:0,warn:1}; alerts.sort((a,b)=>lvlOrder[a.lvl]-lvlOrder[b.lvl]);
   const tk=myTasks(open);
   $('view').innerHTML = `
@@ -2043,7 +2180,7 @@ PAGES.dashboard = { async render(){
     ${kpi(t('k_in_prod'),orders.filter(o=>['production','ready'].includes(o.status)).length, t('k_in_prod_s'))}
     ${kpi(t('k_wait_pay'),open.filter(o=>{const p=payCalc(o,payments); return (o.status==='confirmed'&&!p.depositOk)||(o.status==='ready'&&!p.fullOk);}).length, t('k_wait_pay_s'))}
     ${kpi(t('k_shipped_month'),shippedMonth.length, valByCur(shippedMonth))}
-  </div>
+  </div>${fin}
   <div class="grid g3">
     <div class="card span2"><div class="card-h"><h3>الطلبيات المفتوحة</h3></div><div class="tbl-wrap">${tk.length?`<table class="tbl"><thead><tr><th>${t('order_no')}</th><th>${t('customer')}</th><th>${t('status')}</th><th>${t('loading_date')}</th><th>الإجراء المطلوب</th><th>المسؤول</th></tr></thead><tbody>
       ${tk.map(({o,s})=>`<tr class="click" onclick="location.hash='#/order/${o.id}/${s.tab}'"><td class="mono bold nowrap">${esc(o.number)}</td><td>${esc(custName(o))}<div class="tiny muted">${esc((o.customer||{}).country||'')}</div></td><td>${statusBadge(o.status)}</td><td>${o.loadingDate?dateBadge(o.loadingDate,7):'—'}</td><td class="bold">${esc(s.title)}</td><td class="small muted">${ROLE_AR[s.role]||''}</td></tr>`).join('')}</tbody></table>`:emptyBox(t('no_orders'))}</div></div>
@@ -2053,7 +2190,7 @@ PAGES.dashboard = { async render(){
 }};
 
 /* ---------------- payments page ---------------- */
-PAGES.payments = { perm:'payments.view', async render(){
+PAGES.payments = { tab:'accounts', async render(){
   await Promise.all([DB.all('payments',true), DB.all('orders',true), DB.all('files',true)]);
   $('view').innerHTML = pageHead(`<div class="row wrap"><select class="in" id="py-st" style="width:200px" onchange="payList()"><option value="pending">${t('pending_confirm')}</option><option value="">${t('all')}</option><option value="confirmed">${t('confirmed')}</option><option value="void">${t('void')}</option></select>
     <select class="in" id="py-m" style="width:150px" onchange="payList()"><option value="">${t('all_methods')}</option><option value="transfer">${t('transfer')}</option><option value="cash">${t('cash')}</option></select>
@@ -2367,7 +2504,7 @@ function invList(){
     : emptyBox(t('no_orders'), can('orders.edit')?`<button class="btn btn-p" onclick="newOrder()">${IC.plus} ${t('new_invoice')}</button>`:'');
 }
 
-PAGES.production = { perm:'production', async render(){
+PAGES.production = { tab:'production', async render(){
   await DB.all('orders',true);
   $('view').innerHTML = pageHead(`<div class="row wrap">${searchBox('po-q',t('search_orders'),'poList()')}
       <select class="in" id="po-st" style="width:200px" onchange="poList()"><option value="open">${t('open_orders')}</option><option value="">${t('all')}</option></select></div>`, can('orders.edit')?`<button class="btn btn-p" onclick="newOrder('production')">${IC.plus} ${t('new_prod_order')}</button>`:'')
@@ -2385,7 +2522,7 @@ function poList(){
 }
 
 /* ---------------- sidebar: health certificate requests ---------------- */
-PAGES.health = { perm:'health', async render(){
+PAGES.health = { tab:'health', async render(){
   await Promise.all([DB.all('orders',true), DB.all('tests',true), DB.all('files',true), DB.all('countries')]);
   $('view').innerHTML = pageHead(`<div class="row wrap">${searchBox('hc-q',t('search_orders'),'hcList()')}
       <select class="in" id="hc-st" style="width:200px" onchange="hcList()"><option value="open">${t('hc_open')}</option><option value="">${t('all')}</option>${HS_LIST.map(s=>`<option value="${s}">${t('hs_'+s)}</option>`).join('')}</select></div>`,
@@ -2774,7 +2911,7 @@ const CB = { type:'20', tab:'candy', edit:null, orderId:null, order:null };
 const lsGet = (k,d) => { try{ return JSON.parse(localStorage.getItem(k)||'null') ?? d; }catch(e){ return d; } };
 const lsSet = (k,v) => { try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} };
 
-PAGES.calc = { perm:'calc', async render([orderId]){
+PAGES.calc = { tab:['calc','orders','production'], async render([orderId]){
   await loadCartons(true);
   CB.orderId = orderId||null; CB.order=null; CB.edit=null; CB.qtyOverride=null;
   if(orderId){ CB.order = await DB.get('orders',orderId); if(CB.order){ CB.tab='shipment'; CB.type=ctype((CB.order.shipment||{}).containerType); } }
@@ -2879,6 +3016,7 @@ function nextStep(o){
     case 'production':
       return a('إنهاء الإنتاج','production',{adv:'ready'},'production');
     case 'ready': {
+      if(orderCheckList(o).some(x=>!((o.checks||{})[x]||{}).done)) return a('مراجعة متطلبات البلد','docs',null,'export');
       if(!p.fullOk) return pay('باقي المبلغ');
       if(!hDone){ if(hs==='info') return a('استيفاء طلب الهيئة','health',null,'export');
         if(['draft','rejected'].includes(hs)) return a('طلب الشهادة الصحية','health',null,'export');
@@ -2955,7 +3093,7 @@ function tabHealth(){
       <div class="grid g2"><div class="field"><label>إلى</label><div class="in ro mono">${esc(S.settings.healthEmail)}</div></div>
         <div class="field"><label>${t('email_subject')}</label><input class="in" id="hc-subj" value="${esc(subject)}" ${ed?'':'readonly'}></div></div>
       <div class="hc-send mt">
-        <div class="hc-n"><b>١</b><div>المرفقات<div class="tiny muted">${files.length} ملف تحاليل + طلب الشهادة (Word)</div></div>
+        <div class="hc-n"><b>١</b><div>المرفقات<div class="tiny muted">${files.length} ملف (التحاليل ومستندات الأوردر) + طلب الشهادة (Word)</div></div>
           <div class="row wrap"><button class="btn btn-o" onclick="hcDownloadAll()" ${R.rows.length?'':'disabled'}>${IC.download} تنزيل</button><button class="btn btn-g btn-s" onclick="healthZip()">${IC.zip} ZIP</button><button class="btn btn-g btn-s" onclick="printHealthReq()">${IC.print} طلب الشهادة</button></div></div>
         <div class="hc-n"><b>٢</b><div>الإيميل<div class="tiny muted">${esc(S.settings.healthEmail)}</div></div>
           <button class="btn btn-o" onclick="hcOpenMail()">${IC.mail} فتح في Gmail</button></div>
@@ -3018,6 +3156,324 @@ function healthAlerts(orders){
     else if(hs!=='issued' && FLOW.indexOf(o.status)>=FLOW.indexOf('confirmed')){ const dl=daysUntil(o.loadingDate); if(o.loadingDate && dl!==null && dl<=7) out.push({lvl:dl<=3?'bad':'warn', ic:IC.heart, txt:`${dl<0?'تجاوز موعد التحميل':'التحميل خلال '+dl+' يوم'} ولم يُرسل طلب الشهادة الصحية — ${o.number}`, href:`#/order/${o.id}/health`}); }
   });
   return out;
+}
+
+/* ============================================================================
+   الحسابات والعمولات وملف الأوردر
+   - السيلز والسوشيال ميديا: لكل شخص نسبة ثابتة، وتتغير في أوردر معين
+   - العمولة بتستحق في الشهر اللي الأوردر اتدفع فيه بالكامل (على قيمة الفاتورة)
+   - كشف حساب العميل: الفواتير والمدفوعات والرصيد
+   ============================================================================ */
+const TEAM_TYPES = {sales:'سيلز', social:'سوشيال ميديا'};
+const teamOf = id => byId(S.cache.team, id);
+const orderPct = (o, kind) => (o[kind+'Pct']!=='' && o[kind+'Pct']!=null) ? n(o[kind+'Pct']) : n((teamOf(o[kind+'Id'])||{}).pct);
+const isInvoiced = o => o && !['draft','cancelled'].includes(o.status);
+const invDate = o => o.invoiceDate || o.piDate || String(o.createdAt||'').slice(0,10);
+const custKey = o => o.customerId || ('n:'+((o.customer||{}).company||'').trim().toLowerCase());
+const confPays = (oid, pays) => (pays||S.cache.payments||[]).filter(p=>p.orderId===oid && p.confirmed && !p.void).sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+function orderMoney(o, pays){
+  const total=orderCalc(o).total, cp=confPays(o.id,pays);
+  const paid=sum(cp,p=>p.amount), received=sum(cp,p=>p.receivedAmount!=null&&p.receivedAmount!==''?p.receivedAmount:p.amount);
+  const pending=sum((pays||S.cache.payments||[]).filter(p=>p.orderId===o.id && !p.confirmed && !p.void),p=>p.amount);
+  let run=0, fullDate=null; for(const p of cp){ run+=n(p.amount); if(total>0 && run+0.005>=total){ fullDate=p.date; break; } }
+  return {total, paid, received, charges:Math.max(0,paid-received), balance:Math.max(0,total-paid), pending, fullDate, cur:o.currency||'USD'};
+}
+function orderCommission(o, pays){
+  const m=orderMoney(o,pays), out=[];
+  ['sales','social'].forEach(k=>{ if(o[k+'Id']){ const pct=orderPct(o,k); out.push({kind:k, id:o[k+'Id'], name:(teamOf(o[k+'Id'])||{}).name||'—', pct, amount:m.total*pct/100}); } });
+  return {due: !!m.fullDate && isInvoiced(o), month: m.fullDate? m.fullDate.slice(0,7):'', date:m.fullDate, total:m.total, cur:m.cur, people:out};
+}
+const sumByCur = arr => { const r={}; arr.forEach(([c,v])=>{ r[c]=(r[c]||0)+n(v); }); return r; };
+const fmtCur = r => Object.entries(r).filter(([,v])=>Math.abs(v)>0.004).map(([c,v])=>money(v,c)).join(' + ') || money(0);
+const monthAr = ym => { if(!ym) return '—'; const [y,m]=ym.split('-'); return new Date(+y,+m-1,1).toLocaleDateString('ar-EG',{month:'long',year:'numeric'}); };
+
+/* ---------------- السيلز والسوشيال ميديا ---------------- */
+PAGES.team = { tab:'team', async render(){
+  const rows=(await DB.all('team',true)).sort((a,b)=>(a.type||'').localeCompare(b.type||'')||String(a.name).localeCompare(String(b.name)));
+  $('view').innerHTML = pageHead('', can('team')?`<button class="btn btn-p" onclick="teamForm()">${IC.plus} إضافة شخص</button>`:'')+`
+    <div class="card"><div class="tbl-wrap">${rows.length?`<table class="tbl"><thead><tr><th>الاسم</th><th>النوع</th><th>نسبة العمولة</th><th>التليفون</th><th>الحالة</th><th></th></tr></thead><tbody>
+    ${rows.map(x=>`<tr class="${x.active===false?'faint':''}"><td class="bold">${esc(x.name)}</td><td>${TEAM_TYPES[x.type]||''}</td><td class="num bold">${fmt(x.pct,2)}%</td><td class="mono small" dir="ltr">${esc(x.phone||'')}</td>
+      <td>${x.active===false?'<span class="bdg b-gray">غير نشط</span>':'<span class="bdg b-ok">نشط</span>'}</td><td class="act">${can('team')?`<button class="btn btn-g btn-xs" onclick="teamForm('${x.id}')">${IC.edit}</button>`:''}</td></tr>`).join('')}</tbody></table>`:emptyBox('لا يوجد')}</div></div>`;
+}};
+function teamForm(id){
+  const x=byId(S.cache.team,id)||{type:'sales',pct:'',active:true};
+  const bg=openModal({title:id?'تعديل':'إضافة شخص', size:'sm', body:`<div class="stack" id="tmf">${fld('الاسم','name',x.name,{req:1})}${fld('النوع','type',x.type,{opts:Object.entries(TEAM_TYPES)})}
+    ${fld('نسبة العمولة %','pct',x.pct,{type:'number',req:1})}${fld('التليفون','phone',x.phone)}${fld('نشط','active',x.active!==false,{type:'checkbox'})}</div>`,
+    foot:`<button class="btn btn-o" onclick="closeModal()">${t('cancel')}</button><button class="btn btn-p" id="tmf-s">${t('save')}</button>`});
+  bg.querySelector('#tmf-s').onclick=async ()=>{ const f=readForm(bg.querySelector('#tmf')); if(!f.name){ toast(t('fill_required'),'bad'); return; }
+    try{ if(id) await DB.update('team',id,f); else await DB.add('team',f); closeModal(bg); toast(t('saved'),'ok'); route(); }catch(e){ errToast(e); } };
+}
+
+/* ---------------- ملف الأوردر: الملخص ---------------- */
+function tabSummary(){
+  const o=OD.o, cu=o.customer||{}, m=orderMoney(o), cm=orderCommission(o), ed=can('orders.edit') && o.status!=='cancelled';
+  const team=(S.cache.team||[]).filter(x=>x.active!==false);
+  const tsel=(k)=>`<select class="in" data-sm="${k}Id" ${ed?'':'disabled'}><option value="">—</option>${team.filter(x=>x.type===k).map(x=>`<option value="${x.id}" ${x.id===o[k+'Id']?'selected':''}>${esc(x.name)} (${fmt(x.pct,2)}%)</option>`).join('')}</select>`;
+  const pin=(k)=>`<input class="in num-in" type="number" step="any" data-sm="${k}Pct" value="${o[k+'Pct']??''}" placeholder="${fmt(n((teamOf(o[k+'Id'])||{}).pct),2)}" style="width:90px" ${ed?'':'readonly'}>`;
+  const files=orderFiles(o);
+  const row=(l,v)=>`<div class="sm-r"><span>${l}</span><b>${v}</b></div>`;
+  $('od-body').innerHTML = `<div class="card-b"><div class="grid g3 sm">
+    <div class="sm-c"><h4>العميل</h4>${row('الشركة',esc(cu.company||'—'))}${row('البلد',esc(cu.country||'—'))}${row('المسؤول',esc(cu.contactName||'—'))}${row('التليفون',`<span dir="ltr">${esc(cu.phone||'—')}</span>`)}${row('البريد',`<span dir="ltr" class="small">${esc(cu.email||'—')}</span>`)}
+      ${can('accounts')?`<a class="btn btn-o btn-s mt" href="#/accounts/${encodeURIComponent(custKey(o))}">كشف حساب العميل</a>`:''}</div>
+    <div class="sm-c"><h4>الحساب</h4>${row('قيمة الفاتورة',money(m.total,m.cur))}${row('حوّل العميل',money(m.paid,m.cur))}${row('وصل الحساب البنكي',money(m.received,m.cur))}${m.charges>0.004?row('مصاريف بنكية',money(m.charges,m.cur)):''}
+      <div class="sm-r big"><span>الباقي على العميل</span><b class="${m.balance>0.004?'neg':'pos'}">${money(m.balance,m.cur)}</b></div>${m.pending?row('دفعات في انتظار التأكيد',money(m.pending,m.cur)):''}
+      ${can('accounts')?`<button class="btn btn-o btn-s mt" onclick="odTab('payments')">الدفعات</button>`:''}</div>
+    <div class="sm-c"><h4>السيلز والسوشيال ميديا</h4>
+      <div class="sm-t"><label>السيلز</label>${tsel('sales')}${pin('sales')}<span class="small muted">%</span></div>
+      <div class="sm-t"><label>السوشيال ميديا</label>${tsel('social')}${pin('social')}<span class="small muted">%</span></div>
+      <div class="small muted mt-s">النسبة الفاضية = نسبة الشخص الأساسية</div>
+      ${cm.people.length?`<div class="sep"></div>${cm.people.map(p=>row(`عمولة ${esc(p.name)} (${fmt(p.pct,2)}%)`,money(p.amount,cm.cur))).join('')}
+        <div class="small mt-s">${cm.due?`<span class="bdg b-ok">مستحقة — ${monthAr(cm.month)}</span>`:'<span class="bdg b-gray">تستحق بعد سداد الفاتورة بالكامل</span>'}</div>`:''}
+      ${ed?`<button class="btn btn-p btn-s mt" id="od-save" onclick="saveSummary()">${IC.check} ${t('save')}</button>`:''}</div>
+    <div class="sm-c"><h4>المواعيد</h4>${row('تاريخ الأوردر',fmtDate(o.createdAt))}${row('تاريخ الفاتورة',fmtDate(invDate(o)))}${row('التسليم من المصنع',fmtDate(o.deliveryDate))}${row('التحميل',fmtDate(o.loadingDate))}${row('الشحن',fmtDate((o.shipment||{}).shippedAt))}</div>
+    <div class="sm-c"><h4>الشحنة</h4>${row('الكراتين',fmt(orderCalc(o).cartons))}${row('شرط التسليم',esc(o.incoterm||'—'))}${row('ميناء الوصول',esc(o.dischargePoint||'—'))}${row('الحاوية',esc(((o.shipment||{}).containerNo)||'—'))}${row('الشهادة الصحية',t('hs_'+((o.health||{}).status||'draft')))}</div>
+    <div class="sm-c"><h4>الملفات</h4>${row('عدد الملفات',files.length)}${files.slice(0,4).map(f=>`<div class="sm-r"><span class="small">${esc(f.group)}</span>${filePillSync(f.fileId)}</div>`).join('')}
+      <button class="btn btn-o btn-s mt" onclick="odTab('files')">كل الملفات</button></div>
+  </div></div>`;
+  $('od-body').querySelectorAll('[data-sm]').forEach(el=>{ const f=()=>{ const k=el.dataset.sm; OD.o[k]= el.type==='number'? (el.value===''?'':n(el.value)) : el.value; markDirty(); }; el.addEventListener('input',f); el.addEventListener('change',f); });
+}
+async function saveSummary(){ const o=OD.o; const sales=teamOf(o.salesId);
+  try{ await saveOrder({salesId:o.salesId||'', socialId:o.socialId||'', salesPct:o.salesPct??'', socialPct:o.socialPct??'', salesRep: sales?sales.name:(o.salesRep||'')}, 'تعديل السيلز/السوشيال'); toast(t('saved'),'ok'); renderOrder(); }catch(e){ errToast(e); } }
+
+/* ---------------- ملف الأوردر: الملفات ---------------- */
+function orderFiles(o){
+  const out=[], add=(fileId,group,label,extra={})=>{ if(fileId && !out.some(x=>x.fileId===fileId)) out.push({fileId,group,label,...extra}); };
+  (o.files||[]).forEach((f,i)=>add(f.fileId,'ملفات الأوردر',f.label,{idx:i,at:f.at,by:f.by}));
+  Object.entries(o.docs||{}).forEach(([k,d])=>add(d&&d.fileId,'المستندات',t('doc_'+k)));
+  if((o.health||{}).fileId) add(o.health.fileId,'الشهادة الصحية','الشهادة الصحية');
+  (S.cache.payments||[]).filter(p=>p.orderId===o.id && p.fileId && !p.void).forEach(p=>add(p.fileId,'الدفعات',`إثبات دفع ${money(p.amount,p.currency)} — ${fmtDate(p.date)}`));
+  (o.items||[]).forEach(it=>{ const b=bestTests(it.productId,S.cache.tests,S.settings); [b.cert,b.lab].forEach(x=>x&&add(x.x.fileId,'التحاليل',`${it.nameAr||it.nameEn} — ${t('tk_'+x.x.kind)}`)); });
+  return out;
+}
+function tabFiles(){
+  const o=OD.o, files=orderFiles(o), ed=can('orders.edit')||can('production')||can('health')||isAdmin();
+  const groups=[...new Set(files.map(f=>f.group))];
+  $('od-body').innerHTML = `<div class="card-b"><div class="row between wrap mb"><h3 style="font-size:15px;margin:0">ملفات الأوردر (${files.length})</h3>
+      <div class="row">${ed?`<button class="btn btn-p" onclick="orderFileUpload()">${IC.upload} رفع ملف</button>`:''}<button class="btn btn-o" onclick="orderFilesZip()" ${files.length?'':'disabled'}>${IC.zip} تنزيل الكل</button></div></div>
+    ${groups.length?groups.map(g=>`<div class="lbl mb-s">${g}</div><div class="tbl-wrap mb"><table class="tbl"><tbody>${files.filter(f=>f.group===g).map(f=>{ const m=byId(S.cache.files,f.fileId)||{};
+      return `<tr><td class="bold">${esc(f.label||m.name||'')}</td><td class="small muted">${esc(m.name||'')}</td><td class="num small">${fmtDate(f.at||m.uploadedAt)}</td>
+        <td class="act nowrap"><button class="btn btn-g btn-xs" onclick="FILES.open('${f.fileId}')">فتح</button><button class="btn btn-g btn-xs" onclick="FILES.download('${f.fileId}')">${IC.download}</button>${f.idx!=null&&ed?`<button class="btn btn-g btn-xs" onclick="orderFileDel(${f.idx})">${IC.trash}</button>`:''}</td></tr>`; }).join('')}</tbody></table></div>`).join('')
+      : emptyBox('لا توجد ملفات')}</div>`;
+}
+async function orderFileUpload(){ const f=await pickFile('.pdf,.jpg,.jpeg,.png,.doc,.docx,.xls,.xlsx,.zip'); if(!f) return; const label=await promptBox('اسم الملف', f.name.replace(/\.[^.]+$/,'')); if(label===null) return;
+  toast(t('uploading')); try{ const id=await FILES.upload(f,{col:'orders',id:OD.o.id}); await DB.all('files',true); const files=[...(OD.o.files||[]),{fileId:id,label:label||f.name,at:nowISO(),by:who()}]; await saveOrder({files}, 'رفع ملف: '+(label||f.name)); toast(t('saved'),'ok'); tabFiles(); }catch(e){ errToast(e); } }
+async function orderFileDel(i){ const f=(OD.o.files||[])[i]; if(!f || !await confirmBox(t('del_q'),{danger:1})) return; try{ const files=OD.o.files.filter((_,j)=>j!==i); await saveOrder({files}, 'حذف ملف: '+f.label); await FILES.remove(f.fileId).catch(()=>{}); tabFiles(); }catch(e){ errToast(e); } }
+async function orderFilesZip(){ if(!window.JSZip){ toast('JSZip not loaded','bad'); return; } toast('جاري التجهيز…');
+  try{ const zip=new JSZip(), used={}; for(const f of orderFiles(OD.o)){ const {blob,meta}=await FILES.blob(f.fileId); const dot=meta.name.lastIndexOf('.'); let nm=`${f.group}/${(f.label||meta.name).replace(/[\\/:*?"<>|]+/g,' ')}${dot>0?meta.name.slice(dot):''}`; if(used[nm]) nm=nm.replace(/(\.[^.]+)?$/,'_'+(++used[nm])+'$1'); else used[nm]=1; zip.file(nm,blob); }
+    saveBlob(await zip.generateAsync({type:'blob'}), `${OD.o.number}.zip`); toast('تم','ok'); }catch(e){ errToast(e); } }
+
+/* ---------------- الحسابات: أرصدة العملاء ---------------- */
+function customerBalances(){
+  const map={};
+  (S.cache.orders||[]).filter(isInvoiced).forEach(o=>{ const k=custKey(o), m=orderMoney(o);
+    const c=map[k]=map[k]||{key:k, name:(o.customer||{}).company||'—', country:(o.customer||{}).country||'', orders:[], inv:{}, paid:{}, bal:{}, lastPay:'', oldest:null};
+    c.orders.push(o); c.inv[m.cur]=(c.inv[m.cur]||0)+m.total; c.paid[m.cur]=(c.paid[m.cur]||0)+m.paid; c.bal[m.cur]=(c.bal[m.cur]||0)+m.balance;
+    const lp=confPays(o.id).slice(-1)[0]; if(lp && lp.date>c.lastPay) c.lastPay=lp.date;
+    if(m.balance>0.004 && ['shipped','closed'].includes(o.status)){ const d=daysSince((o.shipment||{}).shippedAt||invDate(o)); if(c.oldest===null||d>c.oldest) c.oldest=d; } });
+  return Object.values(map);
+}
+PAGES.accounts = { tab:'accounts', title:'pg_accounts', async render([key]){
+  await Promise.all([DB.all('orders',true), DB.all('payments',true), DB.all('customers'), DB.all('team')]);
+  if(key) return customerStatement(decodeURIComponent(key));
+  const rows=customerBalances().sort((a,b)=>sum(Object.values(b.bal),x=>x)-sum(Object.values(a.bal),x=>x));
+  const month=todayISO().slice(0,7), pays=(S.cache.payments||[]).filter(p=>p.confirmed && !p.void);
+  const allInv=sumByCur(rows.flatMap(r=>Object.entries(r.inv))), allPaid=sumByCur(rows.flatMap(r=>Object.entries(r.paid))), allBal=sumByCur(rows.flatMap(r=>Object.entries(r.bal)));
+  const monthRec=sumByCur(pays.filter(p=>(p.date||'').startsWith(month)).map(p=>[p.currency||'USD', p.receivedAmount!=null&&p.receivedAmount!==''?p.receivedAmount:p.amount]));
+  const pend=(S.cache.payments||[]).filter(p=>!p.confirmed && !p.void).length;
+  $('view').innerHTML = pageHead(`<div class="row wrap">${searchBox('ac-q','بحث باسم العميل…','acList()')}<label class="chk small"><input type="checkbox" id="ac-due" checked onchange="acList()"> عليهم رصيد بس</label></div>`,
+      `<a class="btn btn-o" href="#/payments">${IC.wallet} كل الدفعات${pend?` <span class="bdg b-warn">${pend}</span>`:''}</a>`)
+    + `<div class="grid g4 mb">${kpi('المستحق على العملاء',fmtCur(allBal),'','accent')}${kpi('إجمالي الفواتير',fmtCur(allInv))}${kpi('إجمالي المحصّل',fmtCur(allPaid))}${kpi('وصل البنك الشهر ده',fmtCur(monthRec))}</div>
+    <div class="card"><div class="tbl-wrap" id="ac-list"></div></div>`;
+  ACC_ROWS=rows; acList();
+}};
+let ACC_ROWS=[];
+function acList(){
+  const q=($('ac-q').value||'').toLowerCase(), due=$('ac-due').checked;
+  const rows=ACC_ROWS.filter(r=>(!q||(r.name+' '+r.country).toLowerCase().includes(q)) && (!due || Object.values(r.bal).some(v=>v>0.004)));
+  $('ac-list').innerHTML = rows.length?`<table class="tbl"><thead><tr><th>العميل</th><th>البلد</th><th>الأوردرات</th><th>الفواتير</th><th>المدفوع</th><th>الرصيد</th><th>آخر دفعة</th><th>متأخر من</th></tr></thead><tbody>
+    ${rows.map(r=>`<tr class="click" onclick="location.hash='#/accounts/${encodeURIComponent(r.key)}'"><td class="bold">${esc(r.name)}</td><td>${esc(r.country)}</td><td class="num">${r.orders.length}</td><td class="num">${fmtCur(r.inv)}</td><td class="num">${fmtCur(r.paid)}</td>
+      <td class="num bold ${Object.values(r.bal).some(v=>v>0.004)?'neg':''}">${fmtCur(r.bal)}</td><td class="num small">${r.lastPay?fmtDate(r.lastPay):'—'}</td><td>${r.oldest!=null?`<span class="bdg ${r.oldest>30?'b-bad':'b-warn'}">${r.oldest} يوم</span>`:'—'}</td></tr>`).join('')}</tbody></table>`:emptyBox('لا يوجد');
+}
+function statementData(key){
+  const orders=(S.cache.orders||[]).filter(o=>isInvoiced(o) && custKey(o)===key).sort((a,b)=>invDate(a).localeCompare(invDate(b)));
+  const lines=[]; orders.forEach(o=>{ const m=orderMoney(o); lines.push({date:invDate(o), cur:m.cur, ref:o.number, o, desc:`فاتورة ${o.invoiceNo||o.piNumber||o.number}`, debit:m.total, credit:0});
+    confPays(o.id).forEach(p=>lines.push({date:p.date, cur:p.currency||m.cur, ref:o.number, o, desc:`${t('pk2_'+p.kind)} — ${p.method==='cash'?t('cash'):t('transfer')}${p.reference?' '+p.reference:''}`, debit:0, credit:n(p.amount)})); });
+  lines.sort((a,b)=>(a.date||'').localeCompare(b.date||'') || (b.debit-a.debit));
+  const byCur={}; lines.forEach(l=>{ const c=byCur[l.cur]=byCur[l.cur]||{lines:[],bal:0,deb:0,cre:0}; c.bal+=l.debit-l.credit; c.deb+=l.debit; c.cre+=l.credit; c.lines.push({...l, bal:c.bal}); });
+  const cu=(orders[0]||{}).customer||{}; return {orders, byCur, cu};
+}
+function customerStatement(key){
+  const {orders, byCur, cu}=statementData(key);
+  setTitle('كشف حساب: '+(cu.company||''), `<a href="#/accounts">${t('pg_accounts')}</a>`);
+  $('view').innerHTML = `<div class="card mb"><div class="card-b row between wrap"><div><div class="bold" style="font-size:18px;color:var(--navy-dd)">${esc(cu.company||'—')}</div><div class="muted small">${esc(cu.country||'')} ${cu.phone?'· <span dir="ltr">'+esc(cu.phone)+'</span>':''} ${cu.email?'· '+esc(cu.email):''}</div></div>
+      <div class="row"><a href="#/accounts" class="btn btn-o">${IC.back} رجوع</a>${can('payments.add')?`<button class="btn btn-o" onclick="stmtPay('${encodeURIComponent(key)}')">${IC.plus} تسجيل دفعة</button>`:''}<button class="btn btn-p" onclick="printStatement('${encodeURIComponent(key)}')">${IC.print} طباعة الكشف</button></div></div></div>
+    ${Object.entries(byCur).map(([cur,c])=>`<div class="grid g3 mb">${kpi('إجمالي الفواتير',money(c.deb,cur))}${kpi('إجمالي المدفوع',money(c.cre,cur))}${kpi('الرصيد',money(c.bal,cur),'', c.bal>0.004?'accent':'')}</div>
+      <div class="card mb"><div class="tbl-wrap"><table class="tbl"><thead><tr><th>التاريخ</th><th>الأوردر</th><th>البيان</th><th>مدين</th><th>دائن</th><th>الرصيد</th></tr></thead><tbody>
+      ${c.lines.map(l=>`<tr><td class="num">${fmtDate(l.date)}</td><td><a class="mono" href="#/order/${l.o.id}/summary">${esc(l.ref)}</a></td><td>${esc(l.desc)}</td><td class="num">${l.debit?money(l.debit,cur):''}</td><td class="num pos">${l.credit?money(l.credit,cur):''}</td><td class="num bold">${money(l.bal,cur)}</td></tr>`).join('')}</tbody></table></div></div>`).join('') || emptyBox('لا توجد فواتير')}`;
+}
+async function stmtPay(key){ const {orders}=statementData(decodeURIComponent(key)); const open=orders.filter(o=>orderMoney(o).balance>0.004); if(!open.length){ toast('لا يوجد رصيد مستحق','bad'); return; }
+  let oid=open[0].id; if(open.length>1){ const bg=openModal({title:'اختيار الأوردر', size:'sm', body:`<select class="in" id="sp-o">${open.map(o=>`<option value="${o.id}">${esc(o.number)} — ${money(orderMoney(o).balance,o.currency)}</option>`).join('')}</select>`, foot:`<button class="btn btn-p" id="sp-go">${t('ok')}</button>`});
+    await new Promise(r=>bg.querySelector('#sp-go').onclick=()=>{ oid=bg.querySelector('#sp-o').value; closeModal(bg); r(); }); }
+  payForm(null, oid); }
+function printStatement(key){
+  const {byCur, cu}=statementData(decodeURIComponent(key)); const s=S.settings;
+  const page=`<div dir="rtl" style="font-family:'Cairo',Arial,sans-serif;font-size:11px">
+    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #ffb607;padding-bottom:8px;margin-bottom:12px"><div><div style="font-size:18px;font-weight:800;color:#2d2a76">كشف حساب عميل</div><div style="color:#666">Customer Statement — ${fmtDate(todayISO())}</div></div><img src="${LOGO}" style="height:44px"></div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:10px"><div><b>${esc(cu.company||'')}</b><br>${esc(cu.country||'')} ${esc(cu.address||'')}</div><div style="text-align:left">${esc(s.coNameAr)}<br>${esc(s.email)}</div></div>
+    ${Object.entries(byCur).map(([cur,c])=>`<table class="d-tbl" style="margin-bottom:12px"><thead><tr><th>التاريخ</th><th>الأوردر</th><th>البيان</th><th>مدين</th><th>دائن</th><th>الرصيد</th></tr></thead><tbody>
+      ${c.lines.map(l=>`<tr><td>${fmtDate(l.date)}</td><td>${esc(l.ref)}</td><td class="l">${esc(l.desc)}</td><td>${l.debit?money(l.debit,cur):''}</td><td>${l.credit?money(l.credit,cur):''}</td><td><b>${money(l.bal,cur)}</b></td></tr>`).join('')}
+      <tr class="tot"><td colspan="3">الإجمالي</td><td>${money(c.deb,cur)}</td><td>${money(c.cre,cur)}</td><td>${money(c.bal,cur)}</td></tr></tbody></table>`).join('')}
+    <div class="d-sign"><div>المحاسب</div><div>مدير الحسابات</div><div>ختم الشركة</div></div></div>`;
+  openPrint('كشف حساب '+(cu.company||''), [page]);
+}
+
+/* ---------------- العمولات الشهرية ---------------- */
+PAGES.commissions = { tab:'commissions', async render([ym]){
+  await Promise.all([DB.all('orders',true), DB.all('payments',true), DB.all('team',true)]);
+  const month = ym || todayISO().slice(0,7);
+  const all=(S.cache.orders||[]).filter(isInvoiced).map(o=>({o, c:orderCommission(o)})).filter(x=>x.c.people.length);
+  const due=all.filter(x=>x.c.due && x.c.month===month), pend=all.filter(x=>!x.c.due);
+  const per={}; due.forEach(({o,c})=>c.people.forEach(p=>{ const r=per[p.id]=per[p.id]||{name:p.name, kind:p.kind, rows:[], tot:{}}; r.rows.push({o,c,p}); r.tot[c.cur]=(r.tot[c.cur]||0)+p.amount; }));
+  const people=Object.entries(per).sort((a,b)=>a[1].kind.localeCompare(b[1].kind));
+  $('view').innerHTML = pageHead(`<div class="row"><label class="small muted">الشهر</label><input class="in" type="month" value="${month}" onchange="location.hash='#/commissions/'+this.value" style="width:180px"></div>`,
+      `<button class="btn btn-p" onclick="printCommissions('${month}')" ${people.length?'':'disabled'}>${IC.print} طباعة</button>`)
+    + `<div class="grid g4 mb">${people.map(([,r])=>kpi(`${esc(r.name)} — ${TEAM_TYPES[r.kind]}`,fmtCur(r.tot),`${r.rows.length} أوردر`)).join('') || `<div class="card span2"><div class="empty">لا توجد عمولات مستحقة في ${monthAr(month)}</div></div>`}</div>
+    ${due.length?`<div class="card mb"><div class="card-h"><h3>العمولات المستحقة — ${monthAr(month)}</h3></div><div class="tbl-wrap"><table class="tbl"><thead><tr><th>الشخص</th><th>الأوردر</th><th>العميل</th><th>قيمة الفاتورة</th><th>اكتمل الدفع</th><th>النسبة</th><th>العمولة</th></tr></thead><tbody>
+      ${people.flatMap(([,r])=>r.rows).map(({o,c,p})=>`<tr><td class="bold">${esc(p.name)} <span class="tiny muted">${TEAM_TYPES[p.kind]}</span></td><td><a class="mono" href="#/order/${o.id}/summary">${esc(o.number)}</a></td><td>${esc(custName(o))}</td><td class="num">${money(c.total,c.cur)}</td><td class="num">${fmtDate(c.date)}</td><td class="num">${fmt(p.pct,2)}%</td><td class="num bold">${money(p.amount,c.cur)}</td></tr>`).join('')}</tbody></table></div></div>`:''}
+    <div class="card"><div class="card-h"><h3>في انتظار السداد</h3><span class="bdg b-gray" style="margin-inline-start:auto">${pend.length}</span></div><div class="tbl-wrap">${pend.length?`<table class="tbl"><thead><tr><th>الأوردر</th><th>العميل</th><th>المدفوع</th><th>الباقي</th><th>العمولات المتوقعة</th></tr></thead><tbody>
+      ${pend.map(({o,c})=>{ const m=orderMoney(o); return `<tr><td><a class="mono" href="#/order/${o.id}/summary">${esc(o.number)}</a></td><td>${esc(custName(o))}</td><td class="num">${money(m.paid,m.cur)}</td><td class="num neg">${money(m.balance,m.cur)}</td><td class="small">${c.people.map(p=>`${esc(p.name)}: ${money(p.amount,c.cur)}`).join(' · ')}</td></tr>`; }).join('')}</tbody></table>`:emptyBox('لا يوجد')}</div></div>`;
+}};
+function printCommissions(month){
+  const all=(S.cache.orders||[]).filter(isInvoiced).map(o=>({o,c:orderCommission(o)})).filter(x=>x.c.due && x.c.month===month);
+  const per={}; all.forEach(({o,c})=>c.people.forEach(p=>{ const r=per[p.id]=per[p.id]||{name:p.name,kind:p.kind,rows:[],tot:{}}; r.rows.push({o,c,p}); r.tot[c.cur]=(r.tot[c.cur]||0)+p.amount; }));
+  const page=`<div dir="rtl" style="font-family:'Cairo',Arial,sans-serif;font-size:11px">
+    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #ffb607;padding-bottom:8px;margin-bottom:12px"><div><div style="font-size:18px;font-weight:800;color:#2d2a76">كشف العمولات</div><div style="color:#666">${monthAr(month)}</div></div><img src="${LOGO}" style="height:44px"></div>
+    ${Object.values(per).map(r=>`<div style="font-weight:800;color:#2d2a76;margin:10px 0 4px">${esc(r.name)} — ${TEAM_TYPES[r.kind]}</div><table class="d-tbl"><thead><tr><th>الأوردر</th><th>العميل</th><th>قيمة الفاتورة</th><th>اكتمل الدفع</th><th>النسبة</th><th>العمولة</th></tr></thead><tbody>
+      ${r.rows.map(({o,c,p})=>`<tr><td>${esc(o.number)}</td><td class="l">${esc(custName(o))}</td><td>${money(c.total,c.cur)}</td><td>${fmtDate(c.date)}</td><td>${fmt(p.pct,2)}%</td><td><b>${money(p.amount,c.cur)}</b></td></tr>`).join('')}
+      <tr class="tot"><td colspan="5">الإجمالي</td><td>${fmtCur(r.tot)}</td></tr></tbody></table>`).join('')}
+    <div class="d-sign"><div>الحسابات</div><div>المدير</div><div>المستلم</div></div></div>`;
+  openPrint('عمولات '+month, [page]);
+}
+
+/* ============================== العينات ============================== */
+const SAMPLE_ST = {prepared:'تحت التجهيز', sent:'اتبعتت', delivered:'وصلت', ordered:'اتعمل أوردر', closed:'مفيش رد'};
+const SAMPLE_CLS = {prepared:'b-gray', sent:'b-info', delivered:'b-warn', ordered:'b-ok', closed:'b-gray'};
+PAGES.samples = { tab:'samples', async render(){
+  await Promise.all([DB.all('samples',true), DB.all('customers'), DB.all('team'), DB.all('products'), DB.all('files',true), DB.all('orders')]);
+  $('view').innerHTML = pageHead(`<div class="row wrap">${searchBox('sm-q','بحث بالعميل أو البلد أو رقم الشحنة…','smList()')}
+      <select class="in" id="sm-st" style="width:170px" onchange="smList()"><option value="">كل الحالات</option>${Object.entries(SAMPLE_ST).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select></div>`,
+      `<button class="btn btn-p" onclick="sampleForm()">${IC.plus} تسجيل عينة</button>`)
+    + `<div class="grid g4 mb" id="sm-kpi"></div><div class="card"><div class="tbl-wrap" id="sm-list"></div></div>`;
+  smList();
+}};
+const smCust = x => x.customerName || (byId(S.cache.customers,x.customerId)||{}).company || '—';
+function smList(){
+  const q=($('sm-q').value||'').toLowerCase(), st=$('sm-st').value, all=S.cache.samples||[];
+  const rows=all.filter(x=>(!st||x.status===st) && (!q||[smCust(x),x.country,x.city,x.tracking,x.courier].join(' ').toLowerCase().includes(q))).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+  const cost=sumByCur(all.map(x=>[x.currency||'USD',x.shippingCost])), back=sumByCur(all.filter(x=>x.paidBy==='customer').map(x=>[x.currency||'USD',x.customerPaid]));
+  $('sm-kpi').innerHTML = kpi('عدد العينات',all.length)+kpi('تكلفة الشحن',fmtCur(cost))+kpi('دفعه العملاء',fmtCur(back))+kpi('اتحولت لأوردر',all.filter(x=>x.status==='ordered').length);
+  $('sm-list').innerHTML = rows.length?`<table class="tbl"><thead><tr><th>التاريخ</th><th>العميل</th><th>رايحة فين</th><th>الأصناف</th><th>شركة الشحن</th><th>تكلفة الشحن</th><th>مين دفع الشحن</th><th>السيلز</th><th>الحالة</th><th></th></tr></thead><tbody>
+    ${rows.map(x=>`<tr class="click" onclick="sampleForm('${x.id}')"><td class="num">${fmtDate(x.date)}</td><td class="bold">${esc(smCust(x))}</td><td>${esc(x.country||'')}<div class="tiny muted">${esc(x.city||'')}</div></td>
+      <td class="small">${(x.items||[]).map(i=>`${esc(i.name)}${i.qty?` × ${fmt(i.qty)}`:''}`).join('<br>')||'—'}</td>
+      <td class="small">${esc(x.courier||'')}<div class="tiny mono" dir="ltr">${esc(x.tracking||'')}</div></td><td class="num">${x.shippingCost?money(x.shippingCost,x.currency):'—'}</td>
+      <td>${x.paidBy==='customer'?`<span class="bdg b-ok">العميل</span> <span class="num small">${money(x.customerPaid||0,x.currency)}</span>`:'<span class="bdg b-gray">الشركة</span>'}</td>
+      <td class="small">${esc((teamOf(x.salesId)||{}).name||'—')}</td><td><span class="bdg ${SAMPLE_CLS[x.status]||'b-gray'}">${SAMPLE_ST[x.status]||''}</span></td>
+      <td class="act">${(x.files||[]).length?`<span class="tiny muted">${IC.file} ${x.files.length}</span>`:''}</td></tr>`).join('')}</tbody></table>`:emptyBox('لا توجد عينات');
+}
+function sampleForm(id){
+  const x=byId(S.cache.samples,id)||{date:todayISO(), status:'prepared', paidBy:'us', currency:'USD', items:[], files:[]};
+  let items=(x.items||[]).map(i=>({...i})), files=[...(x.files||[])];
+  const custOpts=[['','— عميل جديد / غير مسجل —'],...(S.cache.customers||[]).map(c=>[c.id,c.company+(c.country?' — '+c.country:'')])];
+  const prods=(S.cache.products||[]).map(p=>p.nameAr||p.nameEn).filter(Boolean);
+  const bg=openModal({title:id?'العينة':'تسجيل عينة', body:`<div class="grid g3" id="smf">
+      ${fld('التاريخ','date',x.date,{type:'date',req:1})}${fld('العميل','customerId',x.customerId||'',{opts:custOpts})}${fld('اسم العميل (لو مش مسجل)','customerName',x.customerName||'')}
+      ${fld('البلد','country',x.country||'',{req:1,attrs:'list="sm-cl"'})}${fld('المدينة / العنوان','city',x.city||'')}${fld('السيلز','salesId',x.salesId||'',{opts:[['','—'],...teamOpts('sales'),...teamOpts('social')]})}
+      ${fld('شركة الشحن','courier',x.courier||'',{ph:'DHL / Aramex / FedEx'})}${fld('رقم الشحنة','tracking',x.tracking||'')}${fld('الحالة','status',x.status,{opts:Object.entries(SAMPLE_ST)})}
+      ${fld('تكلفة الشحن','shippingCost',x.shippingCost??'',{type:'number'})}${fld(t('currency'),'currency',x.currency,{opts:CURRENCIES})}${fld('مين دفع الشحن','paidBy',x.paidBy,{opts:[['us','الشركة'],['customer','العميل']]})}
+      ${fld('المبلغ اللي دفعه العميل','customerPaid',x.customerPaid??'',{type:'number'})}${fld('الوزن (كجم)','weightKg',x.weightKg??'',{type:'number'})}${fld('الأوردر الناتج','orderId',x.orderId||'',{opts:[['','—'],...(S.cache.orders||[]).map(o=>[o.id,o.number+' — '+custName(o)])]})}
+      <div class="field full"><label>الأصناف</label><div id="smf-it"></div><button type="button" class="btn btn-o btn-s mt-s" id="smf-add">${IC.plus} صنف</button></div>
+      <div class="field full"><label>الملفات (بوليصة الشحن، صور، فاتورة الشحن)</label><div class="row wrap" id="smf-fl"></div><button type="button" class="btn btn-o btn-s mt-s" id="smf-up">${IC.upload} رفع ملف</button></div>
+      ${fld(t('notes'),'notes',x.notes||'',{type:'textarea',cls:'full'})}</div>
+      <datalist id="sm-cl">${COUNTRY_NAMES().map(c=>`<option value="${esc(c)}">`).join('')}</datalist><datalist id="sm-pl">${prods.map(p=>`<option value="${esc(p)}">`).join('')}</datalist>`,
+    foot:`${id&&isAdmin()?`<button class="btn btn-d" id="smf-del" style="margin-inline-end:auto">${IC.trash}</button>`:''}<button class="btn btn-o" onclick="closeModal()">${t('cancel')}</button><button class="btn btn-p" id="smf-s">${t('save')}</button>`});
+  const q=s=>bg.querySelector(s);
+  const drawIt=()=>{ q('#smf-it').innerHTML=items.map((i,k)=>`<div class="row mb-s"><input class="in grow" list="sm-pl" data-k="${k}" data-f="name" value="${esc(i.name||'')}" placeholder="الصنف"><input class="in" type="number" data-k="${k}" data-f="qty" value="${i.qty??''}" placeholder="الكمية" style="width:100px"><button type="button" class="btn btn-g btn-xs" data-rm="${k}">${IC.x}</button></div>`).join('');
+    q('#smf-it').querySelectorAll('[data-f]').forEach(el=>el.oninput=()=>{ items[el.dataset.k][el.dataset.f]= el.type==='number'?n(el.value):el.value; });
+    q('#smf-it').querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{ items.splice(+b.dataset.rm,1); drawIt(); }); };
+  const drawFl=()=>{ q('#smf-fl').innerHTML=files.map(f=>filePillSync(f)).join('')||'<span class="small muted">—</span>'; };
+  drawIt(); drawFl();
+  q('#smf-add').onclick=()=>{ items.push({name:'',qty:''}); drawIt(); };
+  q('#smf-up').onclick=async ()=>{ const f=await pickFile('.pdf,.jpg,.jpeg,.png'); if(!f) return; toast(t('uploading')); try{ const fid=await FILES.upload(f,{col:'samples',id:id||''}); await DB.all('files',true); files.push(fid); drawFl(); }catch(e){ errToast(e); } };
+  const cs=q('[name=customerId]'); cs.onchange=()=>{ const c=byId(S.cache.customers,cs.value); if(c){ q('[name=country]').value=c.country||''; q('[name=customerName]').value=''; } };
+  const del=q('#smf-del'); if(del) del.onclick=async ()=>{ if(!await confirmBox(t('del_q'),{danger:1})) return; await DB.del('samples',id); closeModal(bg); smList(); };
+  q('#smf-s').onclick=async ()=>{ const f=readForm(q('#smf')); if(!f.date||!f.country||(!f.customerId&&!f.customerName)){ toast(t('fill_required'),'bad'); return; }
+    f.items=items.filter(i=>i.name); f.files=files; if(f.paidBy!=='customer') f.customerPaid='';
+    try{ if(id) await DB.update('samples',id,f); else await DB.add('samples',{...f, by:who()}); closeModal(bg); toast(t('saved'),'ok'); await DB.all('samples',true); smList(); }catch(e){ errToast(e); } };
+}
+
+/* ============================================================================
+   كل دول العالم + متطلبات أساسية حسب المنطقة (تحتاج مراجعة من فريق التصدير)
+   g=الخليج  a=عربية (أغادير/التيسير العربية)  e=الاتحاد الأوروبي  f=أوروبا (EFTA/UK)  t=تركيا
+   c=الكوميسا  m=الميركوسور  x=باقي الدول
+   ============================================================================ */
+const WORLD_RAW = `Saudi Arabia|السعودية|g;United Arab Emirates|الإمارات|g;Kuwait|الكويت|g;Qatar|قطر|g;Bahrain|البحرين|g;Oman|عمان|g;
+Jordan|الأردن|a;Lebanon|لبنان|a;Syria|سوريا|a;Iraq|العراق|a;Palestine|فلسطين|a;Yemen|اليمن|a;Libya|ليبيا|a;Tunisia|تونس|a;Algeria|الجزائر|a;Morocco|المغرب|a;Sudan|السودان|a;Mauritania|موريتانيا|a;Somalia|الصومال|a;Djibouti|جيبوتي|a;Comoros|جزر القمر|a;
+Austria|النمسا|e;Belgium|بلجيكا|e;Bulgaria|بلغاريا|e;Croatia|كرواتيا|e;Cyprus|قبرص|e;Czech Republic|التشيك|e;Denmark|الدنمارك|e;Estonia|إستونيا|e;Finland|فنلندا|e;France|فرنسا|e;Germany|ألمانيا|e;Greece|اليونان|e;Hungary|المجر|e;Ireland|أيرلندا|e;Italy|إيطاليا|e;Latvia|لاتفيا|e;Lithuania|ليتوانيا|e;Luxembourg|لوكسمبورغ|e;Malta|مالطا|e;Netherlands|هولندا|e;Poland|بولندا|e;Portugal|البرتغال|e;Romania|رومانيا|e;Slovakia|سلوفاكيا|e;Slovenia|سلوفينيا|e;Spain|إسبانيا|e;Sweden|السويد|e;
+United Kingdom|المملكة المتحدة|f;Switzerland|سويسرا|f;Norway|النرويج|f;Iceland|آيسلندا|f;Liechtenstein|ليختنشتاين|f;Turkey|تركيا|t;
+Kenya|كينيا|c;Uganda|أوغندا|c;Rwanda|رواندا|c;Burundi|بوروندي|c;Ethiopia|إثيوبيا|c;Eritrea|إريتريا|c;Malawi|مالاوي|c;Zambia|زامبيا|c;Zimbabwe|زيمبابوي|c;Madagascar|مدغشقر|c;Mauritius|موريشيوس|c;Seychelles|سيشل|c;DR Congo|الكونغو الديمقراطية|c;Eswatini|إسواتيني|c;
+Brazil|البرازيل|m;Argentina|الأرجنتين|m;Uruguay|أوروغواي|m;Paraguay|باراغواي|m;
+Albania|ألبانيا|x;Andorra|أندورا|x;Armenia|أرمينيا|x;Azerbaijan|أذربيجان|x;Belarus|بيلاروسيا|x;Bosnia and Herzegovina|البوسنة والهرسك|x;Georgia|جورجيا|x;Kosovo|كوسوفو|x;Moldova|مولدوفا|x;Monaco|موناكو|x;Montenegro|الجبل الأسود|x;North Macedonia|مقدونيا الشمالية|x;Russia|روسيا|x;San Marino|سان مارينو|x;Serbia|صربيا|x;Ukraine|أوكرانيا|x;Vatican City|الفاتيكان|x;
+Afghanistan|أفغانستان|x;Bangladesh|بنغلاديش|x;Bhutan|بوتان|x;Brunei|بروناي|x;Cambodia|كمبوديا|x;China|الصين|x;Hong Kong|هونغ كونغ|x;India|الهند|x;Indonesia|إندونيسيا|x;Iran|إيران|x;Japan|اليابان|x;Kazakhstan|كازاخستان|x;Kyrgyzstan|قيرغيزستان|x;Laos|لاوس|x;Malaysia|ماليزيا|x;Maldives|المالديف|x;Mongolia|منغوليا|x;Myanmar|ميانمار|x;Nepal|نيبال|x;North Korea|كوريا الشمالية|x;Pakistan|باكستان|x;Philippines|الفلبين|x;Singapore|سنغافورة|x;South Korea|كوريا الجنوبية|x;Sri Lanka|سريلانكا|x;Taiwan|تايوان|x;Tajikistan|طاجيكستان|x;Thailand|تايلاند|x;Timor-Leste|تيمور الشرقية|x;Turkmenistan|تركمانستان|x;Uzbekistan|أوزبكستان|x;Vietnam|فيتنام|x;
+Angola|أنغولا|x;Benin|بنين|x;Botswana|بوتسوانا|x;Burkina Faso|بوركينا فاسو|x;Cameroon|الكاميرون|x;Cape Verde|الرأس الأخضر|x;Central African Republic|أفريقيا الوسطى|x;Chad|تشاد|x;Congo|الكونغو|x;Ivory Coast|ساحل العاج|x;Equatorial Guinea|غينيا الاستوائية|x;Gabon|الجابون|x;Gambia|غامبيا|x;Ghana|غانا|x;Guinea|غينيا|x;Guinea-Bissau|غينيا بيساو|x;Lesotho|ليسوتو|x;Liberia|ليبيريا|x;Mali|مالي|x;Mozambique|موزمبيق|x;Namibia|ناميبيا|x;Niger|النيجر|x;Nigeria|نيجيريا|x;Sao Tome and Principe|ساو تومي وبرينسيب|x;Senegal|السنغال|x;Sierra Leone|سيراليون|x;South Africa|جنوب أفريقيا|x;South Sudan|جنوب السودان|x;Tanzania|تنزانيا|x;Togo|توغو|x;
+United States|الولايات المتحدة|x;Canada|كندا|x;Mexico|المكسيك|x;Guatemala|غواتيمالا|x;Belize|بليز|x;Honduras|هندوراس|x;El Salvador|السلفادور|x;Nicaragua|نيكاراغوا|x;Costa Rica|كوستاريكا|x;Panama|بنما|x;Cuba|كوبا|x;Dominican Republic|الدومينيكان|x;Haiti|هايتي|x;Jamaica|جامايكا|x;Trinidad and Tobago|ترينيداد وتوباغو|x;Bahamas|الباهاما|x;Barbados|باربادوس|x;Antigua and Barbuda|أنتيغوا وباربودا|x;Dominica|دومينيكا|x;Grenada|غرينادا|x;Saint Kitts and Nevis|سانت كيتس ونيفيس|x;Saint Lucia|سانت لوسيا|x;Saint Vincent and the Grenadines|سانت فنسنت والغرينادين|x;
+Bolivia|بوليفيا|x;Chile|تشيلي|x;Colombia|كولومبيا|x;Ecuador|الإكوادور|x;Guyana|غيانا|x;Peru|بيرو|x;Suriname|سورينام|x;Venezuela|فنزويلا|x;
+Australia|أستراليا|x;New Zealand|نيوزيلندا|x;Fiji|فيجي|x;Papua New Guinea|بابوا غينيا الجديدة|x;Solomon Islands|جزر سليمان|x;Vanuatu|فانواتو|x;Samoa|ساموا|x;Tonga|تونغا|x;Kiribati|كيريباتي|x;Micronesia|ميكرونيزيا|x;Marshall Islands|جزر مارشال|x;Palau|بالاو|x;Nauru|ناورو|x;Tuvalu|توفالو|x`;
+const WORLD = WORLD_RAW.split(';').map(s=>s.trim()).filter(Boolean).map(s=>{ const [name,nameAr,r]=s.split('|'); return {name,nameAr,r}; });
+const COUNTRY_NAMES = () => { const set=new Set([...(S.cache.countries||[]).map(c=>c.nameAr||c.name), ...WORLD.map(c=>c.nameAr)]); return [...set].sort((a,b)=>a.localeCompare(b,'ar')); };
+const REGION_AR = {g:'الخليج', a:'الدول العربية', e:'الاتحاد الأوروبي', f:'أوروبا', t:'تركيا', c:'الكوميسا', m:'الميركوسور', x:'أخرى'};
+const REGION_DEF = {
+  g:{originType:'arab', labelLang:'عربي + إنجليزي', requiredDocs:['pi','ci','pl','health','origin','halal','bl'], checks:['بطاقة بيانات باللغة العربية (تاريخ الإنتاج والانتهاء)','شهادة حلال معتمدة','تصديق الفاتورة وشهادة المنشأ من الغرفة التجارية']},
+  a:{originType:'arab', labelLang:'عربي', requiredDocs:['pi','ci','pl','health','origin','bl'], checks:['بطاقة بيانات باللغة العربية','شهادة منشأ عربية (اتفاقية التيسير العربية)']},
+  e:{originType:'eur1', labelLang:'لغة البلد', requiredDocs:['pi','ci','pl','health','origin','bl'], checks:['بطاقة بيانات حسب لائحة 1169/2011 بلغة البلد','قائمة المكونات ومسببات الحساسية بوضوح','الإضافات والألوان المسموحة في الاتحاد الأوروبي','شهادة EUR.1']},
+  f:{originType:'eur1', labelLang:'لغة البلد', requiredDocs:['pi','ci','pl','health','origin','bl'], checks:['بطاقة بيانات بلغة البلد','قائمة المكونات ومسببات الحساسية','شهادة EUR.1']},
+  t:{originType:'eur1', labelLang:'تركي', requiredDocs:['pi','ci','pl','health','origin','bl'], checks:['بطاقة بيانات باللغة التركية','شهادة EUR.1']},
+  c:{originType:'comesa', labelLang:'إنجليزي', requiredDocs:['pi','ci','pl','health','origin','bl'], checks:['شهادة منشأ الكوميسا','بطاقة بيانات باللغة الإنجليزية']},
+  m:{originType:'mercosur', labelLang:'إسباني / برتغالي', requiredDocs:['pi','ci','pl','health','origin','bl'], checks:['شهادة منشأ الميركوسور','بطاقة بيانات بلغة البلد']},
+  x:{originType:'normal', labelLang:'إنجليزي', requiredDocs:['pi','ci','pl','health','origin','bl'], checks:['بطاقة بيانات باللغة الإنجليزية أو لغة البلد']},
+};
+const COUNTRY_EXTRA = {
+  'United States':{checks:['تسجيل المصنع في FDA (Food Facility Registration)','إخطار مسبق Prior Notice قبل وصول الشحنة','بطاقة بيانات حسب FDA (Nutrition Facts)','الألوان والإضافات المسموحة في FDA'], notes:'FDA'},
+  'Canada':{checks:['ترخيص المستورد SFC','بطاقة بيانات إنجليزي وفرنسي','جدول القيم الغذائية الكندي'], labelLang:'إنجليزي + فرنسي'},
+  'Saudi Arabia':{checks:['تسجيل المنتجات في SFDA','شهادة مطابقة SABER'], legalization:true},
+  'United Arab Emirates':{checks:['تسجيل المنتجات (ZAD / بلدية دبي)']},
+  'Kuwait':{legalization:true}, 'Qatar':{legalization:true},
+  'Iraq':{checks:['شهادة مطابقة COC قبل الشحن'], legalization:true},
+  'Libya':{legalization:true}, 'Yemen':{legalization:true}, 'Sudan':{legalization:true},
+  'Algeria':{checks:['تصديق المستندات','بطاقة بيانات عربي + فرنسي'], labelLang:'عربي + فرنسي', legalization:true},
+  'Morocco':{labelLang:'عربي + فرنسي'}, 'Tunisia':{labelLang:'عربي + فرنسي'},
+  'Kenya':{checks:['شهادة مطابقة PVoC (KEBS)']}, 'Uganda':{checks:['شهادة مطابقة PVoC (UNBS)']}, 'Tanzania':{checks:['شهادة مطابقة PVoC (TBS)']},
+  'Ethiopia':{checks:['ترخيص استيراد من EFDA']},
+  'Nigeria':{checks:['تسجيل المنتجات في NAFDAC','شهادة SONCAP','Form M من المستورد']},
+  'Ghana':{checks:['تسجيل FDA Ghana']},
+  'China':{checks:['تسجيل المصنع في GACC (CIFER)','بطاقة بيانات صيني'], labelLang:'صيني'},
+  'Japan':{labelLang:'ياباني'}, 'South Korea':{labelLang:'كوري'},
+  'Malaysia':{checks:['شهادة حلال معترف بها من JAKIM'], requiredDocs:['pi','ci','pl','health','origin','halal','bl']},
+  'Indonesia':{checks:['شهادة حلال BPJPH','تسجيل BPOM'], requiredDocs:['pi','ci','pl','health','origin','halal','bl']},
+  'Australia':{checks:['متطلبات الحجر الزراعي (BICON)','بطاقة بيانات FSANZ']},
+  'Russia':{checks:['شهادة مطابقة EAC'], labelLang:'روسي'}, 'Kazakhstan':{checks:['شهادة مطابقة EAC']}, 'Belarus':{checks:['شهادة مطابقة EAC']}, 'Armenia':{checks:['شهادة مطابقة EAC']}, 'Kyrgyzstan':{checks:['شهادة مطابقة EAC']},
+  'Palestine':{checks:['الشحن عبر الموانئ المسموحة']},
+};
+function worldCountryRec(w){ const d=REGION_DEF[w.r]||REGION_DEF.x, e=COUNTRY_EXTRA[w.name]||{};
+  return {name:w.name, nameAr:w.nameAr, region:w.r, originType:d.originType, labelLang:e.labelLang||d.labelLang, requiredDocs:[...(e.requiredDocs||d.requiredDocs)], checks:[...d.checks, ...(e.checks||[])], legalization:!!e.legalization, notes:'', reviewed:false}; }
+async function seedWorldCountries(silent){
+  const have=new Set((await DB.all('countries',true)).flatMap(c=>[c.name,c.nameAr].map(x=>String(x||'').trim().toLowerCase())));
+  const todo=WORLD.filter(w=>!have.has(w.name.toLowerCase()) && !have.has(w.nameAr.toLowerCase()));
+  if(!todo.length){ if(!silent) toast('كل الدول موجودة','ok'); return 0; }
+  if(!silent && !await confirmBox(`إضافة ${todo.length} دولة بالمتطلبات الأساسية حسب المنطقة؟`)) return 0;
+  if(!silent) toast('جاري الإضافة…');
+  for(const w of todo) await DB.add('countries', worldCountryRec(w));
+  await DB.all('countries',true); if(!silent){ toast(`تمت إضافة ${todo.length} دولة`,'ok'); ctryList(); }
+  return todo.length;
 }
 
 boot();
