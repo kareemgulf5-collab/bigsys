@@ -630,6 +630,16 @@ table.d-tbl{width:100%;border-collapse:collapse;margin-top:0}
 .chk-row.done{background:var(--good-tint);border-color:transparent}.chk-row.done span:first-of-type{color:var(--muted)}
 .chk-row input{width:16px;height:16px;flex:none}
 
+/* ---------- اختيار الأصناف ---------- */
+.ig-pick-btn{width:100%;justify-content:center;margin-bottom:12px;height:42px}
+.pp{display:flex;flex-direction:column;gap:10px}.pp-s{min-width:0}.pp-s input{height:42px;font-size:14px}
+.pp-chips{display:flex;flex-wrap:wrap;align-items:center;gap:6px}.pp-l{font-size:12px;color:var(--muted);width:56px;flex:none}
+.pp-c{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:5px 12px;font:inherit;font-size:12.5px;cursor:pointer}
+.pp-c.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.pp-list{max-height:52vh;overflow:auto;border:1px solid var(--line);border-radius:var(--r-sm)}
+.pp-t thead th{position:sticky;top:0;background:var(--card);z-index:1}.pp-t tr.pp-in td{background:var(--good-tint)}
+@media (max-width:640px){.pp-l{width:100%}.pp-t th:nth-child(3),.pp-t td:nth-child(3){display:none}}
+
 </style>
 </head>
 <body>
@@ -2577,7 +2587,7 @@ function tabInvoice(){
           <div class="ig-g2">${fi('c.email','البريد الإلكتروني',cu.email)}${fi('c.phone','التليفون',cu.phone)}</div>
           <div class="ig-g2">${fi('c.address','العنوان',cu.address)}${fi('c.website','الموقع',cu.website)}</div></div>
         <div class="ig-card"><div class="ig-rowh"><div class="ig-sec" style="margin:0">الأصناف</div>${ed?`<button class="btn btn-o btn-s" onclick="igAddRow()">${IC.plus} صنف يدوي</button>`:''}</div>
-          ${ed?`<select class="in" id="ig-prod" style="margin-bottom:12px"><option value="">إضافة صنف من المنتجات…</option>${prods.map(p=>`<option value="${p.id}">${esc(p.nameAr||p.nameEn)} — ${esc(p.packSize||'')}${p.price?' — $'+p.price:''}</option>`).join('')}</select>`:''}
+          ${ed?`<button class="btn btn-p ig-pick-btn" id="ig-prod" onclick="prodPicker()">${IC.plus} إضافة أصناف من المنتجات</button>`:''}
           <div class="ig-hdr"><span>الصنف</span><span>العبوة</span><span>وحدات</span><span>كراتين</span><span>سعر الكرتونة</span><span></span></div>
           <div id="ig-items"></div>
           <div class="ig-g2" style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line)">${fi('notes','ملاحظات',o.notes)}${fi('discountPct','خصم %',n(o.discountPct),{type:'number'})}</div>
@@ -2590,7 +2600,6 @@ function tabInvoice(){
   const cs=$('ig-cust'); if(cs) cs.onchange=()=>{ const c=byId(custs,cs.value); if(!c) return; o.customerId=c.id;
     o.customer={company:c.company||'',country:c.country||'',email:c.email||'',phone:c.phone||'',address:c.address||'',website:c.website||'',contactName:c.contactName||''};
     if(c.defaultIncoterm) o.incoterm=c.defaultIncoterm; if(c.defaultPort && !o.dischargePoint) o.dischargePoint=c.defaultPort+(c.country?', '+c.country:''); markDirty(); tabInvoice(); };
-  const ps=$('ig-prod'); if(ps) ps.onchange=()=>{ const p=byId(prods,ps.value); if(!p) return; o.items.push(mkItem(p)); markDirty(); igItems(); igPreview(); ps.value=''; };
   igItems(); igPreview();
 }
 function igSet(el){ const o=OD.o, k=el.dataset.h; let v=el.value; if(el.type==='number') v = v===''?'':n(v);
@@ -2771,6 +2780,39 @@ function autoBatches(){ collectProd(); Object.assign(OD.o.production, readForm($
 async function saveProduction(){ collectProd(); const o=OD.o; const f2=readForm($('pr-f2'));
   const production={...o.production, startedAt:f2.startedAt, finishedAt:f2.finishedAt, notes:f2.notes, unit:o.production.unit||'kg', orderDate:o.production.orderDate||todayISO(), expiry:o.production.expiry??defaultExpiry(o)};
   try{ await saveOrder({items:o.items, production, customer:o.customer, salesRep:o.salesRep||'', deliveryDate:o.deliveryDate||'', loadingDate:o.loadingDate||''}, t('h_production')); toast(t('saved'),'ok'); renderOrder(); }catch(e){ errToast(e); } }
+
+/* ---------- اختيار الأصناف: بحث + تصنيف + جدول واضح ---------- */
+const PP_SHAPES = ['كيس','برطمان','علبة','شجرة','عربية','كرتون','ستاند','جار'];
+const ppPack = p => { const g=String(p.packSize||'').match(/([\d.\-]+)\s*g/i); const pcs=n(p.piecesPerPack);
+  const gw=`<bdi dir="ltr">${g?g[1]:fmt(p.pieceG)}</bdi> جم`; return pcs>1 ? `${fmt(pcs)} قطعة × ${gw}` : (g?gw:esc(p.packSize||'')); };
+function prodPicker(){
+  const o=OD.o, prods=(S.cache.products||[]).filter(p=>p.active!==false);
+  const brands=[...new Set(prods.map(p=>p.brand).filter(Boolean))];
+  const shapes=PP_SHAPES.filter(sh=>prods.some(p=>(p.nameAr||'').includes(sh)));
+  const F={q:'', brand:'', shape:''}; let added=0;
+  const chips=(k,list,lbl)=>`<div class="pp-chips"><span class="pp-l">${lbl}</span><button class="pp-c on" data-k="${k}" data-v="">الكل</button>${list.map(v=>`<button class="pp-c" data-k="${k}" data-v="${esc(v)}">${esc(v)}</button>`).join('')}</div>`;
+  const bg=openModal({title:'إضافة أصناف', size:'lg', body:`<div class="pp">
+      <div class="search pp-s">${IC.search}<input class="in" id="pp-q" placeholder="ابحث باسم الصنف أو الكود… (مثلًا: شجرة، برطمان، 120)" autocomplete="off"></div>
+      ${brands.length>1?chips('brand',brands,'الماركة'):''}${shapes.length>1?chips('shape',shapes,'الشكل'):''}
+      <div class="pp-list" id="pp-list"></div></div>`,
+    foot:`<span class="small muted" id="pp-n" style="margin-inline-end:auto"></span><button class="btn btn-p" id="pp-done">${t('ok')}</button>`});
+  const q=s=>bg.querySelector(s);
+  const draw=()=>{
+    const w=F.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    const rows=prods.filter(p=>(!F.brand||p.brand===F.brand) && (!F.shape||(p.nameAr||'').includes(F.shape)) && w.every(x=>[p.nameAr,p.nameEn,p.code,p.packSize,p.unitsPerCarton,p.piecesPerPack].join(' ').toLowerCase().includes(x)));
+    const inOrder=id=>(o.items||[]).filter(i=>i.productId===id).length;
+    q('#pp-list').innerHTML = rows.length?`<table class="tbl pp-t"><thead><tr><th>الصنف</th><th>العبوة</th><th>في الكرتونة</th><th>سعر الكرتونة</th><th></th></tr></thead><tbody>
+      ${rows.map(p=>{ const c=inOrder(p.id); return `<tr class="${c?'pp-in':''}" data-id="${p.id}"><td><div class="bold">${esc(p.nameAr||p.nameEn)}</div><div class="tiny muted mono">${esc(p.code||'')}</div></td>
+        <td class="nowrap">${ppPack(p)}</td><td class="num">${fmt(p.unitsPerCarton)}</td><td class="num bold">${p.price!==''&&p.price!=null?money(p.price,p.currency||'USD'):'—'}</td>
+        <td class="act"><button class="btn ${c?'btn-o':'btn-p'} btn-s" data-add="${p.id}">${c?`${IC.check} مضاف`:`${IC.plus} إضافة`}</button></td></tr>`; }).join('')}</tbody></table>`:emptyBox('لا توجد أصناف مطابقة');
+    q('#pp-n').textContent = added?`تمت إضافة ${added} صنف`:`${rows.length} صنف`;
+    q('#pp-list').querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>{ const p=byId(prods,b.dataset.add); if(inOrder(p.id) && !confirm('الصنف مضاف بالفعل. إضافته مرة تانية؟')) return; o.items.push(mkItem(p)); added++; markDirty(); igItems(); igPreview(); draw(); });
+  };
+  q('#pp-q').oninput=e=>{ F.q=e.target.value; draw(); };
+  bg.querySelectorAll('.pp-c').forEach(b=>b.onclick=()=>{ F[b.dataset.k]=b.dataset.v; bg.querySelectorAll(`.pp-c[data-k=${b.dataset.k}]`).forEach(x=>x.classList.toggle('on',x===b)); draw(); });
+  q('#pp-done').onclick=()=>closeModal(bg);
+  draw(); setTimeout(()=>q('#pp-q').focus(),50);
+}
 
 /* مقاسات الكراتين من حاسبة CBM بتاعة الشركة (بتتحط أول مرة لو المكتبة فاضية) */
 const SEED_CANDY = [
