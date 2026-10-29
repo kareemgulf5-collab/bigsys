@@ -7,13 +7,13 @@
    ===================================================================== */
 window.EGF_CONFIG = {
   firebase: {
-    apiKey: "",
-    authDomain: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: ""
+    apiKey: "AIzaSyDsQhArNDAabkL6caSv48Y_RTfRhhNA82M",
+    authDomain: "bigsys-c4db8.firebaseapp.com",
+    projectId: "bigsys-c4db8",
+    storageBucket: "bigsys-c4db8.firebasestorage.app",
+    messagingSenderId: "39727898386",
+    appId: "1:39727898386:web:7592a968eee8f43a7dddcb"
   },
-  adminEmails: ["YOUR_ADMIN_EMAIL@example.com"],
+  adminEmails: ["kareemgulf5@gmail.com"],
   firebaseSdkVersion: "10.12.2"
 };
