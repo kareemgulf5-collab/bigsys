@@ -770,6 +770,9 @@ a>.kpi{transition:border-color .12s}a:hover>.kpi{border-color:var(--navy-100)}
 .hc-go{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:var(--yellow-50);border:1px solid #f3dc9c;border-radius:12px;padding:16px 18px}
 .hc-go .btn{height:44px;padding:0 22px;font-size:14px}
 .hc-manual summary{cursor:pointer;color:var(--muted);font-size:13px;padding:4px 0}
+.po-fac{font-weight:800;font-size:16px;color:#2d2a76;background:#fff6dc;border-inline-start:6px solid #ffb607;padding:6px 12px;margin-bottom:8px;border-radius:4px}
+.pe-facs{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--yellow-50);border:1px solid #f3dc9c;border-radius:12px;padding:12px 16px;margin-bottom:14px}
+.pe-facs .lbl{font-weight:600;font-size:13px}
 
 </style>
 </head>
@@ -1066,6 +1069,20 @@ const INCOTERMS = ['EXW','FCA','FOB','CFR','CIF','DAP','CPT','CIP','DDP'];
 const CURRENCIES = ['USD','EUR','GBP','SAR','AED','EGP'];
 const PACK_TYPES = ['none','jar','box'];   // نفس اختيارات أمر الإنتاج: — / برطمانات / علب
 const PASTA_LINE = 'مكرونة';
+// كل صنف بيروح لمصنع حسب نوعه: الحلويات واللبان لمصنع، والسناكس لمصنع تاني، والمكرونة لوحدها
+const FACTORIES = [['candy','مصنع الحلويات'],['snacks','مصنع السناكس'],['pasta','المكرونة']];
+function itemFactory(it){ if(!it) return 'candy'; if(it.line===PASTA_LINE) return 'pasta';
+  const c=it.category || ((typeof S!=='undefined' && S.cache && byId(S.cache.products,it.productId))||{}).category;
+  if(c==='snacks' || it.line==='سناكس') return 'snacks'; if(c==='pasta') return 'pasta'; return 'candy'; }
+const orderFactories = o => FACTORIES.map(x=>x[0]).filter(f=>(o.items||[]).some(it=>itemFactory(it)===f));
+const FAC_SUFFIX = {candy:'H', snacks:'S', pasta:'P'};
+const PO_ST = {new:'لم يبدأ', started:'جاري الإنتاج', done:'خلص'};
+const PO_ST_CLS = {new:'b-gray', started:'b-yel', done:'b-ok'};
+// أمر الإنتاج بتاع كل مصنع: رقم وتواريخ وحالة لوحده (الفاتورة واحدة)
+function prodOrderOf(o, f){ const multi=orderFactories(o).length>1, po=((o.prodOrders||{})[f])||{}, pr=o.production||{};
+  return {fac:f, name:factoryName(f), multi, no: multi?`${o.number}-${FAC_SUFFIX[f]||f}`:o.number, orderDate: po.orderDate||pr.orderDate||'', deliveryDate: po.deliveryDate||o.deliveryDate||'',
+    expiry: po.expiry ?? pr.expiry, status: po.status||'new', notes: po.notes||''}; }
+const factoryName = f => ((typeof S!=='undefined' && S.settings && S.settings['factory_'+f]) || (FACTORIES.find(x=>x[0]===f)||[,''])[1]);
 const EXPIRY_OPTS = [['','اختر المدة'],['1y','سنة'],['1.5y','سنة ونص'],['2y','سنتين']];
 const CERT_TYPES = ['exporters_reg','nfsa_reg','halal','iso22000','iso9001','iso45001','haccp','fda','industrial_reg','commercial_reg','tax_card','other'];
 const TEST_KINDS = ['test_cert','lab_result','other'];
@@ -1084,7 +1101,7 @@ const DEFAULT_SETTINGS = {
   payTermsAr:'{deposit}% من إجمالي قيمة الفاتورة قبل بدء الإنتاج.\n{balance}% قبل تحميل البضاعة من أرض المصنع.\nلا يتم الإنتاج أو التحميل قبل استلام الدفعات كاملة.',
   liabilityEn:'The exporter shall not be liable for any indirect or consequential damages once goods leave the factory.',
   liabilityAr:'لا تتحمل الشركة المصدرة أي مسؤولية عن أضرار غير مباشرة بعد مغادرة البضاعة للمصنع.',
-  healthEmail:'h.certificate@nfsa.gov.eg', whitelistNo:'', healthFollowupDays:3, healthCc:'', googleClientId:'',
+  healthEmail:'h.certificate@nfsa.gov.eg', whitelistNo:'', healthFollowupDays:3, healthCc:'', googleClientId:'', factory_candy:'مصنع الحلويات', factory_snacks:'مصنع السناكس',
   orderPrefix:'EGF', receiptPrefix:'RC',
   lines:['لايت مصاص','موجو مصاص','بونبون','لبان','سناكس','مكرونة','أخرى'],
   certAlertDays:60, cutoffAlertDays:3, testValidityDays:180,
@@ -1800,7 +1817,7 @@ PAGES.settings = { perm:'admin', async render(){
       ${fld(t('pay_terms_en'),'payTermsEn',s.payTermsEn,{type:'textarea',hint:t('terms_hint')})}${fld(t('pay_terms_ar'),'payTermsAr',s.payTermsAr,{type:'textarea'})}
       ${fld(t('liability_en'),'liabilityEn',s.liabilityEn,{type:'textarea'})}${fld(t('liability_ar'),'liabilityAr',s.liabilityAr,{type:'textarea'})}</div></div>
     <div class="card"><div class="card-h"><h3>${t('set_ops')}</h3></div><div class="card-b grid g3">
-      ${fld(t('health_email'),'healthEmail',s.healthEmail,{type:'email'})}${fld('رقم القائمة البيضاء (سلامة الغذاء)','whitelistNo',s.whitelistNo)}${fld('تنبيه لو رد الهيئة اتأخر (أيام)','healthFollowupDays',s.healthFollowupDays??3,{type:'number'})}${fld('نسخة (CC) لإيميلات الهيئة','healthCc',s.healthCc||'',{attrs:'dir="ltr"'})}${fld('Google Client ID (للإرسال من السيستم عن طريق Gmail)','googleClientId',s.googleClientId||'',{cls:'full',attrs:'dir="ltr"',ph:'xxxxxxxx.apps.googleusercontent.com'})}${fld(t('order_prefix'),'orderPrefix',s.orderPrefix)}${fld(t('receipt_prefix'),'receiptPrefix',s.receiptPrefix)}
+      ${fld(t('health_email'),'healthEmail',s.healthEmail,{type:'email'})}${fld('رقم القائمة البيضاء (سلامة الغذاء)','whitelistNo',s.whitelistNo)}${fld('تنبيه لو رد الهيئة اتأخر (أيام)','healthFollowupDays',s.healthFollowupDays??3,{type:'number'})}${fld('اسم مصنع الحلويات (في أمر الإنتاج)','factory_candy',s.factory_candy||'مصنع الحلويات')}${fld('اسم مصنع السناكس (في أمر الإنتاج)','factory_snacks',s.factory_snacks||'مصنع السناكس')}${fld('نسخة (CC) لإيميلات الهيئة','healthCc',s.healthCc||'',{attrs:'dir="ltr"'})}${fld('Google Client ID (للإرسال من السيستم عن طريق Gmail)','googleClientId',s.googleClientId||'',{cls:'full',attrs:'dir="ltr"',ph:'xxxxxxxx.apps.googleusercontent.com'})}${fld(t('order_prefix'),'orderPrefix',s.orderPrefix)}${fld(t('receipt_prefix'),'receiptPrefix',s.receiptPrefix)}
       ${fld(t('cert_alert_days'),'certAlertDays',s.certAlertDays,{type:'number'})}${fld(t('cutoff_alert_days'),'cutoffAlertDays',s.cutoffAlertDays,{type:'number'})}${fld(t('test_validity_days'),'testValidityDays',s.testValidityDays,{type:'number',hint:t('test_validity_hint')})}
       <div class="field full"><label>${t('prod_lines')}</label>${tagsInput('lines',s.lines||[])}</div></div></div>
     <div class="row"><button class="btn btn-p" id="sf-save">${IC.check} ${t('save_settings')}</button></div></div>`;
@@ -1889,7 +1906,7 @@ async function importCatalog(){
   try{
     for(const p of add) await DB.add('products',p);
     for(const p of upd){ const x=have.find(y=>y.code===p.code); await DB.update('products',x.id,{price:p.price,currency:'USD',cartonL:p.cartonL,cartonW:p.cartonW,cartonH:p.cartonH,realQty40:p.realQty40, ...(x.brandAr?{}:{brandAr:p.brandAr})}); }
-    toast(`تمت إضافة ${add.length} وتحديث ${upd.length}`,'ok'); await DB.all('products',true); prodList();
+    toast(`تمت إضافة ${add.length} وتحديث ${upd.length}`,'ok'); await DB.all('products',true); if(typeof prodList==='function' && $('p-list')) prodList();
   }catch(e){ errToast(e); }
 }
 
@@ -1897,7 +1914,7 @@ async function importCatalog(){
 function mkItem(p, extra={}){
   return { id:uid(), productId:p.id||'', code:p.code||'', nameAr:p.nameAr||'', nameEn:p.nameEn||'', packSize:p.packSize||'', netWeightG:n(p.netWeightG), pieceG:n(p.pieceG), piecesPerPack:n(p.piecesPerPack), unitsPerCarton:n(p.unitsPerCarton),
     cartonL:n(p.cartonL), cartonW:n(p.cartonW), cartonH:n(p.cartonH), cartonNetKg:n(p.cartonNetKg), cartonGrossKg:n(p.cartonGrossKg), hsCode:p.hsCode||'', shelfLifeMonths:n(p.shelfLifeMonths), real20:p.realQty20??null, real40:p.realQty40??null,
-    line:p.line||'', packType:PACK_TYPES.includes(p.packType)?p.packType:'none', flavours:[...(p.flavours||[])], cartons:'', pricePerCarton:(p.price!==''&&p.price!=null)?n(p.price):'', onDiscount:false, stickers:false, notes:'', batch:'', prodDate:'', expDate:'', loadedCartons:'', ...extra };
+    line:p.line||'', category:p.category||'', packType:PACK_TYPES.includes(p.packType)?p.packType:'none', flavours:[...(p.flavours||[])], cartons:'', pricePerCarton:(p.price!==''&&p.price!=null)?n(p.price):'', onDiscount:false, stickers:false, notes:'', batch:'', prodDate:'', expDate:'', loadedCartons:'', ...extra };
 }
 const pad = (v,l=4) => String(v).padStart(l,'0');
 
@@ -2509,7 +2526,7 @@ const poSign = `<div class="po-sign"><div>السيلز</div><div>مسئول ال
 const d8 = s => s ? new Date(String(s).slice(0,10)+'T00:00:00').toLocaleDateString('en-GB') : '';
 
 /* ---------- production order (sweets / gum / lollipops) ---------- */
-function poMainDoc(o, items){
+function poMainDoc(o, items, P=null){
   const pr=o.production||{}, unit=pr.unit||'kg';
   let tG=0,tS=0,sRows=0;
   const rows = items.map((it,i)=>{ const r=poRow(it); tG+=r.grams; tS+=r.stk; if(it.stickers) sRows++;
@@ -2517,8 +2534,8 @@ function poMainDoc(o, items){
       <td class="calc g-out">${poW(r.grams,unit)}</td>
       <td class="stk"><span>${it.stickers?'☑ بستيكر':'☐  بدون'}</span><span class="stkT ${it.stickers?'':'dim'}">${it.stickers?fx(r.stk,0):'—'}</span></td>
       <td>${packLabel(it.packType)}</td><td class="line"><i style="background:${lineColor(it.line)}"></i>${esc(it.line||'')}</td><td class="notes">${esc(it.notes||'')}</td></tr>`; }).join('');
-  return `<div class="po">
-    ${poMeta([['اسم العميل',custName(o)],['البلد',(o.customer||{}).country],['اسم السيلز',o.salesRep],['التاريخ',d8(pr.orderDate||pr.startedAt||todayISO())],['رقم الأوردر',o.number],['تاريخ التسليم',d8(o.deliveryDate)],['تاريخ التحميل',d8(o.loadingDate)],['تاريخ الصلاحية',expiryLabel(pr.expiry??defaultExpiry(o))]])}
+  return `<div class="po">${P&&P.multi?`<div class="po-fac">أمر إنتاج — ${esc(P.name)}</div>`:''}
+    ${poMeta([['اسم العميل',custName(o)],['البلد',(o.customer||{}).country],['اسم السيلز',o.salesRep],['التاريخ',d8((P&&P.orderDate)||pr.orderDate||pr.startedAt||todayISO())],[P&&P.multi?'رقم أمر الإنتاج':'رقم الأوردر',P?P.no:o.number],['تاريخ التسليم',d8(P?P.deliveryDate:o.deliveryDate)],['تاريخ التحميل',d8(o.loadingDate)],['تاريخ الصلاحية',expiryLabel((P&&P.expiry!=null?P.expiry:pr.expiry)??defaultExpiry(o))]])}
     <table class="po-t"><thead>
       <tr class="band"><th></th><th colspan="5" class="b-in"><span>بيانات المنتج</span></th><th class="b-out"><span>الناتج</span></th><th colspan="2" class="b-stk"><span>الاستيكر والتعبئة</span></th><th colspan="2" class="b-line"><span>التصنيف والملاحظات</span></th></tr>
       <tr><th style="width:22px"></th><th class="g-in" style="width:152px;text-align:right;padding-inline-start:5px">المنتج</th><th class="g-in">جرام</th><th class="g-in">حجم العبوة</th><th class="g-in">وحدات</th><th class="g-in">كراتين</th>
@@ -2529,12 +2546,12 @@ function poMainDoc(o, items){
 }
 
 /* ---------- pasta production order ---------- */
-function poPastaDoc(o, items){
+function poPastaDoc(o, items, P=null){
   const pr=o.production||{}; let tKg=0,tC=0,tPcs=0,cnt=0;
   const rows = items.map((it,i)=>{ const s=unitGrams(it), u=n(it.unitsPerCarton), q=n(it.cartons), pcs=u*q, kg=s*pcs/1000; tKg+=kg; tC+=q; tPcs+=pcs; if(kg>0) cnt++;
     return `<tr><td class="no">${i+1}</td><td class="desc">${esc(it.nameAr||it.nameEn)}</td><td>${s||''}</td><td>${u||''}</td><td>${q||''}</td><td class="calc g-out">${kg>0?`${fx(kg,2)}<small>${fx(kg/1000,3)} طن</small>`:'0'}</td><td class="pline">${PASTA_LINE}</td><td class="notes">${esc(it.notes||'')}</td></tr>`; }).join('');
-  return `<div class="po">
-    ${poMeta([['رقم الأمر',o.number],['التاريخ',d8(pr.orderDate||pr.startedAt||todayISO())],['اسم العميل',custName(o)],['تاريخ التسليم',d8(o.deliveryDate)]])}
+  return `<div class="po">${P&&P.multi?`<div class="po-fac">أمر إنتاج — ${esc(P.name)}</div>`:''}
+    ${poMeta([['رقم الأمر',P?P.no:o.number],['التاريخ',d8((P&&P.orderDate)||pr.orderDate||pr.startedAt||todayISO())],['اسم العميل',custName(o)],['تاريخ التسليم',d8(P?P.deliveryDate:o.deliveryDate)]])}
     <table class="po-t"><thead><tr><th style="width:22px"></th><th class="g-in" style="width:190px;text-align:right;padding-inline-start:5px">الصنف</th><th class="g-in">حجم العبوة (جم)</th><th class="g-in">وحدات / كرتونة</th><th class="g-in">كراتين</th><th class="g-out">الإنتاج (كجم)</th><th class="g-pl">خط الإنتاج</th><th class="g-line">ملاحظات</th></tr></thead>
       <tbody>${rows}</tbody>
       <tfoot><tr><td colspan="4" class="flbl" style="text-align:right;padding-inline-start:12px">الإجمالي</td><td>${fx(tC,0)}<small>كرتونة</small></td><td class="g-out">${fx(tKg,2)}<small>${fx(tKg/1000,3)} طن</small></td><td colspan="2"></td></tr></tfoot></table>
@@ -2545,11 +2562,11 @@ function poPastaDoc(o, items){
       <div class="po-tile" style="--tc:#7c5cd6"><div class="t"><i style="background:#7c5cd6"></i>الأصناف</div><div class="v">${cnt}</div><div class="u">صنف</div></div></div></div>
     ${poSign}</div>`;
 }
-function printProduction(){
+function printProduction(fac){
   if(OD && $('pe-body')) collectProd();
-  const o=OD.o; const main=o.items.filter(it=>it.line!==PASTA_LINE), pasta=o.items.filter(it=>it.line===PASTA_LINE);
-  const pages=[]; if(main.length || !pasta.length) pages.push(poMainDoc(o,main)); if(pasta.length) pages.push(poPastaDoc(o,pasta));
-  openPrint(`أمر إنتاج ${o.number}`, pages, {land:true});
+  const o=OD.o, facs=orderFactories(o), multi=facs.length>1, list=fac?[fac]:(facs.length?facs:['candy']);
+  const pages=list.map(f=>{ const its=o.items.filter(it=>itemFactory(it)===f), P=prodOrderOf(o,f); return f==='pasta' ? poPastaDoc(o,its,P) : poMainDoc(o,its,P); });
+  openPrint(fac&&multi?`أمر إنتاج ${prodOrderOf(o,fac).no} — ${factoryName(fac)}`:`أمر إنتاج ${o.number}`, pages, {land:true});
 }
 
 /* ---------- invoice / PI / quotation — same layout as the invoice generator ---------- */
@@ -2615,7 +2632,7 @@ function printInvoice(kind){ const o=OD.o; openPrint(`${({inv:'Invoice',pi:'PI',
 async function loadOD(id){ const o=await DB.get('orders',id); if(!o) throw new Error(t('not_found'));
   o.items=o.items||[]; o.shipment=o.shipment||{}; o.docs=o.docs||{}; o.health=o.health||{status:'draft'}; o.history=o.history||[]; o.production=o.production||{};
   await Promise.all([DB.all('countries'), DB.all('payments')]); OD={o, tab:'invoice', dirty:false}; return o; }
-async function quickPrint(id, kind){ try{ await loadOD(id); if(kind==='po') printProduction(); else printInvoice(kind); }catch(e){ errToast(e); } }
+async function quickPrint(id, kind){ try{ await loadOD(id); if(kind==='po') printProduction(); else if(String(kind).startsWith('po:')) printProduction(kind.slice(3)); else printInvoice(kind); }catch(e){ errToast(e); } }
 
 PAGES.invoices = { perm:'orders', async render(){
   await DB.all('orders',true);
@@ -2633,19 +2650,22 @@ function invList(){
 }
 
 PAGES.production = { tab:'production', async render(){
-  await DB.all('orders',true);
+  await Promise.all([DB.all('orders',true), DB.all('products')]);
   $('view').innerHTML = pageHead(`<div class="row wrap">${searchBox('po-q',t('search_orders'),'poList()')}
-      <select class="in" id="po-st" style="width:200px" onchange="poList()"><option value="open">${t('open_orders')}</option><option value="">${t('all')}</option></select></div>`, can('orders.edit')?`<button class="btn btn-p" onclick="newOrder('production')">${IC.plus} ${t('new_prod_order')}</button>`:'')
+      <select class="in" id="po-st" style="width:200px" onchange="poList()"><option value="open">${t('open_orders')}</option><option value="">${t('all')}</option></select>
+      <select class="in" id="po-fac" style="width:200px" onchange="poList()"><option value="">كل المصانع</option>${FACTORIES.map(([k])=>`<option value="${k}">${esc(factoryName(k))}</option>`).join('')}</select></div>`, can('orders.edit')?`<button class="btn btn-p" onclick="newOrder('production')">${IC.plus} ${t('new_prod_order')}</button>`:'')
     + `<div class="card"><div class="tbl-wrap" id="po-list"></div></div>`;
   poList();
 }};
 function poList(){
-  const q=($('po-q').value||'').toLowerCase(), st=$('po-st').value;
-  const rows=(S.cache.orders||[]).filter(o=>o.status!=='cancelled' && (st!=='open' || !['shipped','closed'].includes(o.status)) && (!q||[o.number,custName(o),(o.customer||{}).country,o.salesRep].join(' ').toLowerCase().includes(q))).sort((a,b)=>(a.deliveryDate||a.loadingDate||'9').localeCompare(b.deliveryDate||b.loadingDate||'9'));
-  $('po-list').innerHTML = rows.length? `<table class="tbl"><thead><tr><th>${t('order_no')}</th><th>${t('customer')}</th><th>${t('country')}</th><th>${t('sales_rep')}</th><th>${t('delivery_date')}</th><th>${t('loading_date')}</th><th>${t('prod_kg')}</th><th>${t('sticker')}</th><th>${t('cartons')}</th><th>${t('status')}</th><th></th></tr></thead><tbody>
-    ${rows.map(o=>{ let g=0,s=0,q=0; (o.items||[]).forEach(it=>{ const r=poRow(it); g+=r.grams; s+=r.stk; q+=r.q; }); return `<tr><td><a class="mono bold nowrap" href="#/order/${o.id}/production">${esc(o.number)}</a></td><td class="bold">${esc(custName(o))}</td><td>${esc((o.customer||{}).country||'')}</td><td>${esc(o.salesRep||'')}</td>
-      <td>${o.deliveryDate?dateBadge(o.deliveryDate,3):'—'}</td><td class="num">${o.loadingDate?fmtDate(o.loadingDate):'—'}</td><td class="num bold">${fx(g/1000,2)} kg</td><td class="num">${fx(s,0)}</td><td class="num">${fmt(q)}</td><td>${statusBadge(o.status)}</td>
-      <td class="act nowrap"><button class="btn btn-a btn-xs" onclick="quickPrint('${o.id}','po')">${IC.print} ${t('print_prod_order')}</button><a class="btn btn-o btn-xs" href="#/order/${o.id}/production">${IC.edit} ${t('open')}</a></td></tr>`; }).join('')}</tbody></table>`
+  const q=($('po-q').value||'').toLowerCase(), st=$('po-st').value, ff=($('po-fac')||{}).value||'';
+  const orders=(S.cache.orders||[]).filter(o=>o.status!=='cancelled' && (st!=='open' || !['shipped','closed'].includes(o.status)) && (!q||[o.number,custName(o),(o.customer||{}).country,o.salesRep].join(' ').toLowerCase().includes(q))).sort((a,b)=>(a.deliveryDate||a.loadingDate||'9').localeCompare(b.deliveryDate||b.loadingDate||'9'));
+  const rows=orders.flatMap(o=>{ const fs=orderFactories(o); return (fs.length?fs:['candy']).filter(f=>!ff||f===ff).map(f=>({o,f,multi:fs.length>1})); }).sort((a,b)=>(prodOrderOf(a.o,a.f).deliveryDate||'9').localeCompare(prodOrderOf(b.o,b.f).deliveryDate||'9'));
+  $('po-list').innerHTML = rows.length? `<table class="tbl"><thead><tr><th>رقم أمر الإنتاج</th><th>المصنع</th><th>${t('customer')}</th><th>${t('country')}</th><th>${t('delivery_date')}</th><th>${t('loading_date')}</th><th>${t('prod_kg')}</th><th>${t('sticker')}</th><th>${t('cartons')}</th><th>${t('status')}</th><th></th></tr></thead><tbody>
+    ${rows.map(({o,f,multi})=>{ const P=prodOrderOf(o,f); let g=0,s=0,q=0,c=0; (o.items||[]).filter(it=>itemFactory(it)===f).forEach(it=>{ const r=poRow(it); g+=r.grams; s+=r.stk; q+=r.q; c++; }); return `<tr><td><a class="mono bold nowrap" href="#/order/${o.id}/production" onclick="PE.facOrder='${o.id}';PE.fac='${multi?f:''}'">${esc(P.no)}</a>${multi?`<div class="tiny muted">فاتورة ${esc(o.number)}</div>`:''}</td>
+      <td><span class="bdg ${f==='snacks'?'b-info':f==='pasta'?'b-yel':'b-navy'} nodot">${esc(factoryName(f))}</span><div class="tiny muted">${c} صنف${multi?' · فاتورة مشتركة':''}</div></td><td class="bold">${esc(custName(o))}</td><td>${esc((o.customer||{}).country||'')}</td>
+      <td>${P.deliveryDate?dateBadge(P.deliveryDate,3):'—'}</td><td class="num">${o.loadingDate?fmtDate(o.loadingDate):'—'}</td><td class="num bold">${fx(g/1000,2)} kg</td><td class="num">${fx(s,0)}</td><td class="num">${fmt(q)}</td><td>${multi?`<span class="bdg ${PO_ST_CLS[P.status]}">${PO_ST[P.status]}</span>`:statusBadge(o.status)}</td>
+      <td class="act nowrap"><button class="btn btn-a btn-xs" onclick="quickPrint('${o.id}','po:${f}')">${IC.print} ${t('print_prod_order')}</button><a class="btn btn-o btn-xs" href="#/order/${o.id}/production" onclick="PE.facOrder='${o.id}';PE.fac='${multi?f:''}'">${IC.edit} ${t('open')}</a></td></tr>`; }).join('')}</tbody></table>`
     : emptyBox(t('no_orders'), can('orders.edit')?`<button class="btn btn-p" onclick="newOrder('production')">${IC.plus} ${t('new_prod_order')}</button>`:'');
 }
 
@@ -2771,24 +2791,30 @@ async function saveInvoiceTab(){
 }
 
 /* ------------------------------ 2) أمر الإنتاج ------------------------------ */
-const PE = { showExtra:true };
+const PE = { showExtra:true, fac:'', facOrder:'' };
 const peEdP = () => (can('production')||can('orders.edit')) && OD.o.status!=='cancelled' && (FLOW.indexOf(OD.o.status)<FLOW.indexOf('shipped') || S.profile.role==='admin');
 function tabProduction(){
   const o=OD.o, pr=o.production, unit=pr.unit||'kg', edP=peEdP(), edQ=editable(), pay=payCalc(o,S.cache.payments);
   const dP=edP?'':'disabled', rP=edP?'':'readonly';
   const prods=(S.cache.products||[]).filter(p=>p.active!==false);
+  if(PE.facOrder!==o.id){ PE.fac=''; PE.facOrder=o.id; } const facs=orderFactories(o); if(PE.fac && !facs.includes(PE.fac)) PE.fac=''; if(facs.length>1 && !PE.fac) PE.fac=facs[0]; if(facs.length<2) PE.fac='';
+  const PO = PE.fac ? prodOrderOf(o,PE.fac) : null, M = !!PO;
   $('od-body').innerHTML = `<div class="pe">
+    ${facs.length>1?`<div class="pe-facs"><span class="lbl">الفاتورة دي ليها ${facs.length} أوامر إنتاج:</span>
+      <span class="pe-seg">${facs.map(f=>{ const P=prodOrderOf(o,f); return `<button type="button" aria-pressed="${f===PE.fac}" onclick="peFac('${f}')">${esc(P.name)} <span class="mono tiny">${esc(P.no)}</span> <span class="bdg ${PO_ST_CLS[P.status]} nodot">${PO_ST[P.status]}</span></button>`; }).join('')}</span>
+      <button class="btn btn-g btn-s" style="margin-inline-start:auto" onclick="printProduction()">${IC.print} طباعة الأوامر كلها</button></div>`:''}
     ${!pay.depositOk?`<div class="alert al-warn mb">${IC.lock}<div>${t('prod_blocked_deposit')}</div></div>`:''}
     <div class="pe-card">
       <div class="pe-meta">
         <div><label>اسم العميل</label><input data-m="c.company" value="${esc((o.customer||{}).company||'')}"  ${edQ?'':'readonly'}></div>
         <div><label>البلد</label><input data-m="c.country" value="${esc((o.customer||{}).country||'')}"  ${edQ?'':'readonly'}></div>
         <div><label>اسم السيلز</label><input data-m="salesRep" value="${esc(o.salesRep||'')}"  ${rP}></div>
-        <div><label>التاريخ</label><input type="date" data-m="p.orderDate" value="${esc(pr.orderDate||todayISO())}" ${rP}></div>
-        <div><label>رقم الأوردر</label><input value="${esc(o.number)}" readonly></div>
-        <div class="dlv"><label>تاريخ التسليم</label><input type="date" data-m="deliveryDate" id="pe-due" value="${esc(o.deliveryDate||'')}" ${rP}><span class="due-note" id="pe-dueN"></span></div>
+        <div><label>التاريخ</label><input type="date" data-m="${M?'f.orderDate':'p.orderDate'}" value="${esc((M?PO.orderDate:pr.orderDate)||todayISO())}" ${rP}></div>
+        <div><label>${M?'رقم أمر الإنتاج':'رقم الأوردر'}</label><input value="${esc(M?PO.no:o.number)}" readonly></div>
+        <div class="dlv"><label>تاريخ التسليم${M?' — '+esc(PO.name):''}</label><input type="date" data-m="${M?'f.deliveryDate':'deliveryDate'}" id="pe-due" value="${esc((M?PO.deliveryDate:o.deliveryDate)||'')}" ${rP}><span class="due-note" id="pe-dueN"></span></div>
         <div><label>تاريخ التحميل</label><input type="date" data-m="loadingDate" value="${esc(o.loadingDate||'')}" ${rP}></div>
-        <div><label>تاريخ الصلاحية</label><select data-m="p.expiry" ${dP}>${EXPIRY_OPTS.map(([v,l])=>`<option value="${v}" ${v===(pr.expiry??defaultExpiry(o))?'selected':''}>${l}</option>`).join('')}</select></div>
+        <div><label>تاريخ الصلاحية</label><select data-m="${M?'f.expiry':'p.expiry'}" ${dP}>${EXPIRY_OPTS.map(([v,l])=>`<option value="${v}" ${v===((M&&PO.expiry!=null?PO.expiry:pr.expiry)??defaultExpiry(o))?'selected':''}>${l}</option>`).join('')}</select></div>
+        ${M?`<div><label>حالة أمر الإنتاج</label><select data-m="f.status" ${dP}>${Object.entries(PO_ST).map(([k,l])=>`<option value="${k}" ${k===PO.status?'selected':''}>${l}</option>`).join('')}</select></div>`:''}
       </div>
       <div class="pe-bar">
         <span class="lbl">الوزن</span><span class="pe-seg" id="pe-seg">${[['kg','كجم'],['ton','طن'],['both','الاتنين']].map(([k,l])=>`<button type="button" aria-pressed="${k===unit}" onclick="peUnit('${k}')">${l}</button>`).join('')}</span>
@@ -2796,7 +2822,7 @@ function tabProduction(){
         ${edP?`<button class="btn btn-g btn-s" onclick="peAddLine()">${IC.plus} خط</button>`:''}
         <button class="btn btn-g btn-s" id="pe-tog" onclick="peToggleCols()">${PE.showExtra?'إخفاء الخط والملاحظات':'إظهار الخط والملاحظات'}</button>
         <span class="pe-push">${edQ?`<select class="pe-sel" id="pe-prod"><option value="">اختيار صنف…</option>${prods.map(p=>`<option value="${p.id}">${esc(p.nameAr||p.nameEn)}</option>`).join('')}</select><button class="btn btn-o" onclick="peAddRow()">${IC.plus} صنف</button>`:''}
-          <button class="btn btn-o" onclick="printProduction()">${IC.print} طباعة أمر الإنتاج</button>${edP?`<button class="btn btn-p" id="od-save" onclick="saveProduction()">${IC.check} ${t('save')}</button>`:''}</span></div>
+          <button class="btn btn-o" onclick="printProduction(PE.fac)">${IC.print} ${PE.fac?`طباعة أمر ${esc(factoryName(PE.fac))}`:facs.length>1?'طباعة أوامر الإنتاج':'طباعة أمر الإنتاج'}</button>${edP?`<button class="btn btn-p" id="od-save" onclick="saveProduction()">${IC.check} ${t('save')}</button>`:''}</span></div>
       <div class="pe-scroll"><table id="pe-tbl" class="${PE.showExtra?'':'hide-extra'}"><thead>
         <tr class="band"><th colspan="2"></th><th colspan="5" class="b-in"><span>بيانات المنتج</span></th><th class="b-out"><span>الناتج</span></th><th colspan="2" class="b-stk"><span>الاستيكر والتعبئة</span></th><th colspan="2" class="b-line opt-col"><span>التصنيف والملاحظات</span></th><th class="act"></th></tr>
         <tr><th class="grip"></th><th style="width:28px"></th><th class="g-in" style="width:190px;text-align:right;padding-inline-start:12px">المنتج</th><th class="g-in" style="width:58px">جرام</th><th class="g-in" style="width:68px">حجم العبوة</th><th class="g-in" style="width:62px">وحدات</th><th class="g-in" style="width:66px">كراتين</th>
@@ -2822,8 +2848,9 @@ function tabProduction(){
   peChips(); peBody();
 }
 function peMeta(el){ const o=OD.o, k=el.dataset.m, v=el.value;
-  if(k.startsWith('c.')) (o.customer=o.customer||{})[k.slice(2)]=v; else if(k.startsWith('p.')) o.production[k.slice(2)]=v; else o[k]=v;
-  markDirty(); if(k==='deliveryDate') peDue(); }
+  if(k.startsWith('f.')){ o.prodOrders=o.prodOrders||{}; o.prodOrders[PE.fac]={...(o.prodOrders[PE.fac]||{}), [k.slice(2)]:v}; }
+  else if(k.startsWith('c.')) (o.customer=o.customer||{})[k.slice(2)]=v; else if(k.startsWith('p.')) o.production[k.slice(2)]=v; else o[k]=v;
+  markDirty(); if(k==='deliveryDate'||k==='f.deliveryDate') peDue(); }
 function peDue(){ const el=$('pe-due'), note=$('pe-dueN'); if(!el) return; const v=el.value; el.classList.remove('late','warn'); note.className='due-note';
   if(!v){ note.textContent=''; return; } const days=daysUntil(v); const ar=new Date(v+'T00:00:00').toLocaleDateString('ar-EG',{weekday:'long'});
   if(days<0){ el.classList.add('late'); note.className='due-note late'; note.textContent=`⚠ فات المعاد بـ ${Math.abs(days)} يوم`; }
@@ -2863,8 +2890,10 @@ function peCalc(){
   collectProd(); const o=OD.o, unit=o.production.unit||'kg';
   let tQ=0,tG=0,tS=0,cnt=0,sRows=0,noted=0;
   $('pe-thProd').textContent='الإنتاج ('+({kg:'كجم',ton:'طن',both:'كجم/طن'})[unit]+')';
-  [...$('pe-body').rows].forEach((tr,i)=>{ const it=o.items.find(x=>x.id===tr.dataset.id); if(!it) return; const r=poRow(it);
-    tr.querySelector('.no').textContent=i+1;
+  let vi=0; const vis=it=>!PE.fac||itemFactory(it)===PE.fac;
+  [...$('pe-body').rows].forEach(tr=>{ const it=o.items.find(x=>x.id===tr.dataset.id); if(!it) return; const r=poRow(it);
+    tr.style.display=vis(it)?'':'none'; if(!vis(it)) return;
+    tr.querySelector('.no').textContent=++vi;
     tr.querySelector('.sw .t').textContent=it.stickers?'بستيكر':'بدون';
     const c=tr.querySelector('[data-c=stk]'); c.textContent=it.stickers?fx(r.stk,0):'—'; c.classList.toggle('dim',!it.stickers);
     tr.querySelector('.line-c i').style.background=lineColor(it.line);
@@ -2874,13 +2903,14 @@ function peCalc(){
   $('pe-tQ').innerHTML=`${fx(tQ,0)}<small>كرتونة</small>`; $('pe-tProd').innerHTML=poW(tG,unit); $('pe-tStk').innerHTML=`${fx(tS,0)}<small>${sRows?sRows+' أصناف':'—'}</small>`;
   $('pe-cProd').textContent=unit==='ton'?fx(tG/1e6,3):fx(tG/1000,2); $('pe-cProdU').textContent=unit==='ton'?'طن':'كجم';
   $('pe-cCart').textContent=fx(tQ,0); $('pe-cStk').textContent=fx(tS,0); $('pe-cStkU').textContent=sRows?`استيكر · ${sRows} صنف`:'—'; $('pe-cItems').textContent=cnt;
-  const L={}; o.items.forEach(it=>{ const k=it.line||'—'; L[k]=(L[k]||0)+poRow(it).grams; });
+  const L={}; o.items.filter(vis).forEach(it=>{ const k=it.line||'—'; L[k]=(L[k]||0)+poRow(it).grams; });
   const shown=Object.entries(L).filter(([,v])=>v>0), max=Math.max(1,...shown.map(([,v])=>v));
   $('pe-cards').innerHTML = shown.length ? shown.map(([k,v])=>`<div class="pe-tile" style="--tc:${lineColor(k)}"><div class="t"><i style="background:${lineColor(k)}"></i>${esc(k)}</div><div class="v">${unit==='ton'?fx(v/1e6,3):fx(v/1000,2)}</div><div class="u">${unit==='ton'?'طن':'كجم'} · ${fx(v/tG*100,1)}% من الأوردر</div><div class="bar"><i style="width:${v/max*100}%;background:${lineColor(k)}"></i></div></div>`).join('')
     : `<div class="pe-tile empty"><div class="t">لا يوجد إنتاج</div><div class="v">—</div></div>`;
 }
 function collectProd(){ document.querySelectorAll('#pe-body tr[data-id], #pb-tbl tbody tr[data-id]').forEach(tr=>{ const it=OD.o.items.find(x=>x.id===tr.dataset.id); if(!it) return;
   tr.querySelectorAll('[data-f]').forEach(el=>{ if(el.readOnly||el.disabled) return; it[el.dataset.f]= el.type==='checkbox'?el.checked : el.type==='number'? (el.value===''?'':n(el.value)) : el.value.trim(); }); }); }
+function peFac(f){ collectProd(); PE.fac=f; tabProduction(); }
 function peUnit(u){ OD.o.production.unit=u; document.querySelectorAll('#pe-seg button').forEach((b,i)=>b.setAttribute('aria-pressed',['kg','ton','both'][i]===u)); markDirty(); peCalc(); }
 function peToggleCols(){ PE.showExtra=!PE.showExtra; $('pe-tbl').classList.toggle('hide-extra',!PE.showExtra); $('pe-tog').textContent=PE.showExtra?'إخفاء الخط والملاحظات':'إظهار الخط والملاحظات' }
 function peAddRow(){ collectProd(); const ps=$('pe-prod'); const p=ps&&byId(S.cache.products,ps.value); OD.o.items.push(p?mkItem(p):mkItem({line:(S.settings.lines||[])[0]||''})); if(ps) ps.value=''; markDirty(); tabProduction(); }
@@ -2897,7 +2927,7 @@ function autoBatches(){ collectProd(); Object.assign(OD.o.production, readForm($
   markDirty(); tabProduction(); }
 async function saveProduction(){ collectProd(); const o=OD.o; const f2=readForm($('pr-f2'));
   const production={...o.production, startedAt:f2.startedAt, finishedAt:f2.finishedAt, notes:f2.notes, unit:o.production.unit||'kg', orderDate:o.production.orderDate||todayISO(), expiry:o.production.expiry??defaultExpiry(o)};
-  try{ await saveOrder({items:o.items, production, customer:o.customer, salesRep:o.salesRep||'', deliveryDate:o.deliveryDate||'', loadingDate:o.loadingDate||''}, t('h_production')); toast(t('saved'),'ok'); renderOrder(); }catch(e){ errToast(e); } }
+  try{ await saveOrder({items:o.items, production, prodOrders:o.prodOrders||{}, customer:o.customer, salesRep:o.salesRep||'', deliveryDate:o.deliveryDate||'', loadingDate:o.loadingDate||''}, t('h_production')); toast(t('saved'),'ok'); renderOrder(); }catch(e){ errToast(e); } }
 
 /* ---------- اختيار الأصناف: بحث + تصنيف + جدول واضح ---------- */
 const PP_SHAPES = ['كيس','برطمان','علبة','شجرة','عربية','كرتون','ستاند','جار'];
@@ -2907,27 +2937,34 @@ function prodPicker(){
   const o=OD.o, prods=(S.cache.products||[]).filter(p=>p.active!==false);
   const brands=[...new Set(prods.map(p=>p.brand).filter(Boolean))];
   const shapes=PP_SHAPES.filter(sh=>prods.some(p=>(p.nameAr||'').includes(sh)));
-  const F={q:'', brand:'', shape:''}; let added=0;
+  const catG = p => p.category==='snacks'?'سناكس':p.category==='pasta'?'مكرونة':'حلويات', cats=[...new Set(prods.map(catG))];
+  const F={q:'', brand:'', shape:'', cat:''}; let added=0;
   const chips=(k,list,lbl)=>`<div class="pp-chips"><span class="pp-l">${lbl}</span><button class="pp-c on" data-k="${k}" data-v="">الكل</button>${list.map(v=>`<button class="pp-c" data-k="${k}" data-v="${esc(v)}">${esc(v)}</button>`).join('')}</div>`;
   const bg=openModal({title:'إضافة أصناف', size:'lg', body:`<div class="pp">
       <div class="search pp-s">${IC.search}<input class="in" id="pp-q" placeholder="ابحث باسم الصنف أو الكود… (مثلًا: شجرة، برطمان، 120)" autocomplete="off"></div>
-      ${brands.length>1?chips('brand',brands,'الماركة'):''}${shapes.length>1?chips('shape',shapes,'الشكل'):''}
+      ${cats.length>1?chips('cat',cats,'النوع'):''}${brands.length>1?chips('brand',brands,'الماركة'):''}${shapes.length>1?chips('shape',shapes,'الشكل'):''}
       <div class="pp-list" id="pp-list"></div></div>`,
     foot:`<span class="small muted" id="pp-n" style="margin-inline-end:auto"></span><button class="btn btn-p" id="pp-done">${t('ok')}</button>`});
   const q=s=>bg.querySelector(s);
   const draw=()=>{
     const w=F.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
-    const rows=prods.filter(p=>(!F.brand||p.brand===F.brand) && (!F.shape||(p.nameAr||'').includes(F.shape)) && w.every(x=>[p.nameAr,p.nameEn,p.code,p.packSize,p.unitsPerCarton,p.piecesPerPack].join(' ').toLowerCase().includes(x)));
+    const rows=prods.filter(p=>(!F.cat||catG(p)===F.cat) && (!F.brand||p.brand===F.brand) && (!F.shape||(p.nameAr||'').includes(F.shape)) && w.every(x=>[p.nameAr,p.nameEn,p.code,p.packSize,p.unitsPerCarton,p.piecesPerPack].join(' ').toLowerCase().includes(x)));
     const inOrder=id=>(o.items||[]).filter(i=>i.productId===id).length;
     q('#pp-list').innerHTML = rows.length?`<table class="tbl pp-t"><thead><tr><th>الصنف</th><th>العبوة</th><th>في الكرتونة</th><th>سعر الكرتونة</th><th></th></tr></thead><tbody>
       ${rows.map(p=>{ const c=inOrder(p.id); return `<tr class="${c?'pp-in':''}" data-id="${p.id}"><td><div class="bold">${esc(p.nameAr||p.nameEn)}</div><div class="tiny muted mono">${esc(p.code||'')}</div></td>
         <td class="nowrap">${ppPack(p)}</td><td class="num">${fmt(p.unitsPerCarton)}</td><td class="num bold">${p.price!==''&&p.price!=null?money(p.price,p.currency||'USD'):'—'}</td>
-        <td class="act"><button class="btn ${c?'btn-o':'btn-p'} btn-s" data-add="${p.id}">${c?`${IC.check} مضاف`:`${IC.plus} إضافة`}</button></td></tr>`; }).join('')}</tbody></table>`:emptyBox('لا توجد أصناف مطابقة');
+        <td class="act"><button class="btn ${c?'btn-o':'btn-p'} btn-s" data-add="${p.id}">${c?`${IC.check} مضاف`:`${IC.plus} إضافة`}</button></td></tr>`; }).join('')}</tbody></table>`:(prods.length?emptyBox('لا توجد أصناف مطابقة'):emptyBox('لسه مافيش منتجات في السيستم', can('products.edit')?`<button class="btn btn-p" id="pp-imp">${IC.download} استيراد الكاتالوج (${CATALOG_ALL().length} صنف)</button>`:''));
+    const imp=q('#pp-imp'); if(imp) imp.onclick=async ()=>{ imp.disabled=true; imp.textContent='جاري الاستيراد…'; try{ for(const p of catalogProducts()) await DB.add('products',p); await DB.all('products',true); closeModal(bg); toast('اتضافت المنتجات','ok'); prodPicker(); }catch(e){ errToast(e); imp.disabled=false; } };
     q('#pp-n').textContent = added?`تمت إضافة ${added} صنف`:`${rows.length} صنف`;
     q('#pp-list').querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>{ const p=byId(prods,b.dataset.add); if(inOrder(p.id) && !confirm('الصنف مضاف بالفعل. إضافته مرة تانية؟')) return; o.items.push(mkItem(p)); added++; markDirty(); igItems(); igPreview(); draw(); });
   };
   q('#pp-q').oninput=e=>{ F.q=e.target.value; draw(); };
-  bg.querySelectorAll('.pp-c').forEach(b=>b.onclick=()=>{ F[b.dataset.k]=b.dataset.v; bg.querySelectorAll(`.pp-c[data-k=${b.dataset.k}]`).forEach(x=>x.classList.toggle('on',x===b)); draw(); });
+  const syncBrands=()=>{ bg.querySelectorAll('.pp-c[data-k=brand]').forEach(x=>{ x.style.display = !x.dataset.v || !F.cat || prods.some(p=>p.brand===x.dataset.v && catG(p)===F.cat) ? '' : 'none'; });
+    const shRow=(bg.querySelector('.pp-c[data-k=shape]')||{}).parentElement; let anyShape=false;
+    bg.querySelectorAll('.pp-c[data-k=shape]').forEach(x=>{ const ok=!x.dataset.v || !F.cat || prods.some(p=>(p.nameAr||'').includes(x.dataset.v) && catG(p)===F.cat); if(x.dataset.v&&ok) anyShape=true; x.style.display=ok?'':'none'; });
+    if(shRow) shRow.style.display=anyShape?'':'none'; };
+  bg.querySelectorAll('.pp-c').forEach(b=>b.onclick=()=>{ F[b.dataset.k]=b.dataset.v; bg.querySelectorAll(`.pp-c[data-k=${b.dataset.k}]`).forEach(x=>x.classList.toggle('on',x===b));
+    if(b.dataset.k==='cat'){ F.brand=''; F.shape=''; bg.querySelectorAll('.pp-c[data-k=brand],.pp-c[data-k=shape]').forEach(x=>x.classList.toggle('on',!x.dataset.v)); syncBrands(); } draw(); });
   q('#pp-done').onclick=()=>closeModal(bg);
   draw(); setTimeout(()=>q('#pp-q').focus(),50);
 }
