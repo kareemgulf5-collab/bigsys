@@ -767,6 +767,9 @@ a>.kpi{transition:border-color .12s}a:hover>.kpi{border-color:var(--navy-100)}
 }
 .hc-cert{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
 .hcf-t td{padding:6px 6px}.hcf-t th{padding:10px 6px;font-size:11.5px}
+.hc-go{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:var(--yellow-50);border:1px solid #f3dc9c;border-radius:12px;padding:16px 18px}
+.hc-go .btn{height:44px;padding:0 22px;font-size:14px}
+.hc-manual summary{cursor:pointer;color:var(--muted);font-size:13px;padding:4px 0}
 
 </style>
 </head>
@@ -838,7 +841,7 @@ pg_invoices:'الفواتير', pg_production:'أوامر الإنتاج', new_i
 piece_g:'جرام (القطعة)', pieces_per_pack:'حجم العبوة (عدد القطع)', pieces_hint:'الإنتاج = جرام × حجم العبوة × وحدات × كراتين ÷ 1000', doc_invoice:'الفاتورة (الشكل المعتاد)', doc_ci_customs:'فاتورة تجارية للجمارك (المحمّل + HS)', invoice_no:'رقم الفاتورة', invoice_date:'تاريخ الفاتورة', expiry_period:'تاريخ الصلاحية', weight_unit:'الوزن', u_kg:'كجم', u_ton:'طن', u_both:'الاتنين', order_date:'التاريخ', sticker:'استيكر', with_sticker:'بستيكر', no_sticker:'بدون', packing:'التعبئة', lines_summary:'خطوط الإنتاج', order_totals:'إجمالي الأوردر', total_prod:'إجمالي الإنتاج', items_count:'الأصناف', batches_title:'التشغيلات وتواريخ الإنتاج', pasta_note:'أصناف خط المكرونة بتطلع في صفحة «أمر إنتاج مكرونة» منفصلة جوه نفس الطباعة.', grams:'جرام', units_s:'وحدات', prod_formula:'الإنتاج = جرام × حجم العبوة × وحدات × كراتين ÷ 1000 · الاستيكر = وحدات × كراتين',
 app_title:'نظام التصدير — إيجي جالف فودز', app_sub:'نظام إدارة التصدير', loading:'جاري التحميل…', err:'حصل خطأ', init_fail:'تعذر تشغيل النظام', ok:'تمام', cancel:'إلغاء', confirm:'تأكيد', save:'حفظ', saved:'تم الحفظ', close:'إغلاق', apply:'تطبيق', add:'إضافة', remove:'إزالة', open:'فتح', upload:'رفع', yes:'نعم', no:'لا', new:'جديد', all:'الكل', more:'خيارات', search:'بحث…', choose:'اختر…', refresh:'تحديث', details:'تفاصيل', manual:'يدوي', of:'من', to:'إلى', days:'يوم', months:'شهر', count:'العدد', total:'الإجمالي', totals:'الإجماليات', value:'القيمة', date:'التاريخ', status:'الحالة', notes:'ملاحظات', number:'الرقم', kind:'النوع', name:'الاسم', file:'الملف', document:'المستند', documents:'المستندات', required:'مطلوب', missing:'ناقص', late:'متأخر', item:'الصنف', result:'النتيجة', since:'تاريخ التسجيل', generate:'إنشاء', del_q:'تأكيد الحذف؟', unsaved_q:'توجد تعديلات غير محفوظة. المتابعة بدون حفظ؟', fill_required:'كمّل الخانات المطلوبة', no_access:'معندكش صلاحية للصفحة دي', not_found:'غير موجود',
 nav_work:'الشغل', nav_data:'البيانات الأساسية', nav_admin:'الإدارة',
-pg_dashboard:'الرئيسية', pg_orders:'الأوردرات', pg_order:'الطلبية', pg_payments:'الدفعات', pg_calc:'حاسبة الكونتينر', pg_customers:'العملاء', pg_products:'المنتجات', pg_tests:'تحاليل المنتجات', pg_countries:'الدول والمتطلبات', pg_certs:'شهادات الشركة', pg_users:'المستخدمين', pg_settings:'الإعدادات', nav_money:'الحسابات', pg_accounts:'الحسابات', pg_commissions:'العمولات', pg_samples:'العينات', pg_team:'السيلز والسوشيال ميديا',
+pg_dashboard:'الرئيسية', pg_orders:'الأوردرات', pg_order:'الطلبية', pg_payments:'الدفعات', pg_calc:'حاسبة الكونتينر', pg_customers:'العملاء', pg_products:'المنتجات', pg_tests:'مكتبة التحاليل', pg_countries:'الدول والمتطلبات', pg_certs:'شهادات الشركة', pg_users:'المستخدمين', pg_settings:'الإعدادات', nav_money:'الحسابات', pg_accounts:'الحسابات', pg_commissions:'العمولات', pg_samples:'العينات', pg_team:'السيلز والسوشيال ميديا',
 login_hero:'إدارة التصدير', login_sub:'من عرض السعر لحد ما المستندات توصل للعميل.', login_f1:'عرض سعر وPI وأمر إنتاج وفاتورة وقائمة تعبئة من نفس البيانات', login_f2:'متابعة الدفعات وقفل الإنتاج والتحميل لحد التحصيل', login_f3:'طلب الشهادة الصحية بالتحاليل', login_f4:'تنبيهات مواعيد الشحن وانتهاء الشهادات',
 login_title:'تسجيل الدخول', login_hint:'ادخل بحسابك في النظام.', signup_title:'حساب جديد', signup_hint:'بعد التسجيل المدير هيفعّل حسابك ويحدد صلاحيتك.', demo_login_hint:'وضع تجريبي. أدخل اسمك.', your_name:'اسمك', full_name:'الاسم بالكامل', email:'الإيميل', password:'كلمة السر', login:'دخول', enter_demo:'دخول الوضع التجريبي', create_account:'إنشاء الحساب', have_account:'عندي حساب', new_account:'إنشاء حساب جديد', forgot:'نسيت كلمة السر؟', enter_email_first:'أدخل البريد الإلكتروني', reset_sent:'اتبعتلك رسالة لتغيير كلمة السر', bad_login:'الإيميل أو كلمة السر غلط', email_used:'البريد الإلكتروني مستخدم', weak_pass:'كلمة السر لازم 6 حروف على الأقل', bad_email:'البريد الإلكتروني غير صحيح', too_many:'محاولات كتير، استنى شوية وجرب تاني',
 pending_title:'حسابك مستني التفعيل', pending_body:'الحساب في انتظار التفعيل من المدير.', logout:'خروج', role:'الصلاحية', mode:'الوضع', mode_demo:'تجريبي (على المتصفح)',
@@ -894,7 +897,7 @@ pg_invoices:'Invoices', pg_production:'Production orders', new_invoice:'New invo
 piece_g:'Grams (per piece)', pieces_per_pack:'Pack size (pieces)', pieces_hint:'Like the production order: production = grams × pack size × units × cartons ÷ 1000. For pasta, enter pack grams and pack size 1.', doc_invoice:'Invoice (usual layout)', doc_ci_customs:'Customs commercial invoice (loaded + HS)', invoice_no:'Invoice no.', invoice_date:'Invoice date', expiry_period:'Expiry', weight_unit:'Weight', u_kg:'kg', u_ton:'ton', u_both:'Both', order_date:'Date', sticker:'Sticker', with_sticker:'Sticker', no_sticker:'None', packing:'Packing', lines_summary:'Production lines', order_totals:'Order totals', total_prod:'Total production', items_count:'Items', batches_title:'Batches & production dates', pasta_note:'Pasta-line items print on a separate “Pasta production order” page in the same printout.', grams:'g', units_s:'Units', prod_formula:'Production = grams × pack size × units × cartons ÷ 1000 · Stickers = units × cartons',
 app_title:'Export System — EgyGulf Foods', app_sub:'Export management system', loading:'Loading…', err:'Something went wrong', init_fail:'Could not start the system', ok:'OK', cancel:'Cancel', confirm:'Confirm', save:'Save', saved:'Saved', close:'Close', apply:'Apply', add:'Add', remove:'Remove', open:'Open', upload:'Upload', yes:'Yes', no:'No', new:'New', all:'All', more:'Options', search:'Search…', choose:'Choose…', refresh:'Refresh', details:'Details', manual:'manual', of:'of', to:'To', days:'days', months:'months', count:'Count', total:'Total', totals:'Totals', value:'Value', date:'Date', status:'Status', notes:'Notes', number:'Number', kind:'Type', name:'Name', file:'File', document:'Document', documents:'Documents', required:'Required', missing:'Missing', late:'Late', item:'Item', result:'Result', since:'Registered', generate:'Generate', del_q:'Delete this item?', unsaved_q:'You have unsaved changes. Continue without saving?', fill_required:'Please fill the required fields', no_access:'You do not have access to this page', not_found:'Not found',
 nav_work:'Work', nav_data:'Master data', nav_admin:'Admin',
-pg_dashboard:'Dashboard', pg_orders:'Orders', pg_order:'Order', pg_payments:'Payments', pg_calc:'Container calculator', pg_customers:'Customers', pg_products:'Products', pg_tests:'Product tests', pg_countries:'Countries & requirements', pg_certs:'Company certificates', pg_users:'Users', pg_settings:'Settings', nav_money:'Finance', pg_accounts:'Accounts', pg_commissions:'Commissions', pg_samples:'Samples', pg_team:'Sales & social media',
+pg_dashboard:'Dashboard', pg_orders:'Orders', pg_order:'Order', pg_payments:'Payments', pg_calc:'Container calculator', pg_customers:'Customers', pg_products:'Products', pg_tests:'Test library', pg_countries:'Countries & requirements', pg_certs:'Company certificates', pg_users:'Users', pg_settings:'Settings', nav_money:'Finance', pg_accounts:'Accounts', pg_commissions:'Commissions', pg_samples:'Samples', pg_team:'Sales & social media',
 login_hero:'Every export order in one place', login_sub:'From quotation until the documents reach the buyer.', login_f1:'Quotation, PI, production order, invoice and packing list from the same data', login_f2:'Payment tracking that locks production and loading until paid', login_f3:'Health-certificate request with all product tests in one click', login_f4:'Alerts for cut-offs and expiring certificates',
 login_title:'Sign in', login_hint:'Sign in with your account.', signup_title:'Create account', signup_hint:'After signing up, an admin activates your account and sets your role.', demo_login_hint:'Demo mode: data is stored in this browser only. Type your name to enter.', your_name:'Your name', full_name:'Full name', email:'Email', password:'Password', login:'Sign in', enter_demo:'Enter demo', create_account:'Create account', have_account:'I have an account', new_account:'Create a new account', forgot:'Forgot password?', enter_email_first:'Enter your email first', reset_sent:'Password reset email sent', bad_login:'Wrong email or password', email_used:'This email is already registered', weak_pass:'Password must be at least 6 characters', bad_email:'Invalid email', too_many:'Too many attempts, try again later',
 pending_title:'Your account is waiting for activation', pending_body:'An admin needs to activate your account and set your role from the Users page. Then refresh.', logout:'Sign out', role:'Role', mode:'Mode', mode_demo:'Demo (browser)',
@@ -1081,7 +1084,7 @@ const DEFAULT_SETTINGS = {
   payTermsAr:'{deposit}% من إجمالي قيمة الفاتورة قبل بدء الإنتاج.\n{balance}% قبل تحميل البضاعة من أرض المصنع.\nلا يتم الإنتاج أو التحميل قبل استلام الدفعات كاملة.',
   liabilityEn:'The exporter shall not be liable for any indirect or consequential damages once goods leave the factory.',
   liabilityAr:'لا تتحمل الشركة المصدرة أي مسؤولية عن أضرار غير مباشرة بعد مغادرة البضاعة للمصنع.',
-  healthEmail:'h.certificate@nfsa.gov.eg', whitelistNo:'', healthFollowupDays:3,
+  healthEmail:'h.certificate@nfsa.gov.eg', whitelistNo:'', healthFollowupDays:3, healthCc:'', googleClientId:'',
   orderPrefix:'EGF', receiptPrefix:'RC',
   lines:['لايت مصاص','موجو مصاص','بونبون','لبان','مكرونة','أخرى'],
   certAlertDays:60, cutoffAlertDays:3, testValidityDays:180,
@@ -1332,8 +1335,8 @@ const AUTH = {
           const isAdminEmail = (CFG.adminEmails||[]).map(x=>x.toLowerCase()).includes((u.email||'').toLowerCase());
           if(!p && isAdminEmail){ p = {name: u.displayName || u.email.split('@')[0], email:u.email, username:u.email, role:'admin', active:true}; await DB.set('users', u.uid, p); p.id=u.uid; }
           else if(p && isAdminEmail && (p.role!=='admin' || !p.active)){ await DB.update('users',u.uid,{role:'admin',active:true}); p.role='admin'; p.active=true; }
-          S.profile = p || {email:u.email, role:'pending', active:false};
-        }catch(e){ errToast(e); }
+          S.profile = p || {email:u.email, role:'pending', active:false}; S.authErr='';
+        }catch(e){ console.error(e); S.authErr = e && e.code==='permission-denied' ? 'Firebase رفض الدخول على البيانات: قواعد الحماية (firestore.rules) مش متلصقة صح في Firestore ← Rules، أو الإيميل اللي فيها مش إيميل المدير.' : (e.message||String(e)); try{ await FB.authMod.signOut(FB.auth); }catch(_){} }
       }
       onReady();
     });
@@ -1442,7 +1445,7 @@ function renderLogin(mode='login'){
         ${mode==='signup'?fld(t('full_name'),'name','',{req:1}):''}
         ${mode==='signup'? fld(t('email'),'email','',{type:'email',req:1}) : fld('اسم المستخدم','email','',{req:!demo, attrs:'autocomplete="username" dir="ltr"'})}
         ${fld('كلمة المرور','pass','',{type:'password',req:!demo, attrs:'autocomplete="current-password" dir="ltr"'})}
-        <div id="lg-err" class="alert al-bad hidden"></div>
+        <div id="lg-err" class="alert al-bad ${S.authErr?'':'hidden'}">${esc(S.authErr||'')}</div>
         <button class="btn btn-p" style="height:42px" id="lg-btn">${mode==='signup'? t('create_account') : t('login')}</button>
         ${demo?'':`<div class="row between small">
           ${mode==='signup'?`<a href="#" onclick="renderLogin('login');return false">رجوع لتسجيل الدخول</a>`:`<a href="#" onclick="renderLogin('signup');return false" class="muted">حساب المدير لأول مرة</a>`}</div>`}
@@ -1674,49 +1677,9 @@ function prodForm(id){
 async function prodDel(id){ if(!await confirmBox(t('del_q'),{danger:1})) return; await DB.del('products',id); prodList(); }
 
 /* ---------------- product tests library ---------------- */
-PAGES.tests = { tab:['products','health','production'], async render([pid]){
-  await Promise.all([DB.all('products',true), DB.all('tests',true), DB.all('files',true)]);
-  const prods = (S.cache.products||[]).filter(p=>p.active!==false);
-  const missing = prods.filter(p=>{ const b=bestTests(p.id,S.cache.tests,S.settings); return !b.cert||b.cert.s.state==='expired'||!b.lab||b.lab.s.state==='expired'; });
-  $('view').innerHTML = ``
-    + pageHead(`<select class="in" id="t-prod" style="min-width:260px" onchange="testList()"><option value="">${t('all_products')}</option>${prods.map(p=>`<option value="${p.id}" ${p.id===pid?'selected':''}>${esc(p.code)} — ${esc(prodName(p))}</option>`).join('')}</select>
-      <select class="in" id="t-state" style="width:170px" onchange="testList()"><option value="">${t('all_states')}</option>${['valid','soon','expired'].map(s=>`<option value="${s}">${t('ts_'+s)}</option>`).join('')}</select>`,
-      can('tests.edit')?`<button class="btn btn-p" onclick="testForm(null, $('t-prod').value)">${IC.upload} ${t('upload_test')}</button>`:'')
-    + `<div class="mb">${stats([{k:t('products_n'),v:prods.length},{k:t('tests_n'),v:(S.cache.tests||[]).length},{k:t('products_missing_tests'),v:missing.length,cls:missing.length?'neg':''}])}</div>`
-    + (missing.length?`<div class="card mb"><div class="card-h"><h3>${t('products_need_tests')}</h3></div><div class="card-b row wrap" style="gap:6px">${missing.map(p=>`<a class="bdg b-warn nodot" href="#/tests/${p.id}">${esc(prodName(p))}</a>`).join('')}</div></div>`:'')
-    + `<div class="card"><div class="tbl-wrap" id="t-list"></div></div>`;
-  testList();
-}};
 // شريط أرقام: [{k,v,s,cls,href,bar}]
 const stats = items => `<div class="stats">${items.filter(Boolean).map(x=>{ const tag=x.href?'a':'div'; return `<${tag} class="st" ${x.href?`href="${x.href}"`:''}><div class="k">${x.k}</div><div class="v ${x.cls||''}"><span class="num">${x.v}</span></div>${x.bar!=null?`<div class="bar ${x.barCls||''}"><i style="width:${x.bar}%"></i></div>`:''}${x.s?`<div class="s">${x.s}</div>`:''}</${tag}>`; }).join('')}</div>`;
 const kpi = (k,v,s='',cls='') => `<div class="card kpi ${cls}"><div class="k">${k}</div><div class="v"><span class="num">${v}</span></div>${s?`<div class="s">${s}</div>`:''}</div>`;
-function testList(){
-  const pid=$('t-prod').value, st=$('t-state').value;
-  const rows=(S.cache.tests||[]).filter(x=>(!pid||x.productId===pid)).map(x=>({x,s:testStatus(x,S.settings),p:byId(S.cache.products,x.productId)})).filter(r=>!st||r.s.state===st).sort((a,b)=>(b.x.testDate||'').localeCompare(a.x.testDate||''));
-  $('t-list').innerHTML = rows.length? `<table class="tbl"><thead><tr><th>${t('product')}</th><th>${t('kind')}</th><th>${t('lab')}</th><th>${t('test_date')}</th><th>${t('valid_until')}</th><th>${t('batch')}</th><th>${t('file')}</th><th></th></tr></thead><tbody>
-    ${rows.map(({x,s,p})=>`<tr><td><div class="bold">${esc(prodName(p))}</div><div class="small mono muted">${esc(p&&p.code||'')}</div></td><td>${t('tk_'+x.kind)}</td><td>${esc(x.lab)}</td><td class="num">${fmtDate(x.testDate)}</td>
-    <td>${s.until? dateBadge(s.until,30): '—'}</td><td class="mono small">${esc(x.batch||'')}</td><td>${filePillSync(x.fileId)}</td>
-    <td class="act">${x.fileId?`<button class="btn btn-g btn-xs" onclick="FILES.download('${x.fileId}')">${IC.download}</button>`:''}${can('tests.edit')?`<button class="btn btn-g btn-xs" onclick="testForm('${x.id}')">${IC.edit}</button><button class="btn btn-g btn-xs" onclick="testDel('${x.id}')">${IC.trash}</button>`:''}</td></tr>`).join('')}</tbody></table>` : emptyBox(t('no_tests'));
-}
-function testForm(id, pid){
-  const x = byId(S.cache.tests,id) || {productId:pid||'', kind:'test_cert', testDate:todayISO()};
-  const prods=(S.cache.products||[]);
-  const bg = openModal({title:id?t('edit_test'):t('upload_test'), body:`<div class="grid g2" id="tf">
-    ${fld(t('product'),'productId',x.productId,{req:1,cls:'full',opts:[['',t('choose')],...prods.map(p=>[p.id,p.code+' — '+prodName(p)])]})}
-    ${fld(t('kind'),'kind',x.kind,{opts:TEST_KINDS.map(k=>[k,t('tk_'+k)])})}${fld(t('lab'),'lab',x.lab,{ph:t('lab_ph')})}
-    ${fld(t('test_date'),'testDate',x.testDate,{type:'date'})}${fld(t('valid_until'),'validUntil',x.validUntil,{type:'date',hint:t('valid_until_hint').replace('{n}',S.settings.testValidityDays)})}
-    ${fld(t('batch'),'batch',x.batch)}${fld(t('report_no'),'reportNo',x.reportNo)}
-    <div class="full">${fileField(t('file')+' (PDF)','file',x.fileId)}</div>
-    ${fld(t('notes'),'notes',x.notes,{type:'textarea',cls:'full'})}</div>`,
-    foot:`<button class="btn btn-o" onclick="closeModal()">${t('cancel')}</button><button class="btn btn-p" id="tf-save">${t('save')}</button>`});
-  bg.querySelector('#tf-save').onclick = async ()=>{
-    const root=bg.querySelector('#tf'); const f=readForm(root); if(!f.productId){ toast(t('fill_required'),'bad'); return; }
-    const btn=bg.querySelector('#tf-save'); btn.disabled=true; btn.textContent=t('uploading');
-    try{ f.fileId = await saveFileField(root,'file',{col:'tests'}); if(!f.fileId){ throw new Error(t('file_required')); }
-      if(id) await DB.update('tests',id,f); else await DB.add('tests',f); await DB.all('files',true); closeModal(bg); toast(t('saved'),'ok'); if($('t-list')) testList(); else route(); }
-    catch(e){ errToast(e); btn.disabled=false; btn.textContent=t('save'); }
-  };
-}
 async function testDel(id){ if(!await confirmBox(t('del_q'),{danger:1})) return; const x=byId(S.cache.tests,id); await DB.del('tests',id); if(x&&x.fileId) await FILES.remove(x.fileId).catch(()=>{}); testList(); }
 
 /* ---------------- countries ---------------- */
@@ -1837,7 +1800,7 @@ PAGES.settings = { perm:'admin', async render(){
       ${fld(t('pay_terms_en'),'payTermsEn',s.payTermsEn,{type:'textarea',hint:t('terms_hint')})}${fld(t('pay_terms_ar'),'payTermsAr',s.payTermsAr,{type:'textarea'})}
       ${fld(t('liability_en'),'liabilityEn',s.liabilityEn,{type:'textarea'})}${fld(t('liability_ar'),'liabilityAr',s.liabilityAr,{type:'textarea'})}</div></div>
     <div class="card"><div class="card-h"><h3>${t('set_ops')}</h3></div><div class="card-b grid g3">
-      ${fld(t('health_email'),'healthEmail',s.healthEmail,{type:'email'})}${fld('رقم القائمة البيضاء (سلامة الغذاء)','whitelistNo',s.whitelistNo)}${fld('تنبيه لو رد الهيئة اتأخر (أيام)','healthFollowupDays',s.healthFollowupDays??3,{type:'number'})}${fld(t('order_prefix'),'orderPrefix',s.orderPrefix)}${fld(t('receipt_prefix'),'receiptPrefix',s.receiptPrefix)}
+      ${fld(t('health_email'),'healthEmail',s.healthEmail,{type:'email'})}${fld('رقم القائمة البيضاء (سلامة الغذاء)','whitelistNo',s.whitelistNo)}${fld('تنبيه لو رد الهيئة اتأخر (أيام)','healthFollowupDays',s.healthFollowupDays??3,{type:'number'})}${fld('نسخة (CC) لإيميلات الهيئة','healthCc',s.healthCc||'',{attrs:'dir="ltr"'})}${fld('Google Client ID (للإرسال من السيستم عن طريق Gmail)','googleClientId',s.googleClientId||'',{cls:'full',attrs:'dir="ltr"',ph:'xxxxxxxx.apps.googleusercontent.com'})}${fld(t('order_prefix'),'orderPrefix',s.orderPrefix)}${fld(t('receipt_prefix'),'receiptPrefix',s.receiptPrefix)}
       ${fld(t('cert_alert_days'),'certAlertDays',s.certAlertDays,{type:'number'})}${fld(t('cutoff_alert_days'),'cutoffAlertDays',s.cutoffAlertDays,{type:'number'})}${fld(t('test_validity_days'),'testValidityDays',s.testValidityDays,{type:'number',hint:t('test_validity_hint')})}
       <div class="field full"><label>${t('prod_lines')}</label>${tagsInput('lines',s.lines||[])}</div></div></div>
     <div class="row"><button class="btn btn-p" id="sf-save">${IC.check} ${t('save_settings')}</button></div></div>`;
@@ -2229,17 +2192,14 @@ async function docSet(k, patch, quiet){
 async function docUpload(k){ const f=await pickFile(); if(!f) return; toast(t('uploading')); try{ const id=await FILES.upload(f,{col:'orders',id:OD.o.id,doc:k}); await DB.all('files',true); const cur=OD.o.docs[k]||{}; await docSet(k,{fileId:id, status: cur.status==='na'?'na':'done', date: cur.date||todayISO()}); }catch(e){ errToast(e); } }
 
 /* ----- tab: health certificate → health.js ----- */
-function healthFiles(){ const out=[]; const add=(fileId,label)=>{ if(fileId && !out.find(x=>x.fileId===fileId)) out.push({fileId,label}); };
-  Object.entries(OD.o.docs||{}).forEach(([k,d])=>{ if(k!=='health' && d && d.fileId) add(d.fileId, I18N.ar['doc_'+k]||k); });
-  (OD.o.files||[]).forEach(f=>add(f.fileId,f.label));
-  OD.o.items.forEach(it=>{ const bt=bestTests(it.productId,S.cache.tests,S.settings); [bt.cert,bt.lab].forEach(x=>{ if(x && x.x.fileId && !out.find(o=>o.fileId===x.x.fileId)) out.push({fileId:x.x.fileId, label:`${it.nameAr||it.nameEn} - ${I18N.ar['tk_'+x.x.kind]}`}); }); }); return out; }
+function healthFiles(){ return hcTests(OD.o).filter(x=>x.fileId).map(x=>({fileId:x.fileId, label:`تحليل ${testName(x)}${x.reportNo?' - '+x.reportNo:''}`})); }
 function healthEmailBody(o){
   const c=orderCalc(o); const s=S.settings; const country=(countryOf(o,S.cache.countries)||{}).nameAr || (o.customer||{}).country || '';
   return `السادة / الهيئة القومية لسلامة الغذاء — إدارة الشهادات الصحية\nتحية طيبة وبعد،\n\nنرجو التكرم باستخراج شهادة صحية للشحنة الموضحة بياناتها:\n\n`+
    `الشركة المصدرة: ${s.coNameAr}${s.whitelistNo?' (القائمة البيضاء رقم '+s.whitelistNo+')':''}\nرقم الطلبية: ${o.number}${o.piNumber?' / '+o.piNumber:''}\nالمستورد: ${(o.customer||{}).company||''}\nبلد الوصول: ${country}\nميناء الشحن: ${o.loadingPoint||''} — ميناء الوصول: ${o.dischargePoint||''}\n`+
    `${o.shipment.containerNo?`رقم الحاوية: ${o.shipment.containerNo}\n`:''}\nالأصناف:\n`+
    o.items.map((it,i)=>{ const x=itemCalc(it); return `${i+1}) ${it.nameAr} (${it.nameEn}) — ${it.packSize} — ${fmt(x.loaded)} كرتونة — وزن صافي ${fmt(x.loadedNet,1)} كجم — تشغيلة ${it.batch||'—'} — إنتاج ${fmtDate(it.prodDate)} — انتهاء ${fmtDate(it.expDate)}`; }).join('\n')+
-   `\n\nإجمالي: ${fmt(c.loaded)} كرتونة — صافي ${fmt(c.loadedNet,1)} كجم — قائم ${fmt(c.loadedGross,1)} كجم\n\nمرفق: طلب الشهادة، وشهادات التحليل ونتائج المعمل لكل صنف.\n\nوتفضلوا بقبول فائق الاحترام،\n${S.profile.name||''}\n${s.coNameAr}\n${s.email}${s.phone?' — '+s.phone:''}`;
+   `\n\nإجمالي: ${fmt(c.loaded)} كرتونة — صافي ${fmt(c.loadedNet,1)} كجم — قائم ${fmt(c.loadedGross,1)} كجم\n\nمرفق: نموذج الشهادة الصحية، وشهادات التحليل.\n\nوتفضلوا بقبول فائق الاحترام،\n${S.profile.name||''}\n${s.coNameAr}\n${s.email}${s.phone?' — '+s.phone:''}`;
 }
 async function healthCopy(){ const txt=`${t('email_subject')}: ${($('hl-f')&&readForm($('hl-f')).subject)||defaultHealthSubject(OD.o)}\n\n${healthEmailBody(OD.o)}`; try{ await navigator.clipboard.writeText(txt); toast(t('copied'),'ok'); }catch(e){ promptBox(t('copy_email'),txt,{multiline:true}); } }
 function healthGmail(){
@@ -2248,7 +2208,7 @@ function healthGmail(){
   window.open(url,'_blank'); toast(t('gmail_attach_hint'));
 }
 async function healthZip(){
-  const files=healthFiles(); if(!files.length && !OD.o.items.length){ toast(t('nothing_to_zip'),'bad'); return; }
+  const files=healthFiles();
   if(!window.JSZip){ toast('JSZip not loaded','bad'); return; }
   toast(t('preparing_zip'));
   try{
@@ -2256,7 +2216,6 @@ async function healthZip(){
     for(const [i,f] of files.entries()){ const {blob,meta}=await FILES.blob(f.fileId); const dot=meta.name.lastIndexOf('.'); const ext=dot>0?meta.name.slice(dot):'';
       let nm=`${pad(i+1,2)} - ${f.label}`.replace(/[\\/:*?"<>|]+/g,' ').replace(/\s+/g,' ').trim().slice(0,120)+ext; if(used[nm]) nm=nm.slice(0,nm.length-ext.length)+'_'+(++used[nm])+ext; else used[nm]=1; zip.file(nm,blob); }
     zip.file(hcCertName(OD.o), await hcCertBlob(hcCert(OD.o)));
-    zip.file(`طلب شهادة صحية - ${OD.o.number}.doc`, healthDocBlob());
     zip.file('email.txt', `${defaultHealthSubject(OD.o)}\n\n${healthEmailBody(OD.o)}`);
     const out=await zip.generateAsync({type:'blob'}); saveBlob(out, `health-cert-${OD.o.number}.zip`); toast(t('zip_ready'),'ok');
   }catch(e){ errToast(e); }
@@ -2309,9 +2268,7 @@ PAGES.dashboard = { async render(){
   alerts.push(...healthAlerts(orders));
   const cDays=n(st.certAlertDays||60);
   certs.forEach(c=>{ const d=daysUntil(c.expiryDate); if(c.expiryDate && d<=cDays) alerts.push({lvl:d<0?'bad':'warn', ic:IC.award, txt:`${c.type==='other'?(c.title||''):t('ct_'+c.type)} — ${d<0?t('expired_ago').replace('{n}',-d):t('expires_in').replace('{n}',d)}`, href:'#/certs'}); });
-  const prodsOpen = new Set(open.flatMap(o=>(o.items||[]).map(it=>it.productId)).filter(Boolean));
-  { const miss=[...prodsOpen].filter(pid=>{ const b=bestTests(pid,tests,st); return !b.cert||b.cert.s.state==='expired'||!b.lab||b.lab.s.state==='expired'; });
-    if(miss.length) alerts.push({lvl:'warn', ic:IC.flask, txt:`${miss.length} صنف في طلبيات مفتوحة تحاليلهم ناقصة أو منتهية — ارفعها من «تحاليل المنتجات»`, href:'#/tests'}); }
+  open.filter(o=>['production','ready'].includes(o.status) && ['draft','rejected'].includes((o.health||{}).status||'draft') && !hcTestIds(o).length).forEach(o=>alerts.push({lvl:'warn', ic:IC.flask, txt:`لم تُختر تحاليل الشهادة الصحية — ${o.number}`, href:`#/order/${o.id}/health`}));
   const unconf = payments.filter(p=>!p.confirmed && !p.void);
   if(unconf.length && can('payments.confirm')) alerts.push({lvl:'warn', ic:IC.money, txt:`${unconf.length} ${t('al_unconfirmed')}`, href:'#/payments'});
   if(hasTab('accounts')) orders.filter(o=>['shipped','closed'].includes(o.status)).forEach(o=>{ const m=orderMoney(o,payments); if(m.balance>0.004) alerts.push({lvl:'bad', ic:IC.wallet, txt:`مستحق بعد الشحن ${money(m.balance,m.cur)} — ${o.number} · ${custName(o)}`, href:`#/order/${o.id}/summary`}); });
@@ -2686,10 +2643,10 @@ function hcList(){
     && (!q||[o.number,custName(o),(o.customer||{}).country].join(' ').toLowerCase().includes(q)); }).sort((a,b)=>(a.loadingDate||'9').localeCompare(b.loadingDate||'9'));
   $('hc-list').innerHTML = rows.length? `<table class="tbl"><thead><tr><th>${t('order_no')}</th><th>${t('customer')}</th><th>${t('country')}</th><th>${t('loading_date')}</th><th>${t('hc_tests')}</th><th>${t('batches_ok')}</th><th>${t('health_status')}</th><th>${t('cert_no')}</th><th></th></tr></thead><tbody>
     ${rows.map(o=>{ const h=o.health||{}, hs=h.status||'draft'; const its=o.items||[];
-      const bad=its.filter(it=>{ const b=bestTests(it.productId,S.cache.tests,S.settings); return !b.cert||b.cert.s.state==='expired'||!b.lab||b.lab.s.state==='expired'; }).length;
+      const tl=hcTests(o), exp=tl.filter(x=>testStatus(x,S.settings).state==='expired').length;
       const nob=its.filter(it=>!it.batch||!it.prodDate).length;
       return `<tr><td><a class="mono bold nowrap" href="#/order/${o.id}/health">${esc(o.number)}</a></td><td class="bold">${esc(custName(o))}</td><td>${esc((o.customer||{}).country||'')}</td><td>${o.loadingDate?dateBadge(o.loadingDate,7):'—'}</td>
-        <td>${!its.length?'—':bad?`<span class="bdg b-bad">${bad} ${t('missing')}</span>`:`<span class="bdg b-ok">${t('hc_ok')}</span>`}</td><td>${!its.length?'—':nob?`<span class="bdg b-warn">${nob} ${t('missing')}</span>`:`<span class="bdg b-ok">${t('hc_ok')}</span>`}</td>
+        <td>${!tl.length?`<span class="bdg b-bad">لم تُختر</span>`:exp?`<span class="bdg b-bad">${exp} منتهي</span>`:`<span class="bdg b-ok">${tl.length} تحليل</span>`}</td><td>${!its.length?'—':nob?`<span class="bdg b-warn">${nob} ${t('missing')}</span>`:`<span class="bdg b-ok">${t('hc_ok')}</span>`}</td>
         <td><span class="bdg ${hsCls[hs]}">${t('hs_'+hs)}</span>${h.sentAt?`<div class="tiny muted">${fmtDate(h.sentAt)}</div>`:''}</td><td class="mono small">${esc(h.certNo||'—')}</td>
         <td class="act nowrap"><button class="btn btn-o btn-xs" onclick="hcQuick('${o.id}','zip')">${IC.zip} ZIP</button><button class="btn btn-a btn-xs" onclick="hcQuick('${o.id}','gmail')">${IC.mail} Gmail</button><a class="btn btn-o btn-xs" href="#/order/${o.id}/health">${IC.heart} ${t('open')}</a></td></tr>`; }).join('')}</tbody></table>`
     : emptyBox(t('hc_none'));
@@ -3238,11 +3195,9 @@ const HS_CLS = {draft:'b-gray',sent:'b-info',info:'b-warn',sampled:'b-yel',issue
 const hcFollowDays = () => n(S.settings.healthFollowupDays)||3;
 const daysSince = iso => iso ? -daysUntil(String(iso).slice(0,10)) : null;
 function hcReadiness(o){
-  const rows=(o.items||[]).map(it=>{ const bt=bestTests(it.productId,S.cache.tests,S.settings);
-    const ok = x => x && x.s.state!=='expired';
-    return {it, cert:bt.cert, lab:bt.lab, certOk:ok(bt.cert), labOk:ok(bt.lab), batchOk:!!(it.batch&&it.prodDate)}; });
-  const missTests=rows.filter(r=>!r.certOk||!r.labOk).length, missBatch=rows.filter(r=>!r.batchOk).length;
-  return {rows, missTests, missBatch, ready: rows.length>0 && !missTests};
+  const tests=hcTests(o), rows=(o.items||[]).map(it=>({it, batchOk:!!(it.batch&&it.prodDate)}));
+  const expired=tests.filter(x=>testStatus(x,S.settings).state==='expired').length, missBatch=rows.filter(r=>!r.batchOk).length;
+  return {tests, rows, expired, missBatch, missTests: tests.length?0:1, ready: tests.length>0 && !expired};
 }
 function hcLog(o, text){ o.health=o.health||{}; o.health.log=[...(o.health.log||[]), {at:nowISO(), by:who(), text}]; }
 async function hcSave(patch, logText){ const o=OD.o; o.health={...(o.health||{}), ...patch}; if(logText) hcLog(o,logText);
@@ -3264,11 +3219,13 @@ function tabHealth(){
     <div class="hc-steps">${steps.map((s,i)=>`<div class="hc-st ${i<stepIdx?'done':i===stepIdx?'cur':''}"><b>${i<stepIdx?'✓':i+1}</b>${s}</div>`).join('')}</div>
     ${late?`<div class="alert al-bad mb">${IC.clock}<div><b>مر ${since} يوم على إرسال الطلب ولم تصدر الشهادة.</b><div class="mt-s"><button class="btn btn-a btn-s" onclick="hcFollowup()">${IC.mail} إيميل متابعة</button></div></div></div>`:''}
 
-    <section class="hc-card ${stepIdx===0?'on':''}"><h3><span>١</span> التحاليل <small>${R.ready?'<span class="bdg b-ok">مكتملة</span>':`<span class="bdg b-bad">ناقص ${R.missTests}</span>`}</small></h3>
-      <div class="tbl-wrap"><table class="tbl"><thead><tr><th>${t('product')}</th><th>شهادة تحليل (الزراعة)</th><th>نتيجة معمل (الصحة)</th><th>${t('batch')}</th></tr></thead><tbody>
-      ${R.rows.map(r=>`<tr><td><div class="bold">${esc(r.it.nameAr||r.it.nameEn)}</div><div class="tiny muted">${fmt(itemCalc(r.it).loaded)} ${t('cartons')}</div></td>
-        <td>${cell(r.cert,r.certOk,'test_cert',r.it.productId)}</td><td>${cell(r.lab,r.labOk,'lab_result',r.it.productId)}</td>
-        <td>${r.batchOk?`<span class="hc-ok">✓</span> <span class="mono small">${esc(r.it.batch)}</span>`:`<span class="hc-warn">غير مسجلة</span> <a href="#" onclick="odTab('production');return false" class="small">تسجيل</a>`}</td></tr>`).join('') || `<tr><td colspan="4">${emptyBox(t('no_items'))}</td></tr>`}</tbody></table></div>
+    <section class="hc-card ${stepIdx===0?'on':''}"><h3><span>١</span> التحاليل المرفقة <small>${R.tests.length?`<span class="bdg ${R.expired?'b-bad':'b-ok'}">${R.tests.length} تحليل${R.expired?` · ${R.expired} منتهي`:''}</span>`:'<span class="bdg b-bad">لم تُختر</span>'}</small></h3>
+      ${Array.isArray(h.testIds)||!R.tests.length?'':`<div class="small muted mb-s">مقترحة حسب أصناف الأوردر — راجعيها ودوسي «اختيار التحاليل» للتأكيد.</div>`}
+      ${R.tests.length?`<div class="tbl-wrap"><table class="tbl"><thead><tr><th>الاسم / الطعم</th><th>رقم الشهادة</th><th>التاريخ</th><th>الصلاحية</th><th>${t('file')}</th><th></th></tr></thead><tbody>
+      ${R.tests.map(x=>{ const s=testStatus(x,S.settings); return `<tr><td class="bold">${esc(testName(x))}</td><td class="mono small">${esc(x.reportNo||'')}</td><td class="num">${fmtDate(x.testDate)}</td><td>${s.until?dateBadge(s.until,30):'—'}</td><td>${filePillSync(x.fileId)}</td>
+        <td class="act">${ed?`<button class="btn btn-g btn-xs" title="شيل" onclick="hcRemoveTest('${x.id}')">${IC.x}</button>`:''}</td></tr>`; }).join('')}</tbody></table></div>`:''}
+      ${ed?`<div class="row mt"><button class="btn btn-p" onclick="hcPickTests()">${IC.flask} اختيار التحاليل</button>${can('tests.edit')?`<a class="btn btn-g btn-s" href="#/tests">مكتبة التحاليل</a>`:''}</div>`:''}
+      ${R.missBatch?`<div class="small mt-s"><span class="hc-warn">${R.missBatch} صنف بدون رقم تشغيلة أو تاريخ إنتاج</span> <a href="#" onclick="odTab('production');return false">تسجيل</a></div>`:''}
 </section>
 
     <section class="hc-card ${stepIdx===1?'on':''}"><h3><span>٢</span> الإرسال للهيئة ${h.sentAt?`<small><span class="bdg b-info">أُرسل ${fmtDate(h.sentAt)}</span></small>`:''}</h3>
@@ -3276,13 +3233,17 @@ function tabHealth(){
         <div class="field"><label>${t('email_subject')}</label><input class="in" id="hc-subj" value="${esc(subject)}" ${ed?'':'readonly'}></div></div>
       <div class="hc-cert mt"><div><div class="bold">نموذج الشهادة الصحية</div><div class="small muted">${h.cert?'البيانات متسجلة — راجعيها قبل الإرسال':'بيتملى من الأوردر: المرسل إليه، وسيلة النقل، الموانئ، والمنتجات'}</div></div>
         <div class="row"><button class="btn btn-p" onclick="hcCertForm()">${IC.edit} البيانات</button><button class="btn btn-o" onclick="hcCertDl()">${IC.download} Word</button></div></div>
+      ${ed?`<div class="hc-go mt"><div><div class="bold">إرسال من السيستم</div><div class="small muted">الإيميل بيتبعت لـ ${esc(S.settings.healthEmail)} ومعاه نموذج الشهادة + ${files.length} تحليل</div></div>
+        <button class="btn btn-a" onclick="hcSendSystem()" ${!R.tests.length?'title="اختاري التحاليل الأول"':''}>${IC.mail} ${h.sentAt?'إعادة الإرسال':'إرسال للهيئة'}</button></div>`:''}
+      <details class="hc-manual mt"><summary>أو الإرسال يدوي (تنزيل الملفات + Gmail)</summary>
       <div class="hc-send mt">
-        <div class="hc-n"><b>١</b><div>المرفقات<div class="tiny muted">${files.length} ملف (التحاليل ومستندات الأوردر) + نموذج الشهادة + طلب الشهادة (Word)</div></div>
-          <div class="row wrap"><button class="btn btn-o" onclick="hcDownloadAll()" ${R.rows.length?'':'disabled'}>${IC.download} تنزيل</button><button class="btn btn-g btn-s" onclick="healthZip()">${IC.zip} ZIP</button><button class="btn btn-g btn-s" onclick="printHealthReq()">${IC.print} طلب الشهادة</button></div></div>
+        <div class="hc-n"><b>١</b><div>المرفقات<div class="tiny muted">نموذج الشهادة (Word) + ${files.length} تحليل</div></div>
+          <div class="row wrap"><button class="btn btn-o" onclick="hcDownloadAll()">${IC.download} تنزيل</button><button class="btn btn-g btn-s" onclick="healthZip()">${IC.zip} ZIP</button></div></div>
         <div class="hc-n"><b>٢</b><div>الإيميل<div class="tiny muted">${esc(S.settings.healthEmail)}</div></div>
           <button class="btn btn-o" onclick="hcOpenMail()">${IC.mail} فتح في Gmail</button></div>
         <div class="hc-n"><b>٣</b><div>تسجيل الإرسال<div class="tiny muted">تنبيه بعد ${hcFollowDays()} أيام بدون رد</div></div>
-          ${ed?`<button class="btn btn-a" onclick="hcMarkSent()" ${!R.ready&&!h.sentAt?'title="فيه تحاليل ناقصة"':''}>تم الإرسال</button>`:''}</div>
+          ${ed?`<button class="btn btn-o" onclick="hcMarkSent()">تم الإرسال</button>`:''}</div>
+      </div></details>
       </div></section>
 
     <section class="hc-card ${stepIdx===2?'on':''}"><h3><span>٣</span> المتابعة <small><span class="bdg ${HS_CLS[hs]}">${t('hs_'+hs)}</span>${since!==null&&hs!=='issued'?` <span class="small muted">منذ ${since} يوم</span>`:''}</small></h3>
@@ -3304,8 +3265,9 @@ async function hcUploadTest(pid, kind){
 }
 async function hcDownloadAll(){
   const files=healthFiles(); toast('جاري التنزيل…');
-  try{ for(const [i,f] of files.entries()){ const {blob,meta}=await FILES.blob(f.fileId); const dot=meta.name.lastIndexOf('.'); saveBlob(blob, `${pad(i+1,2)} - ${f.label}${dot>0?meta.name.slice(dot):''}`.replace(/[\\/:*?"<>|]+/g,' ')); await new Promise(r=>setTimeout(r,350)); }
-    saveBlob(await hcCertBlob(hcCert(OD.o)), hcCertName(OD.o)); await new Promise(r=>setTimeout(r,350)); healthDocWord(); toast('تم التنزيل','ok'); }catch(e){ errToast(e); }
+  try{ saveBlob(await hcCertBlob(hcCert(OD.o)), hcCertName(OD.o)); await new Promise(r=>setTimeout(r,350));
+    for(const [i,f] of files.entries()){ const {blob,meta}=await FILES.blob(f.fileId); const dot=meta.name.lastIndexOf('.'); saveBlob(blob, `${pad(i+1,2)} - ${f.label}${dot>0?meta.name.slice(dot):''}`.replace(/[\\/:*?"<>|]+/g,' ')); await new Promise(r=>setTimeout(r,350)); }
+    toast('تم التنزيل','ok'); }catch(e){ errToast(e); }
 }
 function hcOpenMail(){
   const su=hcSubject(); if(su!==OD.o.health.subject){ OD.o.health.subject=su; }
@@ -3322,6 +3284,7 @@ async function hcRejected(){ const r=await promptBox('سبب الرفض',''); if
 async function hcFollowup(){
   const o=OD.o, h=o.health||{}, su='متابعة: '+(h.subject||defaultHealthSubject(o));
   const body=`السادة / الهيئة القومية لسلامة الغذاء — إدارة الشهادات الصحية\nتحية طيبة وبعد،\n\nبالإشارة لطلبنا المرسل بتاريخ ${fmtDate(h.sentAt)} لاستخراج شهادة صحية للشحنة رقم ${o.number} (${(o.customer||{}).company||''} — ${(o.customer||{}).country||''})،\nنرجو التكرم بإفادتنا بموقف الطلب، حيث أن موعد التحميل ${o.loadingDate?fmtDate(o.loadingDate):'قريب'}.\n${S.settings.whitelistNo?`\nرقم القائمة البيضاء: ${S.settings.whitelistNo}\n`:''}\nوتفضلوا بقبول فائق الاحترام،\n${S.profile.name||''}\n${S.settings.coNameAr}\n${S.settings.email}${S.settings.phone?' — '+S.settings.phone:''}`;
+  if(gmReady()){ hcFollowupSystem(su, body); return; }
   window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(S.settings.healthEmail)}&su=${encodeURIComponent(su)}&body=${encodeURIComponent(body)}`,'_blank');
   try{ await hcSave({lastFollowup:todayISO()}, 'إيميل متابعة'); tabHealth(); }catch(e){ errToast(e); }
 }
@@ -3432,7 +3395,7 @@ function orderFiles(o){
   Object.entries(o.docs||{}).forEach(([k,d])=>add(d&&d.fileId,'المستندات',t('doc_'+k)));
   if((o.health||{}).fileId) add(o.health.fileId,'الشهادة الصحية','الشهادة الصحية');
   (S.cache.payments||[]).filter(p=>p.orderId===o.id && p.fileId && !p.void).forEach(p=>add(p.fileId,'الدفعات',`إثبات دفع ${money(p.amount,p.currency)} — ${fmtDate(p.date)}`));
-  (o.items||[]).forEach(it=>{ const b=bestTests(it.productId,S.cache.tests,S.settings); [b.cert,b.lab].forEach(x=>x&&add(x.x.fileId,'التحاليل',`${it.nameAr||it.nameEn} — ${t('tk_'+x.x.kind)}`)); });
+  hcTests(o).forEach(x=>add(x.fileId,'التحاليل',`تحليل ${testName(x)}`));
   return out;
 }
 function tabFiles(){
@@ -3857,7 +3820,196 @@ async function hcCertBlob(C){
   // الكلام كان أصفر في النموذج — يرجع أسود
   x=x.replace(/<w:color w:val="FFFF00"\/>/g,'<w:color w:val="000000"/>').replace(/<w:highlight w:val="yellow"\/>/g,'');
   zip.file('word/document.xml', x);
-  return zip.generateAsync({type:'blob', mimeType:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+  return zip.generateAsync({type:'blob', compression:'DEFLATE', mimeType:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+}
+
+/* ============================================================================
+   مكتبة التحاليل: كل شهادات التحليل (لكل طعم) متخزنة مرة واحدة،
+   وفي كل أوردر بنختار منها اللي هتتبعت مع نموذج الشهادة الصحية.
+   ============================================================================ */
+const testName = x => x ? (x.name || prodName(byId(S.cache.products,x.productId)) || 'تحليل') : '';
+const normTxt = s => String(s||'').toLowerCase().replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').replace(/[^\p{L}\p{N} ]/gu,' ').replace(/\s+/g,' ').trim();
+function pickFiles(accept='.pdf,.jpg,.jpeg,.png'){ return new Promise(res=>{ const i=document.createElement('input'); i.type='file'; i.multiple=true; i.accept=accept; i.onchange=()=>res([...i.files]); i.click(); }); }
+
+// رفع أكتر من تحليل مرة واحدة، وبعدها شاشة لتسمية كل واحد
+async function testsBulkUpload(onDone){
+  const fs=await pickFiles(); if(!fs.length) return;
+  const ids=[];
+  try{ for(const [i,f] of fs.entries()){ toast(`جاري الرفع ${i+1} من ${fs.length}…`);
+      const fid=await FILES.upload(f,{col:'tests'});
+      ids.push(await DB.add('tests',{name:f.name.replace(/\.[^.]+$/,'').replace(/[_-]+/g,' ').trim(), productId:'', kind:'test_cert', lab:'QCAP — وزارة الزراعة', testDate:todayISO(), reportNo:'', fileId:fid})); }
+    await Promise.all([DB.all('tests',true), DB.all('files',true)]);
+  }catch(e){ errToast(e); }
+  if(ids.length) testsRename(ids, onDone);
+}
+function testsRename(ids, onDone){
+  const rows=ids.map(id=>byId(S.cache.tests,id)).filter(Boolean);
+  const bg=openModal({title:`تسمية التحاليل (${rows.length})`, size:'lg', body:`<div class="small muted mb">اكتبي اسم الطعم زي ما هو في الشهادة (Variety)، ورقم الشهادة وتاريخها.</div>
+    <div class="tbl-wrap"><table class="tbl"><thead><tr><th>الملف</th><th>الاسم / الطعم</th><th>رقم الشهادة</th><th>التاريخ</th></tr></thead><tbody>
+    ${rows.map(x=>`<tr data-id="${x.id}"><td>${filePillSync(x.fileId)}</td><td><input class="in sm" data-f="name" value="${esc(x.name)}" style="min-width:220px"></td><td><input class="in sm" data-f="reportNo" value="${esc(x.reportNo||'')}" placeholder="Dokki-469707" dir="ltr"></td><td><input class="in sm" type="date" data-f="testDate" value="${esc(x.testDate||'')}"></td></tr>`).join('')}</tbody></table></div>`,
+    foot:`<button class="btn btn-p" id="tr-s">${t('save')}</button>`});
+  bg.querySelector('#tr-s').onclick=async ()=>{ try{ for(const tr of bg.querySelectorAll('tr[data-id]')){ const p={}; tr.querySelectorAll('[data-f]').forEach(i=>p[i.dataset.f]=i.value.trim()); await DB.update('tests',tr.dataset.id,p); }
+      await DB.all('tests',true); closeModal(bg); toast(t('saved'),'ok'); onDone? onDone(ids) : route(); }catch(e){ errToast(e); } };
+}
+
+/* ---------- صفحة مكتبة التحاليل ---------- */
+PAGES.tests = { tab:['products','health','production'], title:'pg_tests', async render(){
+  await Promise.all([DB.all('products',true), DB.all('tests',true), DB.all('files',true)]);
+  const all=S.cache.tests||[], exp=all.filter(x=>testStatus(x,S.settings).state==='expired').length;
+  $('view').innerHTML = pageHead(`<div class="row wrap">${searchBox('t-q','بحث باسم الطعم أو رقم الشهادة…','testList()')}
+      <select class="in" id="t-state" style="width:160px" onchange="testList()"><option value="">${t('all_states')}</option>${['valid','soon','expired'].map(s=>`<option value="${s}">${t('ts_'+s)}</option>`).join('')}</select></div>`,
+      can('tests.edit')?`<button class="btn btn-o" onclick="testForm()">${IC.plus} تحليل واحد</button><button class="btn btn-p" onclick="testsBulkUpload()">${IC.upload} رفع تحاليل (أكتر من ملف)</button>`:'')
+    + `<div class="mb">${stats([{k:'عدد التحاليل',v:all.length,cls:'hl'},{k:'سارية',v:all.filter(x=>testStatus(x,S.settings).state==='valid').length},{k:'قربت تنتهي',v:all.filter(x=>testStatus(x,S.settings).state==='soon').length},{k:'منتهية',v:exp,cls:exp?'neg':''}])}</div>`
+    + `<div class="card"><div class="tbl-wrap" id="t-list"></div></div>`;
+  testList();
+}};
+function testList(){
+  const q=normTxt(($('t-q')||{}).value), st=($('t-state')||{}).value||'';
+  const rows=(S.cache.tests||[]).map(x=>({x,s:testStatus(x,S.settings)})).filter(r=>(!st||r.s.state===st) && (!q||normTxt([testName(r.x),r.x.reportNo,r.x.lab,r.x.batch].join(' ')).includes(q))).sort((a,b)=>testName(a.x).localeCompare(testName(b.x),'ar'));
+  $('t-list').innerHTML = rows.length? `<table class="tbl"><thead><tr><th>الاسم / الطعم</th><th>رقم الشهادة</th><th>${t('lab')}</th><th>${t('test_date')}</th><th>${t('valid_until')}</th><th>${t('file')}</th><th></th></tr></thead><tbody>
+    ${rows.map(({x,s})=>`<tr><td class="bold">${esc(testName(x))}${x.productId&&x.name?`<div class="tiny muted">${esc(prodName(byId(S.cache.products,x.productId)))}</div>`:''}</td><td class="mono small">${esc(x.reportNo||'')}</td><td class="small">${esc(x.lab||'')}</td><td class="num">${fmtDate(x.testDate)}</td>
+    <td>${s.until? dateBadge(s.until,30): '—'}</td><td>${filePillSync(x.fileId)}</td>
+    <td class="act">${x.fileId?`<button class="btn btn-g btn-xs" onclick="FILES.download('${x.fileId}')">${IC.download}</button>`:''}${can('tests.edit')?`<button class="btn btn-g btn-xs" onclick="testForm('${x.id}')">${IC.edit}</button><button class="btn btn-g btn-xs" onclick="testDel('${x.id}')">${IC.trash}</button>`:''}</td></tr>`).join('')}</tbody></table>` : emptyBox('لا توجد تحاليل', can('tests.edit')?`<button class="btn btn-p" onclick="testsBulkUpload()">${IC.upload} رفع تحاليل</button>`:'');
+}
+function testForm(id, pid){
+  const x = byId(S.cache.tests,id) || {productId:pid||'', kind:'test_cert', testDate:todayISO(), lab:'QCAP — وزارة الزراعة'};
+  const prods=(S.cache.products||[]);
+  const bg = openModal({title:id?'تعديل تحليل':'إضافة تحليل', body:`<div class="grid g2" id="tf">
+    ${fld('الاسم / الطعم','name',x.name||'',{req:1,cls:'full',ph:'Chilout Hot Chicken'})}
+    ${fld('رقم الشهادة','reportNo',x.reportNo)}${fld(t('lab'),'lab',x.lab)}
+    ${fld(t('test_date'),'testDate',x.testDate,{type:'date'})}${fld(t('valid_until'),'validUntil',x.validUntil,{type:'date',hint:t('valid_until_hint').replace('{n}',S.settings.testValidityDays)})}
+    ${fld('المنتج (اختياري — عشان يتقترح لوحده في الأوردر)','productId',x.productId,{cls:'full',opts:[['','—'],...prods.map(p=>[p.id,p.code+' — '+prodName(p)])]})}
+    <div class="full">${fileField(t('file')+' (PDF)','file',x.fileId)}</div>
+    ${fld(t('notes'),'notes',x.notes,{type:'textarea',cls:'full'})}</div>`,
+    foot:`<button class="btn btn-o" onclick="closeModal()">${t('cancel')}</button><button class="btn btn-p" id="tf-save">${t('save')}</button>`});
+  bg.querySelector('#tf-save').onclick = async ()=>{
+    const root=bg.querySelector('#tf'); const f=readForm(root); if(!f.name){ toast(t('fill_required'),'bad'); return; }
+    const btn=bg.querySelector('#tf-save'); btn.disabled=true;
+    try{ f.fileId = await saveFileField(root,'file',{col:'tests'}); if(!f.fileId){ throw new Error(t('file_required')); }
+      if(!f.kind) f.kind=x.kind||'test_cert';
+      if(id) await DB.update('tests',id,f); else await DB.add('tests',f); await Promise.all([DB.all('tests',true), DB.all('files',true)]); closeModal(bg); toast(t('saved'),'ok'); if($('t-list')) testList(); else route(); }
+    catch(e){ errToast(e); btn.disabled=false; }
+  };
+}
+
+/* ---------- اختيار التحاليل في الأوردر ---------- */
+// المقترح: التحاليل المربوطة بمنتجات الأوردر، أو اللي اسمها شبه اسم صنف في الأوردر
+function hcSuggest(o){
+  const items=o.items||[], names=items.flatMap(it=>[it.nameAr,it.nameEn]).map(normTxt).filter(Boolean);
+  return (S.cache.tests||[]).filter(x=>{ if(x.productId && items.some(it=>it.productId===x.productId)) return true;
+    const nm=normTxt(x.name); return nm.length>2 && names.some(n2=>n2.includes(nm)||nm.includes(n2)); }).map(x=>x.id);
+}
+const hcTestIds = o => { const h=o.health||{}; return (Array.isArray(h.testIds)? h.testIds : hcSuggest(o)).filter(id=>byId(S.cache.tests,id)); };
+const hcTests = o => hcTestIds(o).map(id=>byId(S.cache.tests,id));
+function hcPickTests(){
+  const o=OD.o; let sel=new Set(hcTestIds(o)); const sug=new Set(hcSuggest(o));
+  const bg=openModal({title:'اختيار التحاليل', size:'lg', body:`<div class="pp">
+      <div class="row"><div class="search pp-s grow">${IC.search}<input class="in" id="hp-q" placeholder="ابحث باسم الطعم… (مثلًا: فراخ، Hot Chicken)" autocomplete="off"></div>${can('tests.edit')?`<button class="btn btn-o" id="hp-up">${IC.upload} رفع تحاليل جديدة</button>`:''}</div>
+      <div class="pp-chips"><button class="pp-c" id="hp-sel">المختارة فقط</button>${sug.size?`<button class="pp-c" id="hp-sug">اختيار المقترحة (${sug.size})</button>`:''}<button class="pp-c" id="hp-none">إلغاء الكل</button></div>
+      <div class="pp-list" id="hp-list"></div></div>`,
+    foot:`<span class="small muted" id="hp-n" style="margin-inline-end:auto"></span><button class="btn btn-o" onclick="closeModal()">${t('cancel')}</button><button class="btn btn-p" id="hp-ok">${t('save')}</button>`});
+  const q=s=>bg.querySelector(s); let onlySel=false;
+  const draw=()=>{ const w=normTxt(q('#hp-q').value);
+    const rows=(S.cache.tests||[]).filter(x=>(!onlySel||sel.has(x.id)) && (!w||normTxt([testName(x),x.reportNo].join(' ')).includes(w))).sort((a,b)=>(sel.has(b.id)-sel.has(a.id))||(sug.has(b.id)-sug.has(a.id))||testName(a).localeCompare(testName(b),'ar'));
+    q('#hp-list').innerHTML = rows.length?`<table class="tbl pp-t"><thead><tr><th></th><th>الاسم / الطعم</th><th>رقم الشهادة</th><th>التاريخ</th><th>الصلاحية</th><th></th></tr></thead><tbody>
+      ${rows.map(x=>{ const s=testStatus(x,S.settings); return `<tr class="click ${sel.has(x.id)?'pp-in':''}" data-id="${x.id}"><td><input type="checkbox" ${sel.has(x.id)?'checked':''} style="width:17px;height:17px;accent-color:var(--navy)"></td>
+        <td class="bold">${esc(testName(x))} ${sug.has(x.id)?'<span class="bdg b-navy nodot">مقترح</span>':''}</td><td class="mono small">${esc(x.reportNo||'')}</td><td class="num">${fmtDate(x.testDate)}</td><td>${s.until?`<span class="bdg ${s.state==='expired'?'b-bad':s.state==='soon'?'b-warn':'b-ok'}">${t('ts_'+s.state)}</span>`:'—'}</td>
+        <td class="act" onclick="event.stopPropagation()">${x.fileId?`<button class="btn btn-g btn-xs" onclick="FILES.open('${x.fileId}')">فتح</button>`:''}</td></tr>`; }).join('')}</tbody></table>`
+      : emptyBox((S.cache.tests||[]).length?'لا توجد نتائج':'مكتبة التحاليل فاضية — ارفعي التحاليل الأول');
+    q('#hp-n').textContent=`تم اختيار ${sel.size} تحليل`;
+    q('#hp-list').querySelectorAll('tr[data-id]').forEach(tr=>tr.onclick=()=>{ const id=tr.dataset.id; sel.has(id)?sel.delete(id):sel.add(id); draw(); }); };
+  q('#hp-q').oninput=draw;
+  q('#hp-sel').onclick=e=>{ onlySel=!onlySel; e.target.classList.toggle('on',onlySel); draw(); };
+  const sg=q('#hp-sug'); if(sg) sg.onclick=()=>{ sug.forEach(id=>sel.add(id)); draw(); };
+  q('#hp-none').onclick=()=>{ sel.clear(); draw(); };
+  const up=q('#hp-up'); if(up) up.onclick=()=>testsBulkUpload(ids=>{ ids.forEach(id=>sel.add(id)); draw(); });
+  q('#hp-ok').onclick=async ()=>{ try{ await hcSave({testIds:[...sel]}, `اختيار التحاليل (${sel.size})`); closeModal(bg); toast(t('saved'),'ok'); tabHealth(); }catch(e){ errToast(e); } };
+  draw(); setTimeout(()=>q('#hp-q').focus(),50);
+}
+async function hcRemoveTest(id){ try{ await hcSave({testIds:hcTestIds(OD.o).filter(x=>x!==id)}); tabHealth(); }catch(e){ errToast(e); } }
+
+/* ============================================================================
+   الإرسال من السيستم عن طريق Gmail (بالمرفقات)
+   - بيستخدم حساب Gmail اللي بيدخل بيه المستخدم (أول مرة جوجل بيسأل عن الإذن)
+   - محتاج Google Client ID مرة واحدة في الإعدادات
+   ============================================================================ */
+const GM_SCOPE = 'https://www.googleapis.com/auth/gmail.send';
+let GM_TOKEN = null; // {token, exp}
+const gmReady = () => !!(S.settings.googleClientId||'').trim();
+function gmLoadLib(){ return window.google && google.accounts && google.accounts.oauth2 ? Promise.resolve() : new Promise((res,rej)=>{
+  const s=document.createElement('script'); s.src='https://accounts.google.com/gsi/client'; s.async=true; s.onload=()=>res(); s.onerror=()=>rej(new Error('تعذر تحميل خدمة جوجل — اتأكدي من الإنترنت')); document.head.appendChild(s); }); }
+async function gmToken(){
+  if(GM_TOKEN && GM_TOKEN.exp>Date.now()+60000) return GM_TOKEN.token;
+  await gmLoadLib();
+  return new Promise((res,rej)=>{
+    const tc=google.accounts.oauth2.initTokenClient({ client_id:S.settings.googleClientId.trim(), scope:GM_SCOPE,
+      callback:r=>{ if(r.error){ rej(new Error(r.error_description||r.error)); return; } GM_TOKEN={token:r.access_token, exp:Date.now()+(n(r.expires_in)||3500)*1000}; res(r.access_token); },
+      error_callback:e=>rej(new Error(e && e.type==='popup_closed' ? 'اتقفلت نافذة جوجل قبل الموافقة' : (e&&e.message)||'تعذر الدخول على Gmail')) });
+    tc.requestAccessToken({prompt:''});
+  });
+}
+// بناء الإيميل (MIME) بالمرفقات
+const b64u8 = s => btoa(unescape(encodeURIComponent(s)));
+const wrap76 = s => s.replace(/.{1,76}/g, m=>m+'\r\n');
+async function blobB64(blob){ const buf=new Uint8Array(await blob.arrayBuffer()); let bin=''; for(let i=0;i<buf.length;i+=0x8000) bin+=String.fromCharCode.apply(null, buf.subarray(i,i+0x8000)); return btoa(bin); }
+const encWord = s => /^[\x20-\x7e]*$/.test(s) ? s : `=?UTF-8?B?${b64u8(s)}?=`;
+async function gmBuild({to, cc, subject, body, files}){
+  const bd='egf_'+uid();
+  let m = `To: ${to}\r\n${cc?`Cc: ${cc}\r\n`:''}Subject: ${encWord(subject)}\r\nMIME-Version: 1.0\r\nContent-Type: multipart/mixed; boundary="${bd}"\r\n\r\n`
+    + `--${bd}\r\nContent-Type: text/plain; charset="UTF-8"\r\nContent-Transfer-Encoding: base64\r\n\r\n${wrap76(b64u8(body))}`;
+  for(const f of files){ const type=f.blob.type||'application/octet-stream';
+    m += `--${bd}\r\nContent-Type: ${type}; name="${encWord(f.name)}"\r\nContent-Disposition: attachment; filename="${encWord(f.name)}"; filename*=UTF-8''${encodeURIComponent(f.name)}\r\nContent-Transfer-Encoding: base64\r\n\r\n${wrap76(await blobB64(f.blob))}`; }
+  return m + `--${bd}--\r\n`;
+}
+async function gmSend(msg){
+  const token=await gmToken(), raw=await gmBuild(msg);
+  const r=await fetch('https://gmail.googleapis.com/upload/gmail/v1/users/me/messages/send?uploadType=media',{method:'POST', headers:{Authorization:'Bearer '+token,'Content-Type':'message/rfc822'}, body:raw});
+  if(!r.ok){ let e=''; try{ e=(await r.json()).error.message; }catch(_){ e=r.statusText; } if(r.status===401) GM_TOKEN=null; throw new Error('Gmail: '+e); }
+  return r.json();
+}
+const fmtSize = b => b>1048576 ? (b/1048576).toFixed(1)+' MB' : Math.max(1,Math.round(b/1024))+' KB';
+
+/* ---------- إرسال طلب الشهادة الصحية من السيستم ---------- */
+async function hcSendSystem(){
+  const o=OD.o;
+  if(!gmReady()){ gmSetupInfo(); return; }
+  toast('جاري تجهيز المرفقات…');
+  let files=[];
+  try{ files.push({name:hcCertName(o), blob:await hcCertBlob(hcCert(o)), on:true});
+    for(const f of healthFiles()){ const {blob,meta}=await FILES.blob(f.fileId); const dot=meta.name.lastIndexOf('.'); files.push({name:`${f.label}${dot>0?meta.name.slice(dot):''}`.replace(/[\\/:*?"<>|]+/g,' '), blob, on:true}); }
+  }catch(e){ errToast(e); return; }
+  const tot=()=>files.filter(f=>f.on).reduce((a,f)=>a+f.blob.size,0);
+  const bg=openModal({title:'إرسال الطلب للهيئة', size:'lg', body:`<div class="grid g2" id="gm-f">
+      ${fld('إلى','to',S.settings.healthEmail,{req:1,attrs:'dir="ltr"'})}${fld('نسخة (CC) — اختياري','cc',S.settings.healthCc||'',{attrs:'dir="ltr"',ph:'export@…'})}
+      ${fld('الموضوع','subject',hcSubject(),{cls:'full',req:1})}
+      ${fld('نص الإيميل','body',healthEmailBody(o),{type:'textarea',cls:'full',attrs:'rows="9"'})}
+      <div class="field full"><label>المرفقات</label><div class="chk-list" id="gm-att">${files.map((f,i)=>`<label class="chk-row"><input type="checkbox" data-i="${i}" checked><span>${esc(f.name)}</span><span class="tiny muted" style="margin-inline-start:auto">${fmtSize(f.blob.size)}</span></label>`).join('')}</div>
+        <div class="small muted mt-s" id="gm-tot"></div></div></div>`,
+    foot:`<button class="btn btn-o" onclick="closeModal()">${t('cancel')}</button><button class="btn btn-a" id="gm-go">${IC.mail} إرسال</button>`});
+  const upd=()=>{ const s=tot(); bg.querySelector('#gm-tot').innerHTML = `${files.filter(f=>f.on).length} مرفق — ${fmtSize(s)}${s>24*1048576?' <span class="neg bold">— أكبر من حد Gmail (25 MB)</span>':''}`; };
+  bg.querySelectorAll('#gm-att input').forEach(c=>c.onchange=()=>{ files[+c.dataset.i].on=c.checked; upd(); }); upd();
+  bg.querySelector('#gm-go').onclick=async ()=>{
+    const f=readForm(bg.querySelector('#gm-f')); if(!f.to||!f.subject){ toast(t('fill_required'),'bad'); return; }
+    if(tot()>24*1048576){ toast('المرفقات أكبر من 25 MB — شيلي ملف','bad'); return; }
+    const btn=bg.querySelector('#gm-go'); btn.disabled=true; btn.textContent='جاري الإرسال…';
+    try{ const sent=files.filter(x=>x.on); const r=await gmSend({to:f.to, cc:f.cc, subject:f.subject, body:f.body, files:sent});
+      await hcSave({status:'sent', sentAt:OD.o.health.sentAt||todayISO(), subject:f.subject, gmailThread:r.threadId||''}, `${OD.o.health.sentAt?'إعادة إرسال':'تم إرسال الطلب للهيئة'} من السيستم (${sent.length} مرفق) إلى ${f.to}`);
+      closeModal(bg); toast('اتبعت الإيميل','ok'); renderOrder();
+    }catch(e){ errToast(e); btn.disabled=false; btn.innerHTML=`${IC.mail} إرسال`; }
+  };
+}
+// إيميل المتابعة من السيستم (من غير مرفقات)
+async function hcFollowupSystem(su, body){
+  const bg=openModal({title:'إيميل متابعة', body:`<div class="grid g2" id="gf-f">${fld('إلى','to',S.settings.healthEmail,{attrs:'dir="ltr"'})}${fld('نسخة (CC)','cc',S.settings.healthCc||'',{attrs:'dir="ltr"'})}${fld('الموضوع','subject',su,{cls:'full'})}${fld('نص الإيميل','body',body,{type:'textarea',cls:'full',attrs:'rows="9"'})}</div>`,
+    foot:`<button class="btn btn-o" onclick="closeModal()">${t('cancel')}</button><button class="btn btn-a" id="gf-go">${IC.mail} إرسال</button>`});
+  bg.querySelector('#gf-go').onclick=async ()=>{ const f=readForm(bg.querySelector('#gf-f')); const b=bg.querySelector('#gf-go'); b.disabled=true;
+    try{ await gmSend({to:f.to, cc:f.cc, subject:f.subject, body:f.body, files:[]}); await hcSave({}, 'إيميل متابعة اتبعت من السيستم'); closeModal(bg); toast('اتبعت الإيميل','ok'); tabHealth(); }catch(e){ errToast(e); b.disabled=false; } };
+}
+function gmSetupInfo(){
+  openModal({title:'الإرسال من السيستم محتاج ربط Gmail', size:'sm', body:`<div class="stack small">
+    <div>عشان السيستم يبعت الإيميل بالمرفقات بنفسه، لازم يتربط بحساب Gmail مرة واحدة.</div>
+    <div>${isAdmin()?'حطي «Google Client ID» في <a href="#/settings" onclick="closeModal()">الإعدادات</a> (الخطوات في ملف README).':'كلمي المدير يحط «Google Client ID» في الإعدادات.'}</div>
+    <div class="muted">لحد ما يتربط، استخدمي «تنزيل» و«فتح في Gmail».</div></div>`, foot:`<button class="btn btn-p" onclick="closeModal()">${t('ok')}</button>`});
 }
 
 boot();
