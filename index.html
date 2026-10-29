@@ -1086,7 +1086,7 @@ const DEFAULT_SETTINGS = {
   liabilityAr:'لا تتحمل الشركة المصدرة أي مسؤولية عن أضرار غير مباشرة بعد مغادرة البضاعة للمصنع.',
   healthEmail:'h.certificate@nfsa.gov.eg', whitelistNo:'', healthFollowupDays:3, healthCc:'', googleClientId:'',
   orderPrefix:'EGF', receiptPrefix:'RC',
-  lines:['لايت مصاص','موجو مصاص','بونبون','لبان','مكرونة','أخرى'],
+  lines:['لايت مصاص','موجو مصاص','بونبون','لبان','سناكس','مكرونة','أخرى'],
   certAlertDays:60, cutoffAlertDays:3, testValidityDays:180,
 };
 
@@ -1630,7 +1630,7 @@ const CATS = ['candy','gum','snacks','pasta','other'];
 PAGES.products = { tab:'products', async render(){
   await Promise.all([DB.all('products',true), DB.all('tests',true), loadCartons()]);
   $('view').innerHTML = pageHead(`<div class="row wrap">${searchBox('p-q',t('search_products'),'prodList()')}<select class="in" id="p-cat" style="width:160px" onchange="prodList()"><option value="">${t('all_cats')}</option>${CATS.map(c=>`<option value="${c}">${t('cat_'+c)}</option>`).join('')}</select></div>`,
-    can('products.edit')?`<button class="btn btn-o" onclick="importCatalog()">${IC.download} استيراد كاتالوج الحلويات (${CATALOG_CANDY.length} صنف)</button><button class="btn btn-p" onclick="prodForm()">${IC.plus} ${t('new_product')}</button>`:'')
+    can('products.edit')?`<button class="btn btn-o" onclick="importCatalog()">${IC.download} استيراد الكاتالوج (${CATALOG_ALL().length} صنف)</button><button class="btn btn-p" onclick="prodForm()">${IC.plus} ${t('new_product')}</button>`:'')
     + `<div class="card"><div class="tbl-wrap" id="p-list"></div></div>`;
   prodList();
 }};
@@ -1848,26 +1848,47 @@ const CATALOG_CANDY = [
   ['HN-SF-GUM-BOX','Honey','هاني لايت لبان خالي من السكر علبة هرم','Honey Light Sugar Free Gum Pyramid Box','30-35',1,24,33,25,28,'',null,'لبان','box','gum'],
   ['TF-BAG90','Light Pop','لايت بوب توفي كيس 90 جم','Light Pop Toffee Bag 90g','90-100',1,24,40,26,18,4.5,3570,'أخرى','none','candy'],
 ];
+
+// كاتالوج السناكس والشيبسي (نفس ملف الكاتالوج) — السعر للكرتونة، والجرام للكيس
+// code, brand, ar, en, g(range), 1, bags/ctn, L,W,H, price, 40ft, line, pack, cat, hs
+const CATALOG_SNACKS = [
+  ['CO-OATCHIPS50','ChillOut','شيل اوت أوت شيبس 50 جم','ChillOut Oat Chips 50g','50-60',1,15,47,25,19,3,3150,'سناكس','none','snacks','1904.10'],
+  ['CO-FIRE50','ChillOut','شيل اوت فاير فينجرز 50 جم','ChillOut Fire Fingers 50g','50-60',1,15,48,24,19,2.5,3150,'سناكس','none','snacks','1904.10'],
+  ['CO-CRUNCH30','ChillOut','شيل اوت كرانشي فينجرز 30 جم','ChillOut Crunchy Fingers 30g','30-40',1,15,45,24,17,1.8,3500,'سناكس','none','snacks','1904.10'],
+  ['CO-OATRING50','ChillOut','شيل اوت أوت رينجز 50 جم','ChillOut Oat Rings 50g','50-60',1,15,48,28,21,2.5,2450,'سناكس','none','snacks','1904.10'],
+  ['CO-PEANUT50','ChillOut','شيل اوت فول سوداني مغطى 50 جم','ChillOut Coated Peanuts 50g','50',1,20,35,32,16,6,4100,'سناكس','none','snacks','2008.11'],
+  ['CO-POP50','ChillOut','شيل اوت فشار جورميه 50 جم','ChillOut Gourmet Popcorn 50g','50-60',1,15,48,28,22.5,2.5,2280,'سناكس','none','snacks','1904.10'],
+  ['CO-POP40','ChillOut','شيل اوت فشار جورميه 40 جم (42 كيس)','ChillOut Gourmet Popcorn 40g','30-40',1,42,32,40,35.5,'',1380,'سناكس','none','snacks','1904.10'],
+  ['CO-PUFF50','ChillOut','شيل اوت بافس 50 جم','ChillOut Puffs 50g','50-60',1,15,52,30,21.5,2.5,2070,'سناكس','none','snacks','1904.10'],
+  ['SP-PUFF30','Special','سبيشيال بافس 30 جم','Special Puffs 30g','30-40',1,15,45,24,17.5,1.8,3100,'سناكس','none','snacks','1904.10'],
+  ['SP-PUFF60','Special','سبيشيال بافس 60 جم','Special Puffs 60g','60-70',1,10,44,25,27,2.25,2141,'سناكس','none','snacks','1904.10'],
+  ['SP-RINGS60','Special','سبيشيال كورن رينجز 60 جم','Special Corn Rings 60g','60-70',1,10,44,25,27,2.25,2141,'سناكس','none','snacks','1904.10'],
+  ['CC-POP60','Crazy Crisps','كريزي كريسبس فشار 60 جم','Crazy Crisps Popcorn 60g','50-60',1,15,47,22,27,2.6,2380,'سناكس','none','snacks','1904.10'],
+  ['CC-CRINKLE60','Crazy Crisps','كريزي كريسبس كرينكل 60 جم','Crazy Crisps Crinkle 60g','50-60',1,15,47,22,27,2.6,2380,'سناكس','none','snacks','1904.10'],
+  ['CC-CRISPS30','Crazy Crisps','كريزي كريسبس 30 جم','Crazy Crisps 30g','30-35',1,15,45.5,24.3,17.7,1.8,3150,'سناكس','none','snacks','1904.10'],
+];
+const BRAND_AR = {'Light Pop':'لايت بوب','Mojo':'موجو','Tutti Lolly':'توتي لولي','Honey':'هاني','Light':'لايت','ChillOut':'شيل اوت','Special':'سبيشيال','Crazy Crisps':'كريزي كريسبس'};
+const CATALOG_ALL = () => [...CATALOG_CANDY, ...CATALOG_SNACKS];
 function catalogProducts(){
-  return CATALOG_CANDY.map(([code,brand,nameAr,nameEn,g,pcs,upc,L,W,H,price,r40,line,packType,category])=>{
+  return CATALOG_ALL().map(([code,brand,nameAr,nameEn,g,pcs,upc,L,W,H,price,r40,line,packType,category,hs])=>{
     const g0=n(String(g).split('-')[0]);
     const packSize = pcs>1 ? `${pcs} pcs × ${g}g` : `${g}g`;
-    return { code, brand, nameAr, nameEn, category, line, packType, pieceG:g0, piecesPerPack:pcs, unitsPerCarton:upc, packSize,
+    return { code, brand, brandAr:BRAND_AR[brand]||brand, nameAr, nameEn, category, line, packType, pieceG:g0, piecesPerPack:pcs, unitsPerCarton:upc, packSize,
       cartonL:L, cartonW:W, cartonH:H, price: price===''?'':n(price), currency:'USD', realQty40: r40==null?null:r40,
-      hsCode: category==='gum'?'1704.10':'1704.90', flavours:[], active:true, source:'catalog' };
+      hsCode: hs || (category==='gum'?'1704.10':'1704.90'), flavours:[], active:true, source:'catalog' };
   });
 }
 async function importCatalog(){
   await DB.all('products',true);
   const cat=catalogProducts(), have=S.cache.products||[];
   const add=cat.filter(p=>!have.some(x=>x.code===p.code)), upd=cat.filter(p=>have.some(x=>x.code===p.code));
-  if(!await confirmBox(`استيراد كاتالوج الحلويات (${cat.length} صنف):
+  if(!await confirmBox(`استيراد الكاتالوج — حلويات وسناكس (${cat.length} صنف):
 • إضافة ${add.length} صنف جديد
 • تحديث السعر والمقاسات لـ ${upd.length} صنف موجود`)) return;
   toast(t('uploading'));
   try{
     for(const p of add) await DB.add('products',p);
-    for(const p of upd){ const x=have.find(y=>y.code===p.code); await DB.update('products',x.id,{price:p.price,currency:'USD',cartonL:p.cartonL,cartonW:p.cartonW,cartonH:p.cartonH,realQty40:p.realQty40}); }
+    for(const p of upd){ const x=have.find(y=>y.code===p.code); await DB.update('products',x.id,{price:p.price,currency:'USD',cartonL:p.cartonL,cartonW:p.cartonW,cartonH:p.cartonH,realQty40:p.realQty40, ...(x.brandAr?{}:{brandAr:p.brandAr})}); }
     toast(`تمت إضافة ${add.length} وتحديث ${upd.length}`,'ok'); await DB.all('products',true); prodList();
   }catch(e){ errToast(e); }
 }
