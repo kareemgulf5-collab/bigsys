@@ -46,6 +46,7 @@ service cloud.firestore {
     match /certs/{id}     { allow read: if active(); allow write: if hasTab(['health', 'countries']); }
     match /cartons/{id}   { allow read: if active(); allow write: if hasTab(['calc', 'orders', 'production']); }
     match /team/{id}      { allow read: if active(); allow write: if hasTab(['team']); }
+    match /packing/{id}   { allow read: if active(); allow write: if hasTab(['packing', 'orders']); }
     match /samples/{id}   { allow read: if hasTab(['samples']); allow write: if hasTab(['samples']); }
 
     // الملفات المرفوعة (متخزنة أجزاء جوه Firestore) والعدادات
