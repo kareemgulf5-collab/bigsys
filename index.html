@@ -774,6 +774,24 @@ a>.kpi{transition:border-color .12s}a:hover>.kpi{border-color:var(--navy-100)}
 .pe-facs{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--yellow-50);border:1px solid #f3dc9c;border-radius:12px;padding:12px 16px;margin-bottom:14px}
 .pe-facs .lbl{font-weight:600;font-size:13px}
 
+/* ===== Packing List — نفس شكل سيستم الـ ERP ===== */
+.plx{font-family:Arial,sans-serif;font-size:11px;color:#000;direction:ltr}
+.plx table{width:100%;border-collapse:collapse}
+.plx-head{border:2px solid #1a3060}.plx-head td{border:1px solid #1a3060;padding:6px 10px;vertical-align:middle}
+.plx-logo{width:170px;text-align:center}.plx-logo img{max-height:60px;max-width:150px}
+.plx-co{text-align:right;line-height:1.6}.plx-co .en{font-weight:bold;font-size:12px;color:#1a3060}.plx-co .ar{color:#1a3060;direction:rtl}
+.plx-cust{text-align:right;line-height:1.8;width:200px}
+.plx-info{border:2px solid #1a3060;border-top:none}.plx-info td{border:1px solid #1a3060;padding:6px 10px}.plx-info .lbl{font-weight:bold;color:#1a3060;direction:rtl}
+.plx-title{text-align:center;border:2px solid #1a3060;border-top:none;padding:8px}.plx-title h1{font-size:26px;font-weight:900;color:#1a3060;letter-spacing:2px;margin:0}
+.plx-wh{background:#1a3060;color:#fff;text-align:center;border:2px solid #1a3060;border-top:none;padding:5px;font-size:12px;font-weight:bold;letter-spacing:1px;direction:rtl}
+.plx-main{border:2px solid #1a3060;border-top:none}
+.plx-main th{background:#1a3060;color:#fff;padding:7px 5px;text-align:center;font-size:11px;border:1px solid #fff}
+.plx-main td{padding:7px 5px;text-align:center;border:1px solid #1a3060}
+.plx-main tbody tr:nth-child(even) td{background:#f0f4ff}
+.plx-tot td{background:#1a3060;color:#fff;font-weight:bold;font-size:13px;border:1px solid #fff}
+.plx-foot{border:2px solid #1a3060;border-top:none}.plx-foot td{border:1px solid #1a3060;padding:5px 10px;font-size:10px;text-align:center}
+.plx-t td{padding:6px 6px}.plx-t th{padding:10px 6px;font-size:11.5px}.plx-t tfoot td{font-weight:700}
+
 </style>
 </head>
 <body>
@@ -1479,7 +1497,7 @@ function renderLogin(mode='login'){
   $('lg-form').querySelectorAll('input').forEach(i=>i.onkeydown=e=>{ if(e.key==='Enter') go(); });
   const r=$('lg-reset'); if(r) r.onclick = async e=>{ e.preventDefault(); const em = readForm($('lg-form')).email; if(!em){ toast(t('enter_email_first'),'bad'); return; } try{ await AUTH.reset(em); toast(t('reset_sent'),'ok'); }catch(x){ toast(authMsg(x),'bad'); } };
 }
-const authMsg = e => { const c = e && e.code || ''; const m = {'auth/invalid-credential':'bad_login','auth/wrong-password':'bad_login','auth/user-not-found':'bad_login','auth/email-already-in-use':'email_used','auth/weak-password':'weak_pass','auth/invalid-email':'bad_email','auth/too-many-requests':'too_many'}[c]; return m? t(m) : (e.message||String(e)); };
+const authMsg = e => { const c = e && e.code || ''; if(c==='auth/network-request-failed') return 'مفيش اتصال بسيرفر الدخول — اتأكد من النت، أو اقفل مانع الإعلانات / الـ VPN وجرب تاني.'; if(c==='auth/unauthorized-domain') return 'رابط السيستم مش متضاف في Firebase ← Authentication ← Settings ← Authorized domains.'; if(c==='auth/operation-not-allowed') return 'الدخول بالإيميل وكلمة المرور مش متفعل في Firebase ← Authentication ← Sign-in method.'; const m = {'auth/invalid-credential':'bad_login','auth/wrong-password':'bad_login','auth/user-not-found':'bad_login','auth/email-already-in-use':'email_used','auth/weak-password':'weak_pass','auth/invalid-email':'bad_email','auth/too-many-requests':'too_many'}[c]; return m? t(m) : (e.message||String(e)); };
 
 function renderPending(){
   $('root').innerHTML = `<div class="login"><div class="form" style="grid-column:1/-1"><div class="box center">
@@ -2381,7 +2399,7 @@ const D = { // document atoms
 function printDoc(kind){
   const o=OD.o;
   if(kind==='ci') return printCI(o);
-  if(kind==='pl') return printPL(o);
+  if(kind==='pl') return plOpen();
   if(['pi','quote','inv'].includes(kind)) return printInvoice(kind);
   const s=S.settings, c=orderCalc(o), cur=o.currency||'USD', isPI = kind==='pi';
   const dt = deliveryText(o);
@@ -4068,6 +4086,72 @@ function gmSetupInfo(){
     <div>عشان السيستم يبعت الإيميل بالمرفقات بنفسه، لازم يتربط بحساب Gmail مرة واحدة.</div>
     <div>${isAdmin()?'حطي «Google Client ID» في <a href="#/settings" onclick="closeModal()">الإعدادات</a> (الخطوات في ملف README).':'كلمي المدير يحط «Google Client ID» في الإعدادات.'}</div>
     <div class="muted">لحد ما يتربط، استخدمي «تنزيل» و«فتح في Gmail».</div></div>`, foot:`<button class="btn btn-p" onclick="closeModal()">${t('ok')}</button>`});
+}
+
+/* ============================================================================
+   Packing List — نفس شكل الـ Packing List في سيستم الـ ERP التاني،
+   بس بيتملي لوحده من الأوردر (الكميات المحمّلة فعلًا) ويتعدل قبل الطباعة.
+   صافي الكرتونة = وزن العبوة (جم) × العبوات في الكرتونة ÷ 1000
+   ============================================================================ */
+function plFromOrder(o){
+  return (o.items||[]).map(it=>{ const c=itemCalc(it);
+    return { product: it.nameEn||it.nameAr||'', flavor:(it.flavours||[]).join(', '), cartons: c.loaded||'', weightG: unitGrams(it)||'', units: n(it.unitsPerCarton)||'',
+      grossW: n(it.cartonGrossKg) ? round(n(it.cartonGrossKg),3) : '' }; });
+}
+const plNetCtn = r => (n(r.weightG) && n(r.units)) ? n(r.weightG)*n(r.units)/1000 : 0;
+const plF = (v,d) => v ? n(v).toFixed(d) : '';
+function plData(o){ const s=(o.packingList||{});
+  return { customer: s.customer ?? custName(o), date: s.date || (o.docs.pl||{}).date || o.invoiceDate || todayISO(), po: s.po ?? (o.piNumber||o.number),
+    rows: (s.rows&&s.rows.length) ? s.rows.map(r=>({...r})) : plFromOrder(o) }; }
+
+function plOpen(){
+  const o=OD.o, ed=(can('docs')||can('orders.edit')||isAdmin()) && o.status!=='cancelled';
+  const P=plData(o);
+  const bg=openModal({title:'Packing List', size:'lg', body:`<div id="plx-f">
+      <div class="grid g3 mb">${fld('العميل / Customer','customer',P.customer)}${fld('التاريخ / Date','date',P.date,{type:'date'})}${fld('رقم الـ PO','po',P.po,{attrs:'dir="ltr"'})}</div>
+      <div class="tbl-wrap" style="border:1px solid var(--line);border-radius:10px"><table class="tbl plx-t"><thead><tr><th>#</th><th>Product / المنتج</th><th>Flavor / النكهة</th><th>Cartons</th><th>Weight (g)</th><th>Units / Carton</th><th>Net / Carton (kg)</th><th>Gross / Carton (kg)</th><th>Total Net (kg)</th><th>Total Gross (kg)</th><th></th></tr></thead>
+        <tbody id="plx-body"></tbody><tfoot><tr><td colspan="3">Total</td><td id="plx-tc"></td><td colspan="4"></td><td id="plx-tn"></td><td id="plx-tg"></td><td></td></tr></tfoot></table></div>
+      <div class="small muted mt-s">Net / Carton بيتحسب لوحده = وزن العبوة × العبوات ÷ 1000. اكتبي الوزن القائم (Gross) للكرتونة لو مش متسجل في المنتج.</div></div>`,
+    foot:`${ed?`<button class="btn btn-g" id="plx-re" style="margin-inline-end:auto">${IC.refresh} إعادة من الأوردر</button><button class="btn btn-o" id="plx-add">${IC.plus} صنف</button><button class="btn btn-o" id="plx-save">${IC.check} حفظ</button>`:''}<button class="btn btn-p" id="plx-print">${IC.print} طباعة</button>`});
+  const q=s=>bg.querySelector(s);
+  const tot=()=>{ let c=0,nt=0,g=0; P.rows.forEach(r=>{ const k=n(r.cartons); c+=k; nt+=plNetCtn(r)*k; g+=n(r.grossW)*k; });
+    q('#plx-body').querySelectorAll('[data-k=grossW]').forEach(el=>{ const r=P.rows[+el.dataset.i]; el.style.borderColor = n(r.cartons)&&!n(r.grossW)?'var(--bad)':''; });
+    q('#plx-tc').textContent=c?fmt(c):'—'; q('#plx-tn').textContent=nt?nt.toFixed(3):'—'; q('#plx-tg').textContent=g?g.toFixed(3):'—';
+    q('#plx-body').querySelectorAll('tr').forEach((tr,i)=>{ const r=P.rows[i], k=n(r.cartons), nc=plNetCtn(r); tr.querySelector('[data-c=nc]').textContent=nc?nc.toFixed(3):'—'; tr.querySelector('[data-c=tn]').textContent=nc&&k?(nc*k).toFixed(3):'—'; tr.querySelector('[data-c=tg]').textContent=n(r.grossW)&&k?(n(r.grossW)*k).toFixed(3):'—'; }); };
+  const inp=(i,k,w,type='text',ph='')=>`<input class="in sm" data-i="${i}" data-k="${k}" value="${esc(P.rows[i][k]??'')}" ${type==='number'?'type="number" step="any"':''} placeholder="${ph}" style="width:${w}px" ${ed?'':'readonly'}>`;
+  const draw=()=>{ q('#plx-body').innerHTML=P.rows.map((r,i)=>`<tr><td class="muted">${i+1}</td><td>${inp(i,'product',190)}</td><td>${inp(i,'flavor',130)}</td><td>${inp(i,'cartons',80,'number','0')}</td><td>${inp(i,'weightG',80,'number','0')}</td><td>${inp(i,'units',70,'number','0')}</td>
+      <td class="num pos" data-c="nc"></td><td>${inp(i,'grossW',90,'number','0.000')}</td><td class="num pos bold" data-c="tn"></td><td class="num bold" style="color:var(--info)" data-c="tg"></td><td>${ed?`<button class="btn btn-g btn-xs" data-rm="${i}">${IC.x}</button>`:''}</td></tr>`).join('');
+    q('#plx-body').querySelectorAll('[data-k]').forEach(el=>el.oninput=()=>{ P.rows[+el.dataset.i][el.dataset.k]=el.value; tot(); });
+    q('#plx-body').querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{ P.rows.splice(+b.dataset.rm,1); draw(); });
+    tot(); };
+  draw();
+  const head=()=>{ const f=readForm(q('#plx-f .grid')); P.customer=f.customer; P.date=f.date; P.po=f.po; };
+  const save=async quiet=>{ head(); await saveOrder({packingList:{customer:P.customer, date:P.date, po:P.po, rows:P.rows}}, quiet?null:'تعديل الـ Packing List'); };
+  if(ed){ q('#plx-add').onclick=()=>{ P.rows.push({product:'',flavor:'',cartons:'',weightG:'',units:'',grossW:''}); draw(); };
+    q('#plx-re').onclick=()=>{ P.rows=plFromOrder(o); draw(); toast('اتملت من الأوردر','ok'); };
+    q('#plx-save').onclick=async ()=>{ try{ await save(); toast(t('saved'),'ok'); }catch(e){ errToast(e); } }; }
+  q('#plx-print').onclick=async ()=>{ head(); try{ if(ed) await save(true); }catch(e){} printPackingList(o,P); };
+}
+
+function printPackingList(o, P){
+  const s=S.settings; let tc=0,tn=0,tg=0;
+  const rows=P.rows.filter(r=>r.product||n(r.cartons)).map(r=>{ const c=n(r.cartons), nc=plNetCtn(r), g=n(r.grossW); tc+=c; tn+=nc*c; tg+=g*c;
+    return `<tr><td>${esc([r.product,r.flavor].filter(Boolean).join(' - '))}</td><td>${c?fmt(c):''}</td><td>${esc(r.weightG||'')}</td><td>${esc(r.units||'')}</td><td>${plF(nc,3)}</td><td>${nc&&c?(nc*c).toFixed(2):''}</td><td>${plF(g,3)}</td><td>${g&&c?(g*c).toFixed(2):''}</td></tr>`; }).join('');
+  const d=P.date?new Date(P.date+'T00:00:00').toLocaleDateString('en-GB',{day:'2-digit',month:'2-digit',year:'numeric'}):'';
+  const page=`<div class="plx">
+    <table class="plx-head"><tr>
+      <td class="plx-logo"><img src="${LOGO}" alt=""></td>
+      <td class="plx-co"><div class="en">${esc(s.coNameEn||'Egyptian Gulf International For Snacks & Food Industries')}</div><div class="ar">${esc(s.coNameAr||'الشركة المصرية الخليجية الدولية للصناعات والأغذية الخفيفة')}</div></td>
+      <td class="plx-cust"><strong>${esc(P.customer||'')}</strong><br>${P.po?'PO: '+esc(P.po):''}</td></tr></table>
+    <table class="plx-info"><tr><td class="lbl" style="width:80px">التاريخ :</td><td>${d}</td><td style="width:240px">${(o.shipment||{}).containerNo?`Container: <b>${esc(o.shipment.containerNo)}</b>`:''}</td></tr></table>
+    <div class="plx-title"><h1>Packing List</h1></div>
+    <div class="plx-wh">الـــوزن بالـــكـجـم</div>
+    <table class="plx-main"><thead><tr><th>Product / Flavor</th><th>carton<br>number</th><th>Weight (g)<br>per unit</th><th>Units<br>per carton</th><th>Net weight<br>carton</th><th>Total Net<br>weight</th><th>Gross<br>Weight</th><th>Total Gross<br>Weight</th></tr></thead>
+      <tbody>${rows}</tbody>
+      <tfoot><tr class="plx-tot"><td>Total</td><td>${fmt(tc)}</td><td></td><td></td><td></td><td>${tn.toFixed(2)}</td><td></td><td>${tg.toFixed(2)}</td></tr></tfoot></table>
+    <table class="plx-foot"><tr><td colspan="3">Address: &nbsp; ${esc(s.address||'')}</td></tr>
+      <tr><td>TEL: &nbsp; ${esc(s.phone||'')}</td><td>E-mail: &nbsp; ${esc(s.email||'')}</td><td>Web site: &nbsp; ${esc(s.website||'')}</td></tr></table></div>`;
+  openPrint(`Packing List ${o.number}`, [page]);
 }
 
 boot();
