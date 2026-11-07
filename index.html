@@ -820,6 +820,16 @@ a>.kpi{transition:border-color .12s}a:hover>.kpi{border-color:var(--navy-100)}
 .pos-sign{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:60px;page-break-inside:avoid}
 .pos-sign>div{border-top:2px solid #222;padding-top:8px;text-align:center;display:flex;flex-direction:column;gap:6px;color:#444;font-size:12px}
 .pe-notes2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:-4px 0 12px}.pe-notes2 label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}.pe-notes2 textarea{width:100%;border:1px solid var(--line-2);border-radius:8px;padding:8px;font:inherit}
+.ig-fsel{width:100%;margin-top:6px;border:1px dashed var(--line-2);border-radius:8px;padding:4px 6px;font:inherit;font-size:12px;color:var(--ink-2);background:#fff;cursor:pointer}
+.ig-fopt{border:1px dashed var(--line-2);background:#fff;color:var(--ink-2);border-radius:12px;padding:1px 8px;font-size:11px;cursor:pointer;font-family:inherit}.ig-fopt:hover{border-color:var(--navy);color:var(--navy)}
+.ig-ii.ig-need{border-color:#e4a11b;background:#fffaf0}
+.cbp{margin-top:16px}.cbp-h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.cbp-n{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;white-space:nowrap}.cbp-n input{width:72px!important;flex:none;text-align:center;font-size:16px;font-weight:800;padding:6px;border:1px solid var(--line-2);border-radius:8px}
+.cbp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:12px}
+.cbp-c{border:1px solid var(--line-2);border-radius:10px;padding:12px;background:#fff}.cbp-ct{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:13px}.cbp-ct span{color:var(--muted);font-size:12px}
+.cbp-t{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}.cbp-t td{padding:5px 2px;border-bottom:1px solid var(--line)}.cbp-t td.num{text-align:left;font-weight:800;white-space:nowrap}
+.cbp-x{margin-top:8px;font-size:11.5px;color:var(--ink-2);background:#f6f8fc;border-radius:6px;padding:6px 8px}
+.cbp-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
 </style>
 </head>
@@ -1939,7 +1949,7 @@ const CATALOG_SNACKS = [
   ['CO-CRUNCH30','ChillOut','شيل اوت كرانشي فينجرز 30 جم','ChillOut Crunchy Fingers 30g','30-40',1,15,45,24,17,1.8,3500,'سناكس','none','snacks','1904.10'],
   ['CO-OATRING50','ChillOut','شيل اوت أوت رينجز 50 جم','ChillOut Oat Rings 50g','50-60',1,15,48,28,21,2.5,2450,'سناكس','none','snacks','1904.10'],
   ['CO-PEANUT50','ChillOut','شيل اوت فول سوداني مغطى 50 جم','ChillOut Coated Peanuts 50g','50',1,20,35,32,16,6,4100,'سناكس','none','snacks','2008.11'],
-  ['CO-POP50','ChillOut','شيل اوت فشار جورميه 50 جم','ChillOut Gourmet Popcorn 50g','50-60',1,15,48,28,22.5,2.5,2280,'سناكس','none','snacks','1904.10'],
+  ['CO-POP50','ChillOut','شيل اوت فشار جورميه 50 جم','ChillOut Gourmet Popcorn 50g','50-55',1,15,48,28,22.5,2.5,2280,'سناكس','none','snacks','1904.10'],
   ['CO-POP40','ChillOut','شيل اوت فشار جورميه 40 جم (42 كيس)','ChillOut Gourmet Popcorn 40g','30-40',1,42,32,40,35.5,'',1380,'سناكس','none','snacks','1904.10'],
   ['CO-PUFF50','ChillOut','شيل اوت بافس 50 جم','ChillOut Puffs 50g','50-60',1,15,52,30,21.5,2.5,2070,'سناكس','none','snacks','1904.10'],
   ['SP-PUFF30','Special','سبيشيال بافس 30 جم','Special Puffs 30g','30-40',1,15,45,24,17.5,1.8,3100,'سناكس','none','snacks','1904.10'],
@@ -1948,16 +1958,41 @@ const CATALOG_SNACKS = [
   ['CC-POP60','Crazy Crisps','كريزي كريسبس فشار 60 جم','Crazy Crisps Popcorn 60g','50-60',1,15,47,22,27,2.6,2380,'سناكس','none','snacks','1904.10'],
   ['CC-CRINKLE60','Crazy Crisps','كريزي كريسبس كرينكل 60 جم','Crazy Crisps Crinkle 60g','50-60',1,15,47,22,27,2.6,2380,'سناكس','none','snacks','1904.10'],
   ['CC-CRISPS30','Crazy Crisps','كريزي كريسبس 30 جم','Crazy Crisps 30g','30-35',1,15,45.5,24.3,17.7,1.8,3150,'سناكس','none','snacks','1904.10'],
+  ['CO-FRIDO30','ChillOut','شيل اوت فريدو 30 جم (42 كيس)','ChillOut Frido 30g','30',1,42,'','','','','','سناكس','none','snacks','1904.10'],
+  ['CO-POP25','ChillOut','شيل اوت فشار 25 جم (42 كيس)','ChillOut Popcorn 25g','25',1,42,'','','','','','سناكس','none','snacks','1904.10'],
+  ['SP-PUFF15','Special','سبيشيال بافس 15 جم (100 كيس)','Special Puffs 15g','15',1,100,59.5,32,37.5,'','','سناكس','none','snacks','1904.10'],
+  ['CC-CRISPS50','Crazy Crisps','كريزي كريسبس 50 جم','Crazy Crisps 50g','50-60',1,15,48,28,22.5,'','','سناكس','none','snacks','1904.10'],
+  ['BZ-30','Bozo','بوزو 30 جم','Bozo 30g','30-40',1,15,47.5,25,19,'','','سناكس','none','snacks','1904.10'],
 ];
-const BRAND_AR = {'Light Pop':'لايت بوب','Mojo':'موجو','Tutti Lolly':'توتي لولي','Honey':'هاني','Light':'لايت','ChillOut':'شيل اوت','Special':'سبيشيال','Crazy Crisps':'كريزي كريسبس'};
+const BRAND_AR = {'Light Pop':'لايت بوب','Mojo':'موجو','Tutti Lolly':'توتي لولي','Honey':'هاني','Light':'لايت','ChillOut':'شيل اوت','Special':'سبيشيال','Crazy Crisps':'كريزي كريسبس','Bozo':'بوزو'};
+const SNACK_FLAVOURS = {
+  'CO-OATCHIPS50':["Cheese / جبنة", "Sweet Chilli / شطة حلوة", "Flaming Hot / حار جدًا", "Smokey BBQ / باربكيو مدخن", "Chicken / فراخ", "Sweet Lemon / ليمون حلو", "Grilled Ribs / ريش مشوية", "Sour Cream / كريمة حامضة", "Italian Bruschetta / بروسكيتا إيطالي"],
+  'CO-PUFF50':["Sour Cream / كريمة حامضة", "Cheese / جبنة", "Spicy Shrimps / جمبري حار", "Rich Tomato / طماطم", "Chicken Curry / فراخ بالكاري", "Korean Chicken / فراخ كوري"],
+  'CO-OATRING50':["Tomato / طماطم", "Chicken / فراخ", "Spicy Shrimps / جمبري حار", "Sour Cream / كريمة حامضة", "Cheese / جبنة", "Sweet Pepper / فلفل حلو"],
+  'CO-FIRE50':["Spicy Shrimp / جمبري حار", "Spicy Chicken / فراخ حار", "Spicy Lemon / ليمون حار", "Spicy Cheese / جبنة حار", "Seasoned Tomato / طماطم متبلة", "Spicy Chilli / شطة حار"],
+  'CO-POP50':["Sweet Chilli / شطة حلوة", "Cheese / جبنة", "Spicy Korean / كوري حار", "Chicken / فراخ", "Smokey BBQ / باربكيو مدخن", "Korean Chicken / فراخ كوري", "Salt & Vinegar / ملح وخل", "Seasoned Cheese / جبنة متبلة", "Sour Cream / كريمة حامضة", "Sweet Lemon / ليمون حلو", "Italian Pizza / بيتزا إيطالي", "Tomato & Herbs / طماطم وأعشاب"],
+  'CO-PEANUT50':["Barbeque / باربكيو", "Paprika / بابريكا", "Cheese / جبنة", "Salt & Vinegar / ملح وخل"],
+  'CO-FRIDO30':["Chicken / فراخ", "Shrimp / جمبري", "Cheese / جبنة", "Spicy Lemon / ليمون حار", "Tomato / طماطم", "Salt & Vinegar / ملح وخل"],
+  'CO-POP25':["Cheese / جبنة", "Sweet Lemon / ليمون حلو", "Sweet Pepper / فلفل حلو"],
+  'SP-PUFF30':["Chicken / فراخ", "Flaming Hot / حار جدًا", "Shrimp / جمبري", "Tomato / طماطم", "Cheese / جبنة", "Sweet Chilli / شطة حلوة", "Chicken Curry / فراخ بالكاري"],
+  'SP-PUFF60':["Chicken / فراخ", "Shrimp / جمبري", "Lemon / ليمون", "Sweet Pepper / فلفل حلو", "Cheese / جبنة", "Tomato / طماطم"],
+  'SP-PUFF15':["Tomato / طماطم", "Chicken / فراخ", "Cheese / جبنة", "Shrimp / جمبري"],
+  'SP-RINGS60':["Chicken / فراخ", "Lemon / ليمون", "Tomato / طماطم", "Sweet Pepper / فلفل حلو", "Cheese / جبنة", "Shrimp / جمبري"],
+  'CC-CRISPS30':["Tomato / طماطم", "Shrimp / جمبري", "Flaming Hot / حار جدًا", "Chicken / فراخ", "Sweet Chilli / شطة حلوة", "Sour Cream / كريمة حامضة", "Cheese / جبنة"],
+  'CC-CRISPS50':["Tomato / طماطم", "Hot Shrimp / جمبري حار", "Curry Chicken / فراخ بالكاري", "Italian Pizza / بيتزا إيطالي", "Cheese / جبنة", "Sweet Pepper / فلفل حلو", "Chili & Lemon / شطة وليمون", "BBQ / باربكيو", "Korean Mixture / خلطة كوري"],
+  'CC-POP60':["Spicy Lemon / ليمون حار", "Shrimp / جمبري", "Seasoned Cheese / جبنة متبلة"],
+  'BZ-30':["BBQ / باربكيو", "Salsa / صلصة", "Sour Cream / كريمة حامضة", "Sweet Chilli / شطة حلوة"],
+};
+const SNACK_DIMS = {'CO-OATCHIPS50':[47,25,19],'CO-PUFF50':[52,30,21.5],'CO-OATRING50':[48,28,21],'CO-FIRE50':[48,24,19],'CO-POP50':[48,28,22.5],'CO-PEANUT50':[35,32,16],'SP-PUFF30':[45.5,24.3,17.7],'SP-PUFF15':[59.5,32,37.5],'CC-CRISPS30':[45.5,24.3,17.7],'CC-CRISPS50':[48,28,22.5],'CC-POP60':[48,28,22.5],'BZ-30':[47.5,25,19]};
+
 const CATALOG_ALL = () => [...CATALOG_CANDY, ...CATALOG_SNACKS];
 function catalogProducts(){
   return CATALOG_ALL().map(([code,brand,nameAr,nameEn,g,pcs,upc,L,W,H,price,r40,line,packType,category,hs])=>{
     const g0=n(String(g).split('-')[0]);
     const packSize = pcs>1 ? `${pcs} pcs × ${g}g` : `${g}g`;
     return { code, brand, brandAr:BRAND_AR[brand]||brand, nameAr, nameEn, category, line, packType, pieceG:g0, piecesPerPack:pcs, unitsPerCarton:upc, packSize,
-      cartonL:L, cartonW:W, cartonH:H, price: price===''?'':n(price), currency:'USD', realQty40: r40==null?null:r40,
-      hsCode: hs || (category==='gum'?'1704.10':'1704.90'), flavours:[], active:true, source:'catalog' };
+      cartonL:(SNACK_DIMS[code]||[L])[0], cartonW:(SNACK_DIMS[code]||[0,W])[1], cartonH:(SNACK_DIMS[code]||[0,0,H])[2], price: price===''?'':n(price), currency:'USD', realQty40: (r40==null||r40==='')?null:r40,
+      hsCode: hs || (category==='gum'?'1704.10':'1704.90'), flavours:[...(SNACK_FLAVOURS[code]||[])], active:true, source:'catalog' };
   });
 }
 async function importCatalog(){
@@ -1970,7 +2005,7 @@ async function importCatalog(){
   toast(t('uploading'));
   try{
     for(const p of add) await DB.add('products',p);
-    for(const p of upd){ const x=have.find(y=>y.code===p.code); await DB.update('products',x.id,{price:p.price,currency:'USD',cartonL:p.cartonL,cartonW:p.cartonW,cartonH:p.cartonH,realQty40:p.realQty40, ...(x.brandAr?{}:{brandAr:p.brandAr})}); }
+    for(const p of upd){ const x=have.find(y=>y.code===p.code); await DB.update('products',x.id,{...(p.price===''?{}:{price:p.price}),currency:'USD',cartonL:p.cartonL,cartonW:p.cartonW,cartonH:p.cartonH,realQty40:p.realQty40, ...(x.brandAr?{}:{brandAr:p.brandAr}), ...(p.flavours.length?{flavours:[...new Set([...(x.flavours||[]),...p.flavours])]}:{})}); }
     toast(`تمت إضافة ${add.length} وتحديث ${upd.length}`,'ok'); await DB.all('products',true); if(typeof prodList==='function' && $('p-list')) prodList();
   }catch(e){ errToast(e); }
 }
@@ -1979,7 +2014,7 @@ async function importCatalog(){
 function mkItem(p, extra={}){
   return { id:uid(), productId:p.id||'', code:p.code||'', nameAr:p.nameAr||'', nameEn:p.nameEn||'', packSize:p.packSize||'', netWeightG:n(p.netWeightG), pieceG:n(p.pieceG), piecesPerPack:n(p.piecesPerPack), unitsPerCarton:n(p.unitsPerCarton),
     cartonL:n(p.cartonL), cartonW:n(p.cartonW), cartonH:n(p.cartonH), cartonNetKg:n(p.cartonNetKg), cartonGrossKg:n(p.cartonGrossKg), hsCode:p.hsCode||'', shelfLifeMonths:n(p.shelfLifeMonths), real20:p.realQty20??null, real40:p.realQty40??null,
-    line:p.line||'', category:p.category||'', packType:PACK_TYPES.includes(p.packType)?p.packType:'none', flavours:[...(p.flavours||[])], cartons:'', pricePerCarton:(p.price!==''&&p.price!=null)?n(p.price):'', onDiscount:false, stickers:false, notes:'', batch:'', prodDate:'', expDate:'', loadedCartons:'', ...extra };
+    line:p.line||'', category:p.category||'', packType:PACK_TYPES.includes(p.packType)?p.packType:'none', flavours:(p.flavours||[]).length===1?[...p.flavours]:[], cartons:'', pricePerCarton:(p.price!==''&&p.price!=null)?n(p.price):'', onDiscount:false, stickers:false, notes:'', batch:'', prodDate:'', expDate:'', loadedCartons:'', ...extra };
 }
 const pad = (v,l=4) => String(v).padStart(l,'0');
 
@@ -2841,11 +2876,12 @@ function igItems(){
       ${it.nameAr?`<div class="ig-ar">${esc(it.nameAr)}</div>`:''}
       <div class="ig-row2"><button type="button" class="ig-disc ${it.onDiscount?'on':''}" onclick="igDisc('${it.id}')" ${dis}>${it.onDiscount?'عليه خصم':'خصم'}</button>${ed?`<button type="button" class="ig-disc" onclick="igDetails('${it.id}')">تفاصيل</button>`:''}</div>
       ${(it.flavours||[]).length?`<div class="ig-ftags">${it.flavours.map((f,i)=>`<span class="ig-ftag">${esc(f)}${ed?`<button class="ig-fdel" onclick="igFlavDel('${it.id}',${i})">×</button>`:''}</span>`).join('')}</div>`:''}
+      ${ed?igFlavOpts(it):''}
       ${ed?`<div class="ig-fadd"><input id="fl-${it.id}" class="ig-faddi" placeholder="إضافة نكهة" onkeydown="if(event.key==='Enter'){event.preventDefault();igFlavAdd('${it.id}')}"><button class="ig-faddb" onclick="igFlavAdd('${it.id}')">+</button></div>`:''}</div>
     <input class="ig-ii" data-i="packSize" value="${esc(it.packSize||'')}" placeholder="30g" ${dis}>
     <input class="ig-ii" type="number" data-i="unitsPerCarton" value="${esc(it.unitsPerCarton||'')}" placeholder="24" ${dis}>
     <input class="ig-ii" type="number" data-i="cartons" value="${esc(it.cartons)}" placeholder="0" ${dis}>
-    <input class="ig-ii" type="number" step="0.01" data-i="pricePerCarton" value="${esc(it.pricePerCarton)}" placeholder="0.00" ${dis}>
+    <input class="ig-ii${(it.pricePerCarton===''||it.pricePerCarton==null)&&ed?' ig-need':''}" type="number" step="0.01" data-i="pricePerCarton" value="${esc(it.pricePerCarton)}" placeholder="اكتبي السعر" oninput="this.classList.toggle('ig-need',this.value==='')" ${dis}>
     ${ed?`<button class="ig-rb" onclick="igRemove('${it.id}')" title="حذف">×</button>`:'<span></span>'}</div>`).join('')
     : `<div class="ig-empty">${t('no_items')}</div>`;
   $('ig-items').querySelectorAll('[data-i]').forEach(el=>el.addEventListener('input',()=>{ const it=o.items.find(x=>x.id===el.closest('.ig-row').dataset.id); const f=el.dataset.i;
@@ -2861,6 +2897,10 @@ function igAddRow(){ OD.o.items.push(mkItem({nameAr:'',nameEn:'',line:(S.setting
 async function igRemove(id){ const it=OD.o.items.find(x=>x.id===id); if((it.nameEn||it.nameAr||n(it.cartons)) && !await confirmBox(t('del_q'),{danger:1})) return; OD.o.items=OD.o.items.filter(x=>x.id!==id); markDirty(); igItems(); igPreview(); }
 function igDisc(id){ const it=OD.o.items.find(x=>x.id===id); it.onDiscount=!it.onDiscount; markDirty(); igItems(); igPreview(); }
 function igFlavAdd(id){ const inp=$('fl-'+id); const v=(inp.value||'').trim(); if(!v) return; const it=OD.o.items.find(x=>x.id===id); it.flavours=[...(it.flavours||[]),v]; markDirty(); igItems(); igPreview(); const ni=$('fl-'+id); ni&&ni.focus(); }
+function igProdFlav(it){ const p=it.productId&&byId(S.cache.products||[],it.productId); return (p&&p.flavours)||[]; }
+function igFlavOpts(it){ const all=igProdFlav(it), have=it.flavours||[], rest=all.filter(f=>!have.includes(f)); if(!rest.length) return '';
+  return `<select class="ig-fsel" onchange="if(this.value!=='')igFlavPick('${it.id}',+this.value)"><option value="">+ اختار نكهة (${rest.length})</option>${rest.map(f=>`<option value="${all.indexOf(f)}">${esc(f)}</option>`).join('')}</select>`; }
+function igFlavPick(id,i){ const it=OD.o.items.find(x=>x.id===id); const f=igProdFlav(it)[i]; if(!f) return; it.flavours=[...(it.flavours||[]),f]; markDirty(); igItems(); igPreview(); }
 function igFlavDel(id,i){ const it=OD.o.items.find(x=>x.id===id); it.flavours.splice(i,1); markDirty(); igItems(); igPreview(); }
 function igDetails(id){
   const it=OD.o.items.find(x=>x.id===id);
@@ -3198,13 +3238,13 @@ async function loadCartons(force){
   return rows.sort((a,b)=>n(a.seq)-n(b.seq));
 }
 const cbCanEdit = () => S.profile.role==='admin' || ['export','sales','production'].includes(S.profile.role);
-const CB = { type:'20', tab:'candy', edit:null, orderId:null, order:null };
+const CB = { count:null, type:'20', tab:'candy', edit:null, orderId:null, order:null };
 const lsGet = (k,d) => { try{ return JSON.parse(localStorage.getItem(k)||'null') ?? d; }catch(e){ return d; } };
 const lsSet = (k,v) => { try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} };
 
 PAGES.calc = { tab:['calc','orders','production'], async render([orderId]){
   await loadCartons(true);
-  CB.orderId = orderId||null; CB.order=null; CB.edit=null; CB.qtyOverride=null;
+  CB.orderId = orderId||null; CB.order=null; CB.count=null; CB.edit=null; CB.qtyOverride=null;
   if(orderId){ CB.order = await DB.get('orders',orderId); if(CB.order){ CB.tab='shipment'; CB.type=ctype((CB.order.shipment||{}).containerType); } }
   $('view').innerHTML = `<div class="cb">
     <div class="cb-top">
@@ -3218,10 +3258,10 @@ PAGES.calc = { tab:['calc','orders','production'], async render([orderId]){
 }};
 function cbRender(){ if(CB.tab==='shipment') return cbShipment(); cbItems(); }
 function cbItems(){
-  const c=CBM_C[CB.type], ed=cbCanEdit(), qty=lsGet('egf-cbm-qty',{});
+  const c=CBM_C[CB.type], ed=cbCanEdit(), qty=lsGet('egf-cbm-qty',{}), NC=CB.count||1;
   const items=(S.cache.cartons||[]).filter(x=>(x.cat||'candy')===CB.tab).sort((a,b)=>n(a.seq)-n(b.seq));
-  let tCbm=0,tCap=0,tQty=0,tShip=0;
-  const rows = items.map(it=>{ const f=fitInfo(it,CB.type), q=n(qty[it.id]), rt=f.cbm*q; tCbm+=f.cbm; tCap+=f.count; tQty+=q; tShip+=rt;
+  let tCbm=0,tCap=0,tQty=0,tShip=0,tNeed=0;
+  const rows = items.map(it=>{ const f=fitInfo(it,CB.type), q=n(qty[it.id]), rt=f.cbm*q; if(f.count>0) tNeed+=q/f.count; tCbm+=f.cbm; tCap+=f.count; tQty+=q; tShip+=rt;
     if(CB.edit===it.id) return `<tr class="edit-row"><td colspan="8"><div class="edit-grid"><div><label>اسم الصنف</label><input type="text" id="cb-eN" value="${esc(it.name)}"></div>
       <div><label>الطول</label><input type="number" step="0.5" id="cb-eL" value="${n(it.l)}"></div><div><label>العرض</label><input type="number" step="0.5" id="cb-eW" value="${n(it.w)}"></div><div><label>الارتفاع</label><input type="number" step="0.5" id="cb-eH" value="${n(it.h)}"></div>
       <div><label>فعلي 40 قدم</label><input type="number" id="cb-eR40" value="${it.realQty40??''}" placeholder="—"></div>
@@ -3229,10 +3269,10 @@ function cbItems(){
     return `<tr><td class="name-cell">${esc(it.name||'بدون اسم')}</td><td class="dim-cell">${n(it.l)}×${n(it.w)}×${n(it.h)}</td>
       <td><input type="number" class="qty-input" data-id="${it.id}" min="0" value="${q||''}" placeholder="0"></td>
       <td class="num calc-col calc-start">${cbF(f.cbm)}</td><td class="total-cbm calc-col">${rt?cbF(rt,3):'—'}</td>
-      <td class="calc-col"><span class="badge ${f.isReal?'badge-real':''}">${f.count.toLocaleString('en-US')}</span><span class="src-tag">${f.isReal?'فعلي':'نظري'}</span></td>
+      <td class="calc-col"><span class="badge ${f.isReal?'badge-real':''}">${(f.count*NC).toLocaleString('en-US')}</span><span class="src-tag">${f.isReal?'فعلي':'نظري'}</span></td>
       <td class="orient calc-col">${f.isReal?'—':(f.fit.mixed?`<span class="mixed-tag" title="${summarizeBands(f.fit.bands)}">رص مختلط ✦</span>`:(f.fit.orient||[]).join('×'))}</td>
       <td>${ed?`<div class="row-actions"><button class="icon-btn" onclick="CB.edit='${it.id}';cbRender()" title="تعديل">✎</button><button class="icon-btn del" onclick="cbDel('${it.id}')" title="حذف">✕</button></div>`:''}</td></tr>`; }).join('');
-  const third = tQty>0 ? [`عدد حاويات ${c.label} المطلوبة (100%)`, cbF(tShip/c.cbm,2)+' <span class="unit">حاوية</span>'] : ['متوسط سعة الحاوية المختارة', (items.length?Math.round(tCap/items.length):0).toLocaleString('en-US')+' <span class="unit">كرتونة</span>'];
+  const third = tQty>0 ? [`المطلوب / المختار (حاويات ${c.label})`, cbF(tNeed,2)+' <span class="unit">من '+NC+'</span>'] : ['متوسط سعة الحاوية المختارة', (items.length?Math.round(tCap/items.length):0).toLocaleString('en-US')+' <span class="unit">كرتونة</span>'];
   $('cb-body').innerHTML = `
     ${ed?`<div class="panel"><div class="panel-title">إضافة صنف جديد</div><div class="input-row">
       <div><label>اسم الصنف</label><input type="text" id="cb-n" ></div>
@@ -3240,13 +3280,17 @@ function cbItems(){
       <div class="dim-input"><label>العرض</label><input type="number" id="cb-w" step="0.5" min="0" placeholder="0"><span>سم</span></div>
       <div class="dim-input"><label>الارتفاع</label><input type="number" id="cb-h" step="0.5" min="0" placeholder="0"><span>سم</span></div>
       <button class="btn-primary" onclick="cbAdd()">إضافة الصنف</button></div></div>`:''}
+    <div class="panel cbp-bar"><div class="cbp-n"><span>عدد الحاويات</span><input type="number" id="cb-n-cont" min="1" max="30" value="${CB.count||''}" placeholder="1"><span>× ${c.label}</span></div>
+      <div class="small muted">إجمالي المساحة: <b>${cbF(c.cbm*NC,2)} م³</b> — السعة في الجدول محسوبة على ${NC>1?NC+' حاويات':'حاوية واحدة'}.</div></div>
     <div class="panel" style="padding:0;overflow:hidden"><div style="padding:22px 22px 6px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap"><div class="panel-title" style="margin-bottom:0">سجل الأصناف</div>
         <button class="btn-ghost" onclick="cbClearQty()">تصفير الكميات</button></div>
-      <div class="table-wrap">${items.length?`<table><thead><tr><th>الصنف</th><th>المقاس (سم)</th><th>الكمية</th><th class="calc-col calc-start">CBM / كرتونة</th><th class="calc-col">إجمالي CBM</th><th class="calc-col">سعة حاوية ${c.label} (100%)</th><th class="calc-col">ترتيب الرص</th><th></th></tr></thead><tbody>${rows}</tbody></table>`
+      <div class="table-wrap">${items.length?`<table><thead><tr><th>الصنف</th><th>المقاس (سم)</th><th>الكمية</th><th class="calc-col calc-start">CBM / كرتونة</th><th class="calc-col">إجمالي CBM</th><th class="calc-col">سعة ${NC>1?NC+' حاويات':'حاوية'} ${c.label} (100%)</th><th class="calc-col">ترتيب الرص</th><th></th></tr></thead><tbody>${rows}</tbody></table>`
         :`<div class="empty">لا توجد أصناف.</div>`}</div></div>
     ${items.length?`<div class="summary"><div class="stat"><div class="label">إجمالي الأصناف</div><div class="value">${items.length}</div></div>
       <div class="stat"><div class="label">${tQty>0?'إجمالي CBM الشحنة (حسب الكميات)':'إجمالي CBM (كرتونة واحدة من كل صنف)'}</div><div class="value">${cbF(tQty>0?tShip:tCbm,3)} <span class="unit">m³</span></div></div>
-      <div class="stat highlight"><div class="label">${third[0]}</div><div class="value">${third[1]}</div></div></div>`:''}`;
+      <div class="stat highlight"><div class="label">${third[0]}</div><div class="value">${third[1]}</div></div></div>`:''}
+    ${tQty>0?cbPlanHtml(items.map(it=>({name:it.name, l:it.l, w:it.w, h:it.h, realQty20:it.realQty20, realQty40:it.realQty40, qty:n(qty[it.id])})),true):''}`;
+  const cn=$('cb-n-cont'); if(cn) cn.addEventListener('change',()=>{ CB.count=Math.max(1,Math.min(30,Math.round(n(cn.value))||1)); cbRender(); });
   $('cb-body').querySelectorAll('.qty-input').forEach(inp=>inp.addEventListener('change',()=>{ const m=lsGet('egf-cbm-qty',{}); const v=n(inp.value); if(v>0) m[inp.dataset.id]=v; else delete m[inp.dataset.id]; lsSet('egf-cbm-qty',m); cbRender(); }));
   ['cb-l','cb-w','cb-h'].forEach(id=>{ const el=$(id); if(el) el.onkeydown=e=>{ if(e.key==='Enter') cbAdd(); }; });
 }
@@ -3280,10 +3324,57 @@ function cbShipment(){
       <div class="stat"><div class="label">إجمالي CBM للشحنة</div><div class="value">${cbF(tC,3)} <span class="unit">m³</span></div></div>
       <div class="stat highlight"><div class="label">سعة حاوية ${c.label} (100%)</div><div class="value">${cbF(c.cbm,3)} <span class="unit">m³</span></div></div></div>
       ${tB?cbGauge(tC,CB.type):''}`:''}
-    ${!o?`<div style="text-align:left;margin-top:10px"><button class="btn-ghost" onclick="lsSet('egf-cbm-ship',{});cbRender()">تصفير الكميات</button></div>`:''}`;
+    ${!o?`<div style="text-align:left;margin-top:10px"><button class="btn-ghost" onclick="lsSet('egf-cbm-ship',{});cbRender()">تصفير الكميات</button></div>`:''}
+    ${tB?cbPlanHtml(list):''}`;
+  const cn=$('cb-n-cont'); if(cn) cn.addEventListener('change',()=>{ CB.count=Math.max(1,Math.min(30,Math.round(n(cn.value))||1)); cbRender(); });
   $('cb-body').querySelectorAll('.ship-qty').forEach(inp=>inp.addEventListener('change',()=>{ const v=n(inp.value), k=inp.dataset.key;
     if(o){ CB.qtyOverride=CB.qtyOverride||{}; CB.qtyOverride[k]=v; } else { const m=lsGet('egf-cbm-ship',{}); if(v>0) m[k]=v; else delete m[k]; lsSet('egf-cbm-ship',m); }
     cbRender(); }));
+}
+
+/* ---------------- توزيع الطلبية على أكتر من حاوية ----------------
+   كل كرتونة بتاخد «جزء» من الحاوية = 1 ÷ سعة الحاوية من الصنف ده (الفعلي لو متسجل، وإلا النظري).
+   - لو الكمية كلها تدخل في عدد الحاويات المختار: بنوزع الأصناف بحيث كل صنف يفضل في حاوية واحدة على قد ما نقدر (Best Fit)،
+     وبنقسم الصنف على حاويتين بس لما يكون مفيش مكان يكفيه كله.
+   - لو الكمية أكبر من الحاويات: بنقدّم الأصناف اللي كرتونتها أصغر (تاخد عدد كراتين أكتر) وبنقول اللي فاضل برة.
+   - في الآخر: المساحة الفاضية في كل حاوية تكفي كام كرتونة زيادة من كل صنف. */
+function cbPlan(list, type, N){
+  const items=list.map(r=>{ const f=fitInfo(r,type); return {name:r.name, qty:Math.round(n(r.qty)), cap:f.count, frac:f.count>0?1/f.count:0, ok:f.ok&&f.count>0}; }).filter(x=>x.qty>0);
+  const bad=items.filter(x=>!x.ok), good=items.filter(x=>x.ok), need=sum(good,x=>x.qty*x.frac);
+  const E=1e-9, conts=Array.from({length:N},(_,i)=>({no:i+1, free:1, rows:[]}));
+  // لو مش هتدخل كلها: نختار الكراتين الأصغر الأول عشان نطلع أكبر عدد
+  let take=good.map(x=>({...x, put:x.qty}));
+  const left=[];
+  if(need>N+E){ let room=N; take=good.slice().sort((a,b)=>a.frac-b.frac).map(x=>{ const can=Math.min(x.qty, Math.floor((room+E)/x.frac)); room-=can*x.frac; if(can<x.qty) left.push({name:x.name, qty:x.qty-can}); return {...x, put:can}; }); }
+  // 1) حاويات كاملة من صنف واحد (أسهل في التحميل وأدق في العدد)
+  let ci=0; take.forEach(x=>{ if(x.put<=0) return; let full=Math.floor(x.put/x.cap); while(full>0 && ci<N){ conts[ci].rows.push({name:x.name, qty:x.cap, cap:x.cap}); conts[ci].free=0; ci++; full--; x.put-=x.cap; } });
+  // 2) الباقي: Best Fit — الكمية الأكبر الأول، وكل صنف في حاوية واحدة على قد ما نقدر
+  take.filter(x=>x.put>0).sort((a,b)=>b.put*b.frac-a.put*a.frac).forEach(x=>{
+    let rem=x.put; const vol=rem*x.frac;
+    const fits=conts.filter(c=>c.free+E>=vol).sort((a,b)=>a.free-b.free)[0];
+    if(fits){ fits.rows.push({name:x.name, qty:rem, cap:x.cap}); fits.free-=vol; return; }
+    for(const c of conts.slice().sort((a,b)=>b.free-a.free)){ if(rem<=0) break; const k=Math.min(rem, Math.floor((c.free+E)/x.frac)); if(k<=0) continue; c.rows.push({name:x.name, qty:k, cap:x.cap}); c.free-=k*x.frac; rem-=k; }
+    if(rem>0) left.push({name:x.name, qty:rem});
+  });
+  const extra=c=>good.map(x=>({name:x.name, k:Math.floor((Math.max(0,c.free)+E)/x.frac)})).filter(e=>e.k>0).sort((a,b)=>b.k-a.k);
+  return { conts, need, left, bad, extra, total:sum(conts,c=>sum(c.rows,r=>r.qty)) };
+}
+function cbPlanHtml(list, noInput){
+  const c=CBM_C[CB.type], need0=sum(list,r=>{ const f=fitInfo(r,CB.type); return f.count>0?n(r.qty)/f.count:0; });
+  const sug=Math.max(1,Math.ceil(need0-1e-6)); const N=CB.count||sug, P=cbPlan(list,CB.type,N);
+  const nC=k=>k===1?'حاوية واحدة':k===2?'حاويتين':k<=10?k+' حاويات':k+' حاوية'; const pct=v=>cbF(Math.max(0,Math.min(100,v*100)),0)+'%';
+  return `<div class="panel cbp"><div class="cbp-h"><div><div class="panel-title" style="margin-bottom:4px">توزيع الأصناف على الحاويات</div>
+      <div class="small muted">الكمية محتاجة حوالي <b>${cbF(need0,2)}</b> حاوية ${c.label} — يعني ${nC(sug)} ${c.label}.</div></div>
+      ${noInput?`<div class="cbp-n"><span>موزعة على ${nC(N)}${CB.count?'':' (المقترح)'}</span></div>`:`<div class="cbp-n"><span>عدد الحاويات</span><input type="number" id="cb-n-cont" min="1" max="30" value="${N}"><span>× ${c.label}</span></div>`}</div>
+    ${P.left.length?`<div class="verdict bad" style="font-size:13px"><div>الكمية أكبر من ${nC(N)} — اتحط أكبر عدد كراتين ممكن (${P.total.toLocaleString('en-US')} كرتونة)، والباقي برة:<div class="sub">${P.left.map(x=>`${esc(x.name)}: ${x.qty.toLocaleString('en-US')} كرتونة`).join(' — ')}</div></div></div>`
+      :`<div class="verdict ok" style="font-size:13px"><div>الكمية كلها تدخل في ${nC(N)} ${c.label}${N>sug?` — وفي مكان زيادة عن المطلوب`:''}</div></div>`}
+    ${P.bad.length?`<div class="small" style="color:var(--bad);margin:6px 0">مش محسوب (مقاس الكرتونة ناقص): ${P.bad.map(x=>esc(x.name)).join('، ')}</div>`:''}
+    <div class="cbp-grid">${P.conts.map(k=>{ const used=1-k.free, ex=P.extra(k).slice(0,3);
+      return `<div class="cbp-c"><div class="cbp-ct"><b>حاوية ${k.no}</b><span>${sum(k.rows,r=>r.qty).toLocaleString('en-US')} كرتونة · ${pct(used)}</span></div>
+        <div class="fg-track"><div class="fg-bar" style="width:${Math.min(100,used*100)}%;background:linear-gradient(90deg,var(--navy),var(--good))"></div></div>
+        ${k.rows.length?`<table class="cbp-t">${k.rows.map(r=>`<tr><td>${esc(r.name)}</td><td class="num">${r.qty.toLocaleString('en-US')}</td></tr>`).join('')}</table>`:'<div class="small muted" style="padding:8px 0">فاضية</div>'}
+        ${k.rows.length&&ex.length&&k.free>0.03?`<div class="cbp-x">المكان الفاضي يكفي تقريبًا: ${ex.map(e=>`${e.k.toLocaleString('en-US')} من ${esc(e.name)}`).join(' أو ')}</div>`:''}</div>`; }).join('')}</div>
+    <div class="small muted" style="margin-top:8px">الحساب تقريبي على أساس سعة الحاوية من كل صنف لوحده. الأصناف المقسومة على حاويتين بتبان في الحاويتين.</div></div>`;
 }
 
 /* ============================================================================
