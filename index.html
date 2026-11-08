@@ -1206,11 +1206,14 @@ function itemCalc(it){
 function orderCalc(o){
   const items = (o.items||[]).map(it=>({it, c:itemCalc(it)}));
   const sub = sum(items,x=>x.c.line);
-  const discBase = sum(items.filter(x=>x.it.onDiscount),x=>x.c.line);
-  const disc = discBase*n(o.discountPct)/100;
+  // الخصم: على الأصناف المعلّم عليها «خصم» لو في، وإلا على الفاتورة كلها. ولو اتكتب «الإجمالي بعد الخصم» بيتحفظ كمبلغ ثابت.
+  const marked = items.some(x=>x.it.onDiscount), dItems = marked ? items.filter(x=>x.it.onDiscount) : items;
+  const discBase = sum(dItems,x=>x.c.line), amt = n(o.discountAmount);
+  const disc = amt>0 ? Math.min(amt, discBase) : discBase*n(o.discountPct)/100;
+  const discPct = discBase>0 ? disc/discBase*100 : 0;
   const total = sub - disc;
-  const lsub = sum(items,x=>x.c.loadedLine), ldisc = sum(items.filter(x=>x.it.onDiscount),x=>x.c.loadedLine)*n(o.discountPct)/100;
-  return { items, sub, disc, total, cartons: sum(items,x=>x.c.cartons), units: sum(items,x=>x.c.units),
+  const lBase = sum(dItems,x=>x.c.loadedLine), lsub = sum(items,x=>x.c.loadedLine), ldisc = discBase>0 ? disc*lBase/discBase : 0;
+  return { items, sub, disc, discPct, discMarked: marked, total, cartons: sum(items,x=>x.c.cartons), units: sum(items,x=>x.c.units),
     netKg: sum(items,x=>x.c.netKg), grossKg: sum(items,x=>x.c.grossKg), cbm: sum(items,x=>x.c.cbm),
     loaded: sum(items,x=>x.c.loaded), loadedNet: sum(items,x=>x.c.loadedNet), loadedGross: sum(items,x=>x.c.loadedGross), loadedCbm: sum(items,x=>x.c.loadedCbm),
     loadedTotal: lsub-ldisc, loadedSub:lsub, loadedDisc:ldisc };
@@ -1276,6 +1279,8 @@ function bestTests(productId, tests, settings){
   const pick = kind => mine.filter(x=>x.kind===kind).map(x=>({x, s:testStatus(x,settings)})).sort((a,b)=> (b.s.until||'').localeCompare(a.s.until||''))[0] || null;
   return { cert: pick('test_cert'), lab: pick('lab_result'), all: mine };
 }
+
+const discPctTxt = c => { const v=Math.round(c.discPct*100)/100; return (Number.isInteger(v)?v:v.toFixed(2))+'%'; };
 
 /* ============================== data layer ============================== */
 /* One API for both modes:
@@ -1958,7 +1963,7 @@ const CATALOG_SNACKS = [
   ['CC-POP60','Crazy Crisps','كريزي كريسبس فشار 60 جم','Crazy Crisps Popcorn 60g','50-60',1,15,47,22,27,2.6,2380,'سناكس','none','snacks','1904.10'],
   ['CC-CRINKLE60','Crazy Crisps','كريزي كريسبس كرينكل 60 جم','Crazy Crisps Crinkle 60g','50-60',1,15,47,22,27,2.6,2380,'سناكس','none','snacks','1904.10'],
   ['CC-CRISPS30','Crazy Crisps','كريزي كريسبس 30 جم','Crazy Crisps 30g','30-35',1,15,45.5,24.3,17.7,1.8,3150,'سناكس','none','snacks','1904.10'],
-  ['CO-FRIDO30','ChillOut','شيل اوت فريدو 30 جم (42 كيس)','ChillOut Frido 30g','30',1,42,'','','','','','سناكس','none','snacks','1904.10'],
+  ['CO-FRIDO30','ChillOut','شيل اوت فريدو 30 جم (42 كيس)','ChillOut Frido 30g','30',1,42,'','','',5,'','سناكس','none','snacks','1904.10'],
   ['CO-POP25','ChillOut','شيل اوت فشار 25 جم (42 كيس)','ChillOut Popcorn 25g','25',1,42,'','','','','','سناكس','none','snacks','1904.10'],
   ['SP-PUFF15','Special','سبيشيال بافس 15 جم (100 كيس)','Special Puffs 15g','15',1,100,59.5,32,37.5,'','','سناكس','none','snacks','1904.10'],
   ['CC-CRISPS50','Crazy Crisps','كريزي كريسبس 50 جم','Crazy Crisps 50g','50-60',1,15,48,28,22.5,'','','سناكس','none','snacks','1904.10'],
@@ -2494,8 +2499,8 @@ function printDoc(kind){
     ${D.grid([['Incoterm / شرط التسليم',`${esc(o.incoterm)} ${esc(o.incoterm==='EXW'||['FOB','FCA'].includes(o.incoterm)?o.loadingPoint:o.dischargePoint)}`],['Currency / العملة',cur],['Loading Point / نقطة الشحن',esc(o.loadingPoint)],['Discharge Point / نقطة الوصول',esc(o.dischargePoint)],['Expected Loading / التحميل المتوقع',fmtDate(o.loadingDate)],['Customer PO',esc(o.customerPO||'')]],3)}
     <table class="d-tbl"><thead><tr><th style="width:28px">NO</th><th>Product Description<small>وصف المنتج</small></th><th>Pack Size<small>حجم العبوة</small></th><th>Units/Carton<small>عدد الوحدات</small></th><th>Qty (Cartons)<small>الكمية بالكرتونة</small></th><th>Price per Carton (${cur})<small>سعر الكرتونة</small></th><th>Total (${cur})<small>الإجمالي</small></th></tr></thead>
     <tbody>${rows}
-      ${c.disc?`<tr><td colspan="6" style="text-align:right;font-weight:700;color:#b91c1c;background:#fef2f2">Discount (${n(o.discountPct)}%) on marked items / خصم على المنتجات المحددة</td><td style="color:#b91c1c;font-weight:800;background:#fef2f2">−${money(c.disc,cur)}</td></tr>`:''}
-      <tr class="tot"><td colspan="4" style="text-align:right">Total Quantity / إجمالي الكمية</td><td>${fmt(c.cartons)} ctns</td><td style="text-align:right">TOTAL (${cur})</td><td style="font-size:12px">${money(c.total,cur)}</td></tr></tbody></table>
+      ${c.disc?`<tr><td colspan="6" style="text-align:right;font-weight:700">Subtotal before discount / الإجمالي قبل الخصم</td><td style="font-weight:800">${money(c.sub,cur)}</td></tr><tr><td colspan="6" style="text-align:right;font-weight:700;color:#b91c1c;background:#fef2f2">Discount (${discPctTxt(c)}) ${c.discMarked?'on marked items / على المنتجات المحددة':'/ خصم'}</td><td style="color:#b91c1c;font-weight:800;background:#fef2f2">−${money(c.disc,cur)}</td></tr>`:''}
+      <tr class="tot"><td colspan="4" style="text-align:right">Total Quantity / إجمالي الكمية</td><td>${fmt(c.cartons)} ctns</td><td style="text-align:right">TOTAL (${cur})${c.disc?' — after discount / بعد الخصم':''}</td><td style="font-size:12px">${money(c.total,cur)}</td></tr></tbody></table>
     <div style="display:flex;gap:16px;font-size:9.5px;padding:5px 10px;border:1px solid #e3e4ec;border-top:none;color:#444"><span>Gross weight ≈ <b>${fmt(c.grossKg)} kg</b></span><span>Net weight ≈ <b>${fmt(c.netKg)} kg</b></span><span>Volume ≈ <b>${fmt(c.cbm,2)} m³</b></span></div>
     <div class="d-sec"><div class="d-sec-h">PAYMENT TERMS, DELIVERY &amp; LIABILITY — شروط السداد والتسليم والمسؤولية</div>
       <div class="d-terms"><div><b>PAYMENT TERMS</b>${esc(fillTerms(s.payTermsEn,o))}<b>DELIVERY &amp; RISK TRANSFER</b>${esc(dt.en)}<b>LIMITATION OF LIABILITY</b>${esc(s.liabilityEn)}</div>
@@ -2521,7 +2526,7 @@ function printCI(o){
       ['Container No',`<span class="mono">${esc(sh.containerNo)}</span> ${sh.containerType?'('+esc(sh.containerType)+')':''}`],['Seal No',`<span class="mono">${esc(sh.sealNo)}</span>`],['Payment Terms',`${n(o.depositPct)}% advance / ${100-n(o.depositPct)}% before loading`]],3)}
     <table class="d-tbl"><thead><tr><th style="width:26px">NO</th><th>Description of Goods<small>وصف البضاعة</small></th><th>HS Code<small>البند الجمركي</small></th><th>Packing<small>التعبئة</small></th><th>Cartons<small>كرتونة</small></th><th>Net Wt (kg)<small>صافي</small></th><th>Gross Wt (kg)<small>قائم</small></th><th>Price/Ctn (${cur})<small>سعر الكرتونة</small></th><th>Amount (${cur})<small>القيمة</small></th></tr></thead>
     <tbody>${rows}
-      ${c.loadedDisc?`<tr><td colspan="8" style="text-align:right;font-weight:700;color:#b91c1c">Discount (${n(o.discountPct)}%)</td><td style="color:#b91c1c;font-weight:800">−${money(c.loadedDisc,cur)}</td></tr>`:''}
+      ${c.loadedDisc?`<tr><td colspan="8" style="text-align:right;font-weight:700;color:#b91c1c">Discount (${discPctTxt(c)})</td><td style="color:#b91c1c;font-weight:800">−${money(c.loadedDisc,cur)}</td></tr>`:''}
       <tr class="tot"><td colspan="4" style="text-align:right">TOTAL</td><td>${fmt(c.loaded)}</td><td>${fmt(c.loadedNet,1)}</td><td>${fmt(c.loadedGross,1)}</td><td></td><td style="font-size:12px">${money(c.loadedTotal,cur)}</td></tr></tbody></table>
     <div style="padding:6px 10px;border:1px solid #e3e4ec;border-top:none;font-size:10px">Total volume: <b>${fmt(c.loadedCbm,2)} m³</b> &nbsp;·&nbsp; Total packages: <b>${fmt(c.loaded)} cartons</b> &nbsp;·&nbsp; Amount in words: <b>${esc(amountWords(c.loadedTotal,cur))}</b></div>
     <div class="d-note" style="background:#ecfdf3;border:1px solid #86efac;color:#14532d">We hereby certify that this invoice is true and correct and that the goods are of Egyptian origin — نقر بأن هذه الفاتورة صحيحة وأن البضاعة مصرية المنشأ</div>
@@ -2685,9 +2690,10 @@ function invoiceDoc(o, kind){
   const cu = o.customer||{};
   const rows = c.items.map(({it,c:x},i)=>{
     const flav = (it.flavours||[]).length ? `<div style="margin-top:4px;line-height:1.8"><span style="font-size:9px;color:#555;font-style:italic">Flavours: </span>${it.flavours.map(f=>`<span style="display:inline-block;background:#f0eeff;border:1px solid #2d2a76;color:#2d2a76;font-size:9px;font-weight:700;padding:1px 7px;border-radius:20px;margin:1px 2px">${esc(f)}</span>`).join('')}</div>` : '';
-    const disc = (it.onDiscount && n(o.discountPct)>0) ? `<span style="display:inline-block;margin-top:4px;background:#fef2f2;border:1px solid #f87171;color:#b91c1c;font-size:9px;font-weight:700;padding:1px 7px;border-radius:20px">−${n(o.discountPct)}% / خصم</span>` : '';
+    const disc = (it.onDiscount && c.disc>0) ? `<span style="display:inline-block;margin-top:4px;background:#fef2f2;border:1px solid #f87171;color:#b91c1c;font-size:9px;font-weight:700;padding:1px 7px;border-radius:20px">−${discPctTxt(c)} / خصم</span>` : '';
     return `<tr style="background:${i%2?'#f0f4ff':'#ffffff'}"><td>${i+1}</td><td><div style="font-weight:700">${esc(it.nameEn||it.nameAr)||'—'}</div>${flav}${disc}</td><td>${esc(it.packSize)||'—'}</td><td>${it.unitsPerCarton||'—'}</td><td>${x.cartons||'—'}</td><td>${x.price>0?money(x.price,cur):'—'}</td><td>${x.line>0?money(x.line,cur):'—'}</td></tr>`; }).join('');
-  const discRow = c.disc>0 ? `<tr><td colspan="6" style="text-align:right;font-weight:700;color:#b91c1c;background:#fef2f2">Discount (${n(o.discountPct)}%) on marked items / خصم على المنتجات المحددة</td><td style="color:#b91c1c;font-weight:700;background:#fef2f2;text-align:center">−${money(c.disc,cur)}</td></tr>` : '';
+  const dLbl = c.discMarked ? 'on marked items / على المنتجات المحددة' : '/ خصم';
+  const discRow = c.disc>0 ? `<tr><td colspan="6" style="text-align:right;font-weight:700;background:#f8fafc">Subtotal before discount / الإجمالي قبل الخصم</td><td style="font-weight:700;background:#f8fafc;text-align:center">${money(c.sub,cur)}</td></tr><tr><td colspan="6" style="text-align:right;font-weight:700;color:#b91c1c;background:#fef2f2">Discount (${discPctTxt(c)}) ${dLbl}</td><td style="color:#b91c1c;font-weight:700;background:#fef2f2;text-align:center">−${money(c.disc,cur)}</td></tr>` : '';
   const sm = 'font-weight:500;opacity:.8;font-size:8.5px';
   const tl = 'color:#ffb607;font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px';
   const tp = 'font-size:9.5px;color:rgba(255,255,255,.85);line-height:1.8;margin:0 0 7px';
@@ -2708,7 +2714,7 @@ function invoiceDoc(o, kind){
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid #e5e7eb" class="inv-cg">${cell('Website:',cu.website)}${cell('Country / البلد:',cu.country)}${cell('Phone / الموبايل:',cu.phone)}</div>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr" class="inv-cg">${cell('Company Name / اسم الشركة:',cu.company,1)}${cell('Address / العنوان:',cu.address)}${cell('Email / الإيميل:',cu.email)}</div></div>
   <table class="inv-table"><thead><tr><th style="width:34px">NO</th><th style="text-align:left">Product Description<br><span style="${sm}">وصف المنتج</span></th><th>Pack Size<br><span style="${sm}">حجم العبوة</span></th><th>Units/Carton<br><span style="${sm}">عدد الوحدات</span></th><th>Qty (Cartons)<br><span style="${sm}">الكمية</span></th><th>Unit Price (${cur})<br><span style="${sm}">سعر الوحدة</span></th><th>Total Value (${cur})<br><span style="${sm}">الإجمالي</span></th></tr></thead>
-    <tbody>${rows}${discRow}<tr class="inv-total-row"><td colspan="4" style="text-align:right;font-size:11px">Total Quantity (Cartons) / إجمالي الكمية</td><td style="font-size:13px">${fx(c.cartons,0)} cartons</td><td style="text-align:right;font-size:11px">TOTAL VALUE (${cur})</td><td style="font-size:14px">${money(c.total,cur)}</td></tr></tbody></table>
+    <tbody>${rows}${discRow}<tr class="inv-total-row"><td colspan="4" style="text-align:right;font-size:11px">Total Quantity (Cartons) / إجمالي الكمية</td><td style="font-size:13px">${fx(c.cartons,0)} cartons</td><td style="text-align:right;font-size:11px">TOTAL VALUE (${cur})${c.disc>0?'<div style="font-size:8.5px;opacity:.85">after discount / بعد الخصم</div>':''}</td><td style="font-size:14px">${money(c.total,cur)}</td></tr></tbody></table>
   <div style="display:grid;grid-template-columns:1fr 1fr;border:1px solid #e5e7eb;border-top:none">
     <div style="padding:8px 13px;border-right:1px solid #e5e7eb;font-size:12px;color:#111"><b style="color:#2d2a76">Loading Point / نقطة الشحن:–</b> &nbsp;${esc(o.loadingPoint)||'—'}</div>
     <div style="padding:8px 13px;font-size:12px;color:#111"><b style="color:#2d2a76">Discharge Point / نقطة الوصول:–</b> &nbsp;${esc(o.dischargePoint)||'—'}</div></div>
@@ -2854,7 +2860,8 @@ function tabInvoice(){
           ${ed?`<button class="btn btn-p ig-pick-btn" id="ig-prod" onclick="prodPicker()">${IC.plus} إضافة أصناف من المنتجات</button>`:''}
           <div class="ig-hdr"><span>الصنف</span><span>العبوة</span><span>وحدات</span><span>كراتين</span><span>سعر الكرتونة</span><span></span></div>
           <div id="ig-items"></div>
-          <div class="ig-g2" style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line)">${fi('notes','ملاحظات',o.notes)}${fi('discountPct','خصم %',n(o.discountPct),{type:'number'})}</div>
+          <div class="ig-g2" style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line)">${fi('notes','ملاحظات',o.notes)}${fi('discountPct','خصم %',n(o.discountAmount)>0?'':(n(o.discountPct)||''),{type:'number',ph:'0'})}${fi('discountTotal','أو اكتب الإجمالي بعد الخصم',n(o.discountAmount)>0?Math.round((orderCalc(o).total)*100)/100:'',{type:'number',ph:'مثلًا 14500'})}</div>
+          <div class="small muted" id="ig-dnote" style="margin-top:6px"></div>
           <div class="ig-totals"><div>الإجمالي قبل الخصم: <strong id="ig-sub"></strong></div><div id="ig-dw">الخصم: <strong id="ig-disc" style="color:var(--bad)"></strong></div><div>الإجمالي: <strong id="ig-total"></strong></div></div></div>
       </div>
       <div class="ig-prev"><div class="ig-paper" id="ig-doc"></div></div>
@@ -2867,6 +2874,11 @@ function tabInvoice(){
   igItems(); igPreview();
 }
 function igSet(el){ const o=OD.o, k=el.dataset.h; let v=el.value; if(el.type==='number') v = v===''?'':n(v);
+  if(k==='discountTotal'){ const c0=orderCalc({...o, discountPct:0, discountAmount:0});
+    const dBase = o.items.some(x=>x.onDiscount) ? sum(c0.items.filter(x=>x.it.onDiscount),x=>x.c.line) : c0.sub;
+    if(v===''||v<=0){ o.discountAmount=0; } else { const d=Math.max(0, Math.min(dBase, c0.sub - v)); o.discountAmount=Math.round(d*100)/100; o.discountPct=dBase>0?Math.round(d/dBase*10000)/100:0; const p=document.querySelector('[data-h="discountPct"]'); if(p) p.value=''; }
+    markDirty(); igPreview(); return; }
+  if(k==='discountPct'){ o.discountAmount=0; const t=document.querySelector('[data-h="discountTotal"]'); if(t) t.value=''; }
   if(k.startsWith('c.')) o.customer[k.slice(2)]=v; else o[k]=v; markDirty(); igPreview(); }
 function igKind(k){ IG.kind=k; document.querySelectorAll('.ig-seg button').forEach((b,i)=>b.setAttribute('aria-pressed',['inv','pi','quote'][i]===k)); igPreview(); }
 function igItems(){
@@ -2891,7 +2903,8 @@ function igPreview(){
   const o=OD.o, c=orderCalc(o), cur=o.currency||'USD';
   $('ig-doc').innerHTML = invoiceDoc(o, IG.kind);
   $('ig-sub').textContent=money(c.sub,cur); $('ig-total').textContent=money(c.total,cur);
-  $('ig-dw').style.display = c.disc>0 ? '' : 'none'; $('ig-disc').textContent='-'+money(c.disc,cur);
+  $('ig-dw').style.display = c.disc>0 ? '' : 'none'; $('ig-disc').textContent='-'+money(c.disc,cur)+' ('+discPctTxt(c)+')';
+  const dn=$('ig-dnote'); if(dn) dn.textContent = c.disc>0 ? (c.discMarked?'الخصم على الأصناف المعلّم عليها «عليه خصم» بس.':'الخصم على الفاتورة كلها. لو عايزه على أصناف معينة، اضغط «خصم» جنب الصنف.') : '';
 }
 function igAddRow(){ OD.o.items.push(mkItem({nameAr:'',nameEn:'',line:(S.settings.lines||[])[0]||''})); markDirty(); igItems(); igPreview(); const r=[...document.querySelectorAll('#ig-items .ig-ii.left')].pop(); r&&r.focus(); }
 async function igRemove(id){ const it=OD.o.items.find(x=>x.id===id); if((it.nameEn||it.nameAr||n(it.cartons)) && !await confirmBox(t('del_q'),{danger:1})) return; OD.o.items=OD.o.items.filter(x=>x.id!==id); markDirty(); igItems(); igPreview(); }
@@ -2917,7 +2930,7 @@ function igPrint(){ printInvoice(IG.kind); }
 async function saveInvoiceTab(){
   const o=OD.o;
   try{ await saveOrder({items:o.items, customer:o.customer, customerId:o.customerId||'', invoiceNo:o.invoiceNo||'', invoiceDate:o.invoiceDate||todayISO(), loadingPoint:o.loadingPoint||'', dischargePoint:o.dischargePoint||'',
-      currency:o.currency||'USD', incoterm:o.incoterm||'EXW', validityDays:n(o.validityDays)||14, notes:o.notes||'', discountPct:n(o.discountPct)}, t('h_items'));
+      currency:o.currency||'USD', incoterm:o.incoterm||'EXW', validityDays:n(o.validityDays)||14, notes:o.notes||'', discountPct:n(o.discountPct), discountAmount:n(o.discountAmount)}, t('h_items'));
     toast(t('saved'),'ok'); renderOrder(); }catch(e){ errToast(e); }
 }
 
@@ -3237,13 +3250,33 @@ async function loadCartons(force){
   }
   return rows.sort((a,b)=>n(a.seq)-n(b.seq));
 }
+/* المنتجات اللي مش موجودة في مكتبة المقاسات — عشان كل منتجات الكاتالوج تبان في الحاسبة */
+const CB_SNACK_SEED = {'CO-OATCHIPS50':'Chillout Chips','CO-PUFF50':'Chillout Puffs','CO-OATRING50':'Chillout Rings','CO-FIRE50':'Chillout Fire Finger','CO-POP50':'Chillout Pop Corn','CO-PEANUT50':'Chillout Peanuts','SP-PUFF30':'Special Puffs (30-40g×15)','SP-PUFF15':'Special Puffs (15g×100)','CC-CRISPS30':'Crazy','CC-CRISPS50':'Crazy Large (New)','CC-POP60':'Crazy Pop Corn (New)','BZ-30':'Bozo'};
+const cbDimKey = (a,b,c) => [n(a),n(b),n(c)].sort((x,y)=>x-y).join('x');
+function cbMissing(){
+  const C=S.cache.cartons||[], codes=new Set(C.map(x=>x.code).filter(Boolean)), names=new Set(C.map(x=>String(x.name||'').trim().toLowerCase()));
+  const dims=new Set(C.filter(x=>(x.cat||'candy')==='candy').map(x=>cbDimKey(x.l,x.w,x.h)));
+  return (S.cache.products||[]).filter(p=>p.active!==false && p.code && !codes.has(p.code)).filter(p=>{
+    const sn=p.category==='snacks', nm=String((sn?p.nameEn:p.nameAr)||'').trim().toLowerCase();
+    if(names.has(nm)) return false;
+    if(sn) return !(CB_SNACK_SEED[p.code] && names.has(CB_SNACK_SEED[p.code].toLowerCase()));
+    return !(n(p.cartonL)&&dims.has(cbDimKey(p.cartonL,p.cartonW,p.cartonH)));
+  });
+}
+async function cbAddMissing(){
+  const list=cbMissing(); if(!list.length) return;
+  let seq=Math.max(0,...(S.cache.cartons||[]).map(x=>n(x.seq)));
+  try{ for(const p of list){ const sn=p.category==='snacks';
+      await DB.add('cartons',{name:(sn?(p.nameEn||p.nameAr):(p.nameAr||p.nameEn))||p.code, code:p.code, l:n(p.cartonL), w:n(p.cartonW), h:n(p.cartonH), cat:sn?'snacks':'candy', seq:++seq,
+        ...(p.realQty40!=null&&p.realQty40!==''?{realQty40:n(p.realQty40)}:{}), ...(p.realQty20!=null&&p.realQty20!==''?{realQty20:n(p.realQty20)}:{})}); }
+    await loadCartons(true); toast(`اتضاف ${list.length} منتج للحاسبة`); cbRender(); }catch(e){ errToast(e); } }
 const cbCanEdit = () => S.profile.role==='admin' || ['export','sales','production'].includes(S.profile.role);
 const CB = { count:null, type:'20', tab:'candy', edit:null, orderId:null, order:null };
 const lsGet = (k,d) => { try{ return JSON.parse(localStorage.getItem(k)||'null') ?? d; }catch(e){ return d; } };
 const lsSet = (k,v) => { try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} };
 
 PAGES.calc = { tab:['calc','orders','production'], async render([orderId]){
-  await loadCartons(true);
+  await loadCartons(true); await DB.all('products').catch(()=>[]);
   CB.orderId = orderId||null; CB.order=null; CB.count=null; CB.edit=null; CB.qtyOverride=null;
   if(orderId){ CB.order = await DB.get('orders',orderId); if(CB.order){ CB.tab='shipment'; CB.type=ctype((CB.order.shipment||{}).containerType); } }
   $('view').innerHTML = `<div class="cb">
@@ -3280,6 +3313,7 @@ function cbItems(){
       <div class="dim-input"><label>العرض</label><input type="number" id="cb-w" step="0.5" min="0" placeholder="0"><span>سم</span></div>
       <div class="dim-input"><label>الارتفاع</label><input type="number" id="cb-h" step="0.5" min="0" placeholder="0"><span>سم</span></div>
       <button class="btn-primary" onclick="cbAdd()">إضافة الصنف</button></div></div>`:''}
+    ${ed&&cbMissing().filter(p=>(p.category==='snacks'?'snacks':'candy')===CB.tab).length?`<div class="verdict bad" style="font-size:13px;justify-content:space-between"><div>في ${cbMissing().filter(p=>(p.category==='snacks'?'snacks':'candy')===CB.tab).length} منتج من الكاتالوج مش موجودين في الحاسبة<div class="sub">${cbMissing().filter(p=>(p.category==='snacks'?'snacks':'candy')===CB.tab).map(p=>esc(p.category==='snacks'?p.nameEn:p.nameAr)).join('، ')}</div></div><button class="btn-primary" onclick="cbAddMissing()">إضافة كل المنتجات</button></div>`:''}
     <div class="panel cbp-bar"><div class="cbp-n"><span>عدد الحاويات</span><input type="number" id="cb-n-cont" min="1" max="30" value="${CB.count||''}" placeholder="1"><span>× ${c.label}</span></div>
       <div class="small muted">إجمالي المساحة: <b>${cbF(c.cbm*NC,2)} م³</b> — السعة في الجدول محسوبة على ${NC>1?NC+' حاويات':'حاوية واحدة'}.</div></div>
     <div class="panel" style="padding:0;overflow:hidden"><div style="padding:22px 22px 6px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap"><div class="panel-title" style="margin-bottom:0">سجل الأصناف</div>
